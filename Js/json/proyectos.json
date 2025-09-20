@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "nombre": "Brazo Robótico Automatizado",
+    "descripcion": "Un brazo robótico diseñado para mover objetos pequeños con control por sensores. Este proyecto busca demostrar cómo la automatización puede facilitar tareas repetitivas, servir de apoyo en la enseñanza de robótica y ser aplicada en entornos educativos e incluso en pequeñas industrias.",
+    "cantEstrellas": 250,
+    "cantVotos": 180,
+    "codigoPermiso": "RB2025",
+    "IdCategoria": 1,
+    "años": 4,
+    "division": 5,
+    "profesores": [
+      { "nombre": "Profesor Juan Pérez", "materia": "Tecnología" },
+      { "nombre": "Profesora Laura Gómez", "materia": "Electrónica" }
+    ],
+    "estudiantes": [
+      { "nombre": "Estudiante 1", "año": 4, "division": 5 },
+      { "nombre": "Estudiante 2", "año": 4, "division": 5 },
+      { "nombre": "Estudiante 3", "año": 4, "division": 5 },
+      { "nombre": "Estudiante 4", "año": 4, "division": 5 }
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Sistema de Energía Solar",
+    "descripcion": "Proyecto de instalación de paneles solares para abastecer parte del colegio. El objetivo principal es fomentar el uso de energías renovables, reducir costos eléctricos, y al mismo tiempo generar conciencia ambiental en toda la comunidad educativa.",
+    "cantEstrellas": 190,
+    "cantVotos": 220,
+    "codigoPermiso": "EN2025",
+    "IdCategoria": 2,
+    "años": 5,
+    "division": 4,
+    "profesores": [
+      { "nombre": "Profesor Martín López", "materia": "Física" }
+    ],
+    "estudiantes": [
+      { "nombre": "Estudiante 1", "año": 5, "division": 4 },
+      { "nombre": "Estudiante 2", "año": 5, "division": 4 },
+      { "nombre": "Estudiante 3", "año": 5, "division": 4 },
+      { "nombre": "Estudiante 4", "año": 5, "division": 4 },
+      { "nombre": "Estudiante 5", "año": 5, "division": 4 }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "App de Gestión Escolar",
+    "descripcion": "Aplicación móvil para la gestión de horarios, materias y calificaciones. Su propósito es agilizar los procesos administrativos del colegio, permitiendo que estudiantes y profesores tengan una mejor organización, comunicación más rápida y acceso a la información en cualquier momento.",
+    "cantEstrellas": 300,
+    "cantVotos": 270,
+    "codigoPermiso": "AP2025",
+    "IdCategoria": 3,
+    "años": 5,
+    "division": 6,
+    "profesores": [
+      { "nombre": "Profesor Carlos Ramírez", "materia": "Informática" },
+      { "nombre": "Profesora Ana Torres", "materia": "Matemáticas" }
+    ],
+    "estudiantes": [
+      { "nombre": "Estudiante 1", "año": 5, "division": 6 },
+      { "nombre": "Estudiante 2", "año": 5, "division": 6 },
+      { "nombre": "Estudiante 3", "año": 5, "division": 6 },
+      { "nombre": "Estudiante 4", "año": 5, "division": 6 }
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "Proyecto de Economía Circular",
+    "descripcion": "Iniciativa para reciclar residuos del colegio y transformarlos en nuevos productos. Busca crear una cultura de responsabilidad ecológica entre los estudiantes, reutilizando materiales y generando productos útiles que puedan ser implementados en las aulas o en otras áreas del colegio.",
+    "cantEstrellas": 120,
+    "cantVotos": 95,
+    "codigoPermiso": "EC2025",
+    "IdCategoria": 4,
+    "años": 2,
+    "division": 2,
+    "profesores": [
+      { "nombre": "Profesora Daniela Suárez", "materia": "Biología" }
+    ],
+    "estudiantes": [
+      { "nombre": "Estudiante 1", "año": 2, "division": 2 },
+      { "nombre": "Estudiante 2", "año": 2, "division": 2 },
+      { "nombre": "Estudiante 3", "año": 2, "division": 2 },
+      { "nombre": "Estudiante 4", "año": 2, "division": 2 },
+      { "nombre": "Estudiante 5", "año": 2, "division": 2 }
+    ]
+  },
+  {
+    "id": 5,
+    "nombre": "Microscopio Casero",
+    "descripcion": "Un microscopio hecho con materiales reciclados para uso en clases de ciencias. Su intención es acercar la ciencia a los estudiantes, mostrando cómo con creatividad y materiales simples se pueden construir herramientas útiles para el aprendizaje y la experimentación.",
+    "cantEstrellas": 75,
+    "cantVotos": 60,
+    "codigoPermiso": "MC2025",
+    "IdCategoria": 5,
+    "años": 7,
+    "division": 1,
+    "profesores": [
+      { "nombre": "Profesor Ricardo Fernández", "materia": "Ciencias Naturales" }
+    ],
+    "estudiantes": [
+      { "nombre": "Estudiante 1", "año": 7, "division": 1 },
+      { "nombre": "Estudiante 2", "año": 7, "division": 1 },
+      { "nombre": "Estudiante 3", "año": 7, "division": 1 },
+      { "nombre": "Estudiante 4", "año": 7, "division": 1 }
+    ]
+  }
+]

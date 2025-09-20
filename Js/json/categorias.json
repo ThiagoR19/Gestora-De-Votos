@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nombre": "Robótica"
+  },
+  {
+    "id": 2,
+    "nombre": "Energías Renovables"
+  },
+  {
+    "id": 3,
+    "nombre": "Programación"
+  },
+  {
+    "id": 4,
+    "nombre": "Economía"
+  },
+  {
+    "id": 5,
+    "nombre": "Ciencias"
+  }
+]
