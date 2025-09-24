@@ -88,6 +88,10 @@ header {
   }
 }
 
+#menu {
+  cursor: pointer;
+}
+
 .none {
   display: none;
 }

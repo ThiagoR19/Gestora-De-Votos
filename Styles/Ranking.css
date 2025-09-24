@@ -32,6 +32,9 @@
 #rank__article-div {
   width: 100%;
   background:linear-gradient(#062f4fb3,#062f4fa3), url(../Imagenes/FotoLateral1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   height: 60vh;
   border-radius: 0 12px 12px 0;
   margin-top: 50px;
@@ -43,6 +46,9 @@
 #rank__article-div2 {
   width: 100%;
   background:linear-gradient(#062f4fb3,#062f4fa3), url(../Imagenes/FotoLateral2.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   height: 90vh;
   border-radius: 12px 0 0 12px;
   opacity: 0;

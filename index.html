@@ -10,10 +10,12 @@
   <link rel="stylesheet" href="./Styles/Footer.css">
   <link rel="stylesheet" href="./Styles/Header.css">
   <link id="styles" rel="stylesheet" href="./Styles/Home.css">
+  <link rel="icon" href="./Imagenes/logo.png">
   <!-- <script defer src="./Js/Login.js"></script> -->
    
   <script defer src="./Js/Main.js"></script>
-  <title>Document</title>
+  <script defer src="./Js/Header.js"></script>
+  <title>Expo Tecnica</title>
 </head>
 <body>
 
@@ -49,6 +51,16 @@
       <i id="menu" class="fa-solid fa-bars"></i>
     </div>
   </header>
+
+  <div class="mobile-menu">
+    <button class="close-menu"> &times;</button>
+    <div class="header__div">
+      <a id="aHome" href="#">Inicio</a>
+      <a id="aListaNormal" href="#">Proyectos</a>
+      <a id="aRanking" href="#">Ranking</a>
+      <img src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
+    </div>
+  </div>
 
   <main class="main body" id="Login">
       <div class="container">
@@ -471,11 +483,11 @@
     <section id="section">
       <img class="Home__img" src="./Imagenes/FotoEjemplo.png" alt="">
       <article id="section__article">
-        <img class="section__article-img" src="./Imagenes/Fondo.png" alt="">
+        <div class="section__article-img"></div>
         <div class="section__article-div">
           <div class="section__article-div-div">
-            <h1 class="section__article-div-div-h1">Titulo</h1>
-            <p class="section__article-div-div-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h1 class="section__article-div-div-h1">¡Bienvenidos a la Expo Técnica!</h1>
+            <p class="section__article-div-div-p">Te invitamos a ser parte de este espacio donde la creatividad, la innovación y el talento de nuestros estudiantes se hacen protagonistas. Aquí podrás recorrer los proyectos de cada especialidad, apoyar con tu voto a tus favoritos y descubrir cómo la educación técnica transforma ideas en grandes logros.</p>
             <button class="section__article-div-div-button" id="buttonListaHome">Ver Proyectos</button>
           </div>
         </div>
