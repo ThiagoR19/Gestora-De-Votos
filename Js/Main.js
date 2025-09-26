@@ -16,6 +16,7 @@ const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 const buttonListaHome = document.getElementById('buttonListaHome')
+const buttonMoreHome = document.getElementById('buttonMoreHome')
 
 buttonListaHome
 const mains = [mainHome, mainRanking, mainProyectos, mainListaNormal, mainListaAdmin, mainLogin, mainReporte]
@@ -28,6 +29,7 @@ aHome.addEventListener('click', () => mostrarMain('Home', mains))
 aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 buttonListaHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+buttonMoreHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 
 
 for (let i = 0; i < mains.length; i++) {
