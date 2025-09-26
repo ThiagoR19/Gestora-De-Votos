@@ -12,8 +12,7 @@
   <link rel="stylesheet" href="./Styles/Header.css">
   <link id="styles" rel="stylesheet" href="./Styles/Home.css">
   <link rel="icon" href="./Imagenes/logo.png">
-  <!-- <script defer src="./Js/Login.js"></script> -->
-
+  <script defer src="./Js/Login.js"></script>
   <script defer src="./Js/Main.js"></script>
   <script defer src="./Js/Header.js"></script>
   <title>Expo Tecnica</title>
@@ -38,7 +37,7 @@
       <i id="menu" class="fa-solid fa-bars"></i>
     </div>
   </header> -->
-  <header>
+  <header id="Header">
     <div class="header__div">
       <a href="#"><img src="./Imagenes/logo.png" alt="Imagen del Colegio Técnico Provincial Olga B. De Arko"></a>
       <p>Colegio Técnico Provincial Olga B. De Arko</p>
@@ -47,7 +46,7 @@
       <a id="aHome" href="#">Inicio</a>
       <a id="aListaNormal" href="#">Proyectos</a>
       <a id="aRanking" href="#">Ranking</a>
-      <img src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
+      <img id="UsuarioLogin" src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
     </div>
     <div class="header__div">
       <i id="menu" class="fa-solid fa-bars"></i>
@@ -447,8 +446,9 @@
         </div>
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button id="Editar1" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver1" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
     </article>
@@ -474,8 +474,9 @@
         </div>
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button id="Editar2" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver2" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
     </article>
@@ -501,8 +502,9 @@
         </div>
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button id="Editar3" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver3" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
     </article>
@@ -546,7 +548,8 @@
           </div>
           <div class="tops__article-divcard-buttons">
             <button class="tops__article-divcard-buttons-button blanco">Votos: 29</button>
-            <button class="tops__article-divcard-buttons-button azul">Ver Proyecto</button>
+            <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual1">Ver
+              Proyecto</button>
           </div>
         </div>
       </article>
@@ -569,7 +572,8 @@
           </div>
           <div class="tops__article-divcard-buttons">
             <button class="tops__article-divcard-buttons-button blanco">Votos: 29</button>
-            <button class="tops__article-divcard-buttons-button azul">Ver Proyecto</button>
+            <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual2">Ver
+              Proyecto</button>
           </div>
         </div>
       </article>
@@ -592,7 +596,8 @@
             </div>
             <div class="tops__article-divcard-buttons">
               <button class="tops__article-divcard-buttons-button blanco">Votos: 29</button>
-              <button class="tops__article-divcard-buttons-button azul">Ver Proyecto</button>
+              <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual3">Ver
+                Proyecto</button>
             </div>
           </div>
         </article>
@@ -644,7 +649,81 @@
     </section>
   </main>
 
-  <footer>
+  <main id="Carga">
+    <section>
+      <article class="carga-proyecto">
+        <div class="carga-proyecto__info">
+          <div class="carga-proyecto__titulo">
+            <label class="carga-proyecto__label">Título del proyecto</label>
+            <input type="text" class="carga-proyecto__input"
+              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing">
+          </div>
+
+          <div class="carga-proyecto__descripcion">
+            <label class="carga-proyecto__label">Descripción</label>
+            <textarea class="carga-proyecto__textarea"
+              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></textarea>
+          </div>
+
+          <div class="carga-proyecto__imagenes">
+            <label class="carga-proyecto__label">Agregar imágenes</label>
+            <div class="carga-proyecto__imagenes-cont">
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+            </div>
+            <label class="carga-proyecto__btn">Elegir Archivos</label>
+          </div>
+        </div>
+        <div class="carga-proyecto__preview-img">
+          <img src="Imagenes/IMG_Colegio.png" alt="imagem_Colegio">
+        </div>
+      </article>
+
+      <article class="carga-proyecto-form">
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Estudiantes</h3>
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
+          <button class="carga-proyecto-form__btn">+ Agregar Estudiante</button>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Profesores</h3>
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del profesor">
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del profesor">
+          <button class="carga-proyecto-form__btn">+ Agregar Profesor</button>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Curso</h3>
+          <input type="text" class="carga-proyecto-form__input" placeholder="Año del curso">
+          <input type="text" class="carga-proyecto-form__input" placeholder="División del curso">
+
+          <div class="carga-proyecto-form__select-wp">
+            <h3 class="carga-proyecto-form__titulo">Categoria</h3>
+            <select class="carga-proyecto-form__select">
+              <option value="">Categoria</option>
+              <option value="">Programación</option>
+              <option value="">Economia</option>
+              <option value="">Electromecanica</option>
+              <option value="">Construccion</option>
+            </select>
+          </div>
+        </div>
+      </article>
+
+      <article class="carga-proyecto-preview">
+        <h3 class="carga-proyecto-preview__title">Vista previa</h3>
+        <div class="carga-proyecto-preview__listado-proyectos">
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer id="Footer">
     <img class="footer__img" src="./Imagenes/logo.png" alt="">
     <div class="footer__div">
       <div class="footer__div-div">

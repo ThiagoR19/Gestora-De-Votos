@@ -65,7 +65,7 @@
   color: #062F4F;
   font-weight: 600;
   font-size: 22px;
-} 
+}
 
 .ListaNormal__article-div h2 {
   color: #062F4F;
@@ -88,7 +88,7 @@
   transform: translateY(-3px);
 }
 
-.ListaNormal__article-div-div div img{
+.ListaNormal__article-div-div div img {
   height: 30px;
 }
 
@@ -124,7 +124,7 @@
     width: 100%;
     align-items: center;
   }
-  
+
 }
 
 .none {
