@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
@@ -11,12 +12,12 @@
   <link rel="stylesheet" href="./Styles/Header.css">
   <link id="styles" rel="stylesheet" href="./Styles/Home.css">
   <link rel="icon" href="./Imagenes/logo.png">
-  <!-- <script defer src="./Js/Login.js"></script> -->
-   
+  <script defer src="./Js/Login.js"></script>
   <script defer src="./Js/Main.js"></script>
   <script defer src="./Js/Header.js"></script>
   <title>Expo Tecnica</title>
 </head>
+
 <body>
 
 
@@ -36,7 +37,7 @@
       <i id="menu" class="fa-solid fa-bars"></i>
     </div>
   </header> -->
-  <header>
+  <header id="Header">
     <div class="header__div">
       <a href="#"><img src="./Imagenes/logo.png" alt="Imagen del Colegio Técnico Provincial Olga B. De Arko"></a>
       <p>Colegio Técnico Provincial Olga B. De Arko</p>
@@ -45,14 +46,14 @@
       <a id="aHome" href="#">Inicio</a>
       <a id="aListaNormal" href="#">Proyectos</a>
       <a id="aRanking" href="#">Ranking</a>
-      <img src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
+      <img id="UsuarioLogin" src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
     </div>
     <div class="header__div">
       <i id="menu" class="fa-solid fa-bars"></i>
     </div>
   </header>
 
-  <div class="mobile-menu">
+  <!-- <div class="mobile-menu">
     <button class="close-menu"> &times;</button>
     <div class="header__div">
       <a id="aHome" href="#">Inicio</a>
@@ -60,11 +61,11 @@
       <a id="aRanking" href="#">Ranking</a>
       <img src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
     </div>
-  </div>
+  </div> -->
 
   <main class="main body" id="Login">
-      <div class="container">
-        <div class="form-container sign-up">
+    <div class="container" id="container">
+      <div class="form-container sign-up">
         <form>
           <div class="form__div">
             <h1>Registrarse</h1>
@@ -87,17 +88,17 @@
             </div>
           </div>
           <div class="input-container">
-              <i class="fa-solid fa-envelope"></i>
-              <input type="text" placeholder="Ingresar email...">
-            </div>
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" placeholder="Ingresar email...">
+          </div>
           <div class="input-container">
-              <i class="fa-solid fa-lock"></i>
-              <input type="text" placeholder="Ingresar contraseña...">
-            </div>
+            <i class="fa-solid fa-lock"></i>
+            <input type="text" placeholder="Ingresar contraseña...">
+          </div>
           <div class="input-container">
-              <i class="fa-solid fa-unlock"></i>
-              <input type="text" placeholder="Confirmar contraseña...">
-            </div>
+            <i class="fa-solid fa-unlock"></i>
+            <input type="text" placeholder="Confirmar contraseña...">
+          </div>
           <button>Registrarse</button>
           <div id="o">
             <span>————————————————————</span>
@@ -111,7 +112,7 @@
         </form>
       </div>
       <div class="form-container sign-in">
-        
+
         <form>
           <div class="form__div">
             <h1>Iniciar Sesion</h1>
@@ -148,28 +149,32 @@
         <div class="toggle">
           <div class="toggle-panel toggle-left">
             <div>
-              <a href="">Volver sitio web</a> 
+              <a href="">Volver sitio web</a>
               <i class="fa-solid fa-door-open"></i>
             </div>
             <div>
               <img src="./Imagenes/logo.png" alt="">
               <span for="">_______________________________</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum magnam ipsa labore doloremque facilis fuga sapiente earum alias. Provident architecto minima non blanditiis perspiciatis dicta inventore qui quis rem eum!</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum magnam ipsa labore doloremque facilis
+                fuga sapiente earum alias. Provident architecto minima non blanditiis perspiciatis dicta inventore qui
+                quis rem eum!</p>
             </div>
           </div>
           <div class="toggle-panel toggle-right">
             <div>
-              <a href="">Volver sitio web</a> 
+              <a href="">Volver sitio web</a>
               <i class="fa-solid fa-door-open"></i>
             </div>
-            
+
             <div>
               <img src="./Imagenes/logo.png" alt="">
               <span for="">_______________________________</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum magnam ipsa labore doloremque facilis fuga sapiente earum alias. Provident architecto minima non blanditiis perspiciatis dicta inventore qui quis rem eum!</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum magnam ipsa labore doloremque facilis
+                fuga sapiente earum alias. Provident architecto minima non blanditiis perspiciatis dicta inventore qui
+                quis rem eum!</p>
             </div>
+          </div>
         </div>
-      </div>
       </div>
   </main>
 
@@ -191,7 +196,9 @@
           <div id="container" class="rank__article-div-div-div">
             <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
           </div>
-          <p class="rank__article-div-div-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident earum minima odit molestias nesciunt eligendi unde reiciendis fugit ut cumque fugiat totam sed consequuntur veritatis dicta, ab aspernatur iusto quisquam?</p>
+          <p class="rank__article-div-div-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident earum
+            minima odit molestias nesciunt eligendi unde reiciendis fugit ut cumque fugiat totam sed consequuntur
+            veritatis dicta, ab aspernatur iusto quisquam?</p>
         </div>
         <div class="rank__article-div-div">
           <div id="votosYVer" class="rank__article-div-div-div">
@@ -219,7 +226,9 @@
           <div id="container" class="rank__article-div-div-div">
             <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
           </div>
-          <p class="rank__article-div-div-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident earum minima odit molestias nesciunt eligendi unde reiciendis fugit ut cumque fugiat totam sed consequuntur veritatis dicta, ab aspernatur iusto quisquam?</p>
+          <p class="rank__article-div-div-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident earum
+            minima odit molestias nesciunt eligendi unde reiciendis fugit ut cumque fugiat totam sed consequuntur
+            veritatis dicta, ab aspernatur iusto quisquam?</p>
         </div>
         <div class="rank__article-div-div">
           <div id="votosYVer" class="rank__article-div-div-div">
@@ -247,7 +256,9 @@
           <div id="container" class="rank__article-div-div-div">
             <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
           </div>
-          <p class="rank__article-div-div-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident earum minima odit molestias nesciunt eligendi unde reiciendis fugit ut cumque fugiat totam sed consequuntur veritatis dicta, ab aspernatur iusto quisquam?</p>
+          <p class="rank__article-div-div-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident earum
+            minima odit molestias nesciunt eligendi unde reiciendis fugit ut cumque fugiat totam sed consequuntur
+            veritatis dicta, ab aspernatur iusto quisquam?</p>
         </div>
         <div class="rank__article-div-div">
           <div id="votosYVer" class="rank__article-div-div-div">
@@ -291,8 +302,11 @@
       <div class="proyecto-esp__article-div">
         <div class="proyecto-esp__article-div-div">
           <h1 class="proyecto-esp__article-div-div-h1">Titulo</h1>
-          <p class="proyecto-esp__article-div-div-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
-          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
+          <p class="proyecto-esp__article-div-div-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
           </p>
           <button class="proyecto-esp__article-div-div-button">VOTAR</button>
         </div>
@@ -320,7 +334,9 @@
     <aside>
       <div class="aside__div">
         <h2 class="aside__div-h2">Estudiantes</h2>
-        <p class="aside__div-p">Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1</p>
+        <p class="aside__div-p">Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1
+          - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 -
+          Estudiante 1 - Estudiante 1</p>
       </div>
       <div class="aside__div">
         <h2 class="aside__div-h2">Profesores</h2>
@@ -346,10 +362,12 @@
           </div>
         </div>
         <div class="ListaNormal__article-div-div">
-          <p class="ListaNormal__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
+          <p class="ListaNormal__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+            necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed
+            nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
         </div>
-        <div  class="ListaNormal__article-div-div">
-          <button class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+        <div class="ListaNormal__article-div-div">
+          <button id="VerProyecto1" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>
@@ -369,10 +387,12 @@
           </div>
         </div>
         <div class="ListaNormal__article-div-div">
-          <p class="ListaNormal__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
+          <p class="ListaNormal__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+            necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed
+            nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
         </div>
-        <div  class="ListaNormal__article-div-div">
-          <button class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+        <div class="ListaNormal__article-div-div">
+          <button id="VerProyecto2" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>
@@ -392,91 +412,102 @@
           </div>
         </div>
         <div class="ListaNormal__article-div-div">
-          <p class="ListaNormal__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
+          <p class="ListaNormal__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+            necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed
+            nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
         </div>
-        <div  class="ListaNormal__article-div-div">
-          <button class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+        <div class="ListaNormal__article-div-div">
+          <button id="VerProyecto3" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>
   </main>
 
   <main id="ListaAdmin" class="main">
-      <article class="ListaAdmin__article">
-        <div class="ListaAdmin__article-div">
-          <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
-        </div>
-        <div class="ListaAdmin__article-div">
-          <div class="ListaAdmin__article-div-div">
-            <h2>TITULO</h2>
-            <div>
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            </div>
-          </div>
-          <div class="ListaAdmin__article-div-div">
-            <p class="ListaAdmin__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
-          </div>
-          <div  class="ListaAdmin__article-div-div">
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <article class="ListaAdmin__article">
+      <div class="ListaAdmin__article-div">
+        <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+      </div>
+      <div class="ListaAdmin__article-div">
+        <div class="ListaAdmin__article-div-div">
+          <h2>TITULO</h2>
+          <div>
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
           </div>
         </div>
-      </article>
-      <article class="ListaAdmin__article">
-        <div class="ListaAdmin__article-div">
-          <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+        <div class="ListaAdmin__article-div-div">
+          <p class="ListaAdmin__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+            necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed
+            nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
         </div>
-        <div class="ListaAdmin__article-div">
-          <div class="ListaAdmin__article-div-div">
-            <h2>TITULO</h2>
-            <div>
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            </div>
-          </div>
-          <div class="ListaAdmin__article-div-div">
-            <p class="ListaAdmin__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
-          </div>
-          <div  class="ListaAdmin__article-div-div">
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
+        <div class="ListaAdmin__article-div-div">
+          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
+          <button id="Editar1" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver1" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-      </article>
-      <article class="ListaAdmin__article">
-        <div class="ListaAdmin__article-div">
-          <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
-        </div>
-        <div class="ListaAdmin__article-div">
-          <div class="ListaAdmin__article-div-div">
-            <h2>TITULO</h2>
-            <div>
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-              <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            </div>
-          </div>
-          <div class="ListaAdmin__article-div-div">
-            <p class="ListaAdmin__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
-          </div>
-          <div  class="ListaAdmin__article-div-div">
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-            <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </article>
+    <article class="ListaAdmin__article">
+      <div class="ListaAdmin__article-div">
+        <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+      </div>
+      <div class="ListaAdmin__article-div">
+        <div class="ListaAdmin__article-div-div">
+          <h2>TITULO</h2>
+          <div>
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
           </div>
         </div>
-      </article>
+        <div class="ListaAdmin__article-div-div">
+          <p class="ListaAdmin__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+            necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed
+            nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
+          <button id="Editar2" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver2" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+      </div>
+    </article>
+    <article class="ListaAdmin__article">
+      <div class="ListaAdmin__article-div">
+        <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+      </div>
+      <div class="ListaAdmin__article-div">
+        <div class="ListaAdmin__article-div-div">
+          <h2>TITULO</h2>
+          <div>
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          </div>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <p class="ListaAdmin__article-div-div-p"> Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+            necessitatibus ipsam cum, cupiditate, nulla consequatur voluptatem ducimus officiis laborum repellendus sed
+            nostrum autem suscipit placeat eligendi voluptatum quia beatae? Ut.</p>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
+          <button id="Editar3" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver3" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+      </div>
+    </article>
   </main>
 
   <main id="Home" class="main">
@@ -487,7 +518,10 @@
         <div class="section__article-div">
           <div class="section__article-div-div">
             <h1 class="section__article-div-div-h1">¡Bienvenidos a la Expo Técnica!</h1>
-            <p class="section__article-div-div-p">Te invitamos a ser parte de este espacio donde la creatividad, la innovación y el talento de nuestros estudiantes se hacen protagonistas. Aquí podrás recorrer los proyectos de cada especialidad, apoyar con tu voto a tus favoritos y descubrir cómo la educación técnica transforma ideas en grandes logros.</p>
+            <p class="section__article-div-div-p">Te invitamos a ser parte de este espacio donde la creatividad, la
+              innovación y el talento de nuestros estudiantes se hacen protagonistas. Aquí podrás recorrer los proyectos
+              de cada especialidad, apoyar con tu voto a tus favoritos y descubrir cómo la educación técnica transforma
+              ideas en grandes logros.</p>
             <button class="section__article-div-div-button" id="buttonListaHome">Ver Proyectos</button>
           </div>
         </div>
@@ -495,8 +529,82 @@
       <div class="section__div"></div>
     </section>
 
-    <section id="Tops">
+    <section id="tops">
+      <article class="tops__article">
+        <div class="tops__article-divImg">
+          <img src="./Imagenes/FotoEjemplo.png" alt="" class="tops__article-divImg-img">
+        </div>
+        <div class="tops__article-lineas">
+          <div class="tops__article-lineas-circulo">1</div>
+        </div>
+        <div class="tops__article-divcard">
+          <div>
+            <p class="tops__article-divcard-div-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <div class="tops__article-divcard-buttons">
+            <button class="tops__article-divcard-buttons-button blanco">Votos: 29</button>
+            <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual1">Ver
+              Proyecto</button>
+          </div>
+        </div>
+      </article>
 
+      <article class="tops__article reverse">
+        <div class="tops__article-divImg">
+          <img src="./Imagenes/FotoEjemplo.png" alt="" class="tops__article-divImg-img">
+        </div>
+        <div class="tops__article-lineas">
+          <div class="tops__article-lineas-circulo">2</div>
+        </div>
+        <div class="tops__article-divcard">
+          <div>
+            <p class="tops__article-divcard-div-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <div class="tops__article-divcard-buttons">
+            <button class="tops__article-divcard-buttons-button blanco">Votos: 29</button>
+            <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual2">Ver
+              Proyecto</button>
+          </div>
+        </div>
+      </article>
+      <div class="article-wrapper">
+        <article class="tops__article">
+          <div class="tops__article-divImg">
+            <img src="./Imagenes/FotoEjemplo.png" alt="" class="tops__article-divImg-img">
+          </div>
+          <div class="tops__article-lineas">
+            <div class="tops__article-lineas-circulo">3</div>
+          </div>
+          <div class="tops__article-divcard">
+            <div>
+              <p class="tops__article-divcard-div-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            </div>
+            <div class="tops__article-divcard-buttons">
+              <button class="tops__article-divcard-buttons-button blanco">Votos: 29</button>
+              <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual3">Ver
+                Proyecto</button>
+            </div>
+          </div>
+        </article>
+        <div class="article-overlay">
+          <button class="btn-overlay" id="buttonMoreHome">Ver más</button>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -506,10 +614,12 @@
       <div class="report__info">
         <h2 class="report__title">Reporte de Error</h2>
         <p class="report__text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
         </p>
-       <div  class="report__image"></div>
+        <div class="report__image"></div>
       </div>
 
       <form class="form" id="reportForm">
@@ -533,24 +643,98 @@
           <label for="descripcion" class="form__label">Descripción</label>
           <textarea id="descripcion" class="form__textarea" placeholder="Ingresar descripción"></textarea>
         </div>
-        
+
         <button type="submit" class="form__button">Enviar</button>
       </form>
     </section>
   </main>
 
-  <footer>
+  <main id="Carga">
+    <section>
+      <article class="carga-proyecto">
+        <div class="carga-proyecto__info">
+          <div class="carga-proyecto__titulo">
+            <label class="carga-proyecto__label">Título del proyecto</label>
+            <input type="text" class="carga-proyecto__input"
+              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing">
+          </div>
+
+          <div class="carga-proyecto__descripcion">
+            <label class="carga-proyecto__label">Descripción</label>
+            <textarea class="carga-proyecto__textarea"
+              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></textarea>
+          </div>
+
+          <div class="carga-proyecto__imagenes">
+            <label class="carga-proyecto__label">Agregar imágenes</label>
+            <div class="carga-proyecto__imagenes-cont">
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
+            </div>
+            <label class="carga-proyecto__btn">Elegir Archivos</label>
+          </div>
+        </div>
+        <div class="carga-proyecto__preview-img">
+          <img src="Imagenes/IMG_Colegio.png" alt="imagem_Colegio">
+        </div>
+      </article>
+
+      <article class="carga-proyecto-form">
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Estudiantes</h3>
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
+          <button class="carga-proyecto-form__btn">+ Agregar Estudiante</button>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Profesores</h3>
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del profesor">
+          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del profesor">
+          <button class="carga-proyecto-form__btn">+ Agregar Profesor</button>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Curso</h3>
+          <input type="text" class="carga-proyecto-form__input" placeholder="Año del curso">
+          <input type="text" class="carga-proyecto-form__input" placeholder="División del curso">
+
+          <div class="carga-proyecto-form__select-wp">
+            <h3 class="carga-proyecto-form__titulo">Categoria</h3>
+            <select class="carga-proyecto-form__select">
+              <option value="">Categoria</option>
+              <option value="">Programación</option>
+              <option value="">Economia</option>
+              <option value="">Electromecanica</option>
+              <option value="">Construccion</option>
+            </select>
+          </div>
+        </div>
+      </article>
+
+      <article class="carga-proyecto-preview">
+        <h3 class="carga-proyecto-preview__title">Vista previa</h3>
+        <div class="carga-proyecto-preview__listado-proyectos">
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer id="Footer">
     <img class="footer__img" src="./Imagenes/logo.png" alt="">
     <div class="footer__div">
       <div class="footer__div-div">
-      <div></div>
+        <div></div>
       </div>
 
       <div class="footer__div-div">
         <h3 class="footer__div-div-h3">Expo Técnica 2025</h3>
         <div id="footer__div-div-div">
           <div class="footer__div-div-div-div">
-            <a id="aHomeFooter" href="#">Inicio | </a> 
+            <a id="aHomeFooter" href="#">Inicio | </a>
             <a id="aListaNormalFooter" href="#">Ver Proyectos</a>
           </div>
           <div class="footer__div-div-div-div">
@@ -591,6 +775,7 @@
     </div>
   </footer>
 
-  
+
 </body>
+
 </html>
