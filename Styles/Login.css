@@ -363,7 +363,13 @@ h1 {
   color: #000000;
 }
 
-/* === Responsive: animación vertical en móviles === */
+@media (max-width: 1300px) {
+  .toggle {
+    background-size: cover;
+  }
+}
+
+
 @media (max-width: 900px) {
 
   .container {
