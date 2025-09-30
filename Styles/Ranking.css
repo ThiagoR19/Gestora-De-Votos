@@ -11,7 +11,8 @@
   display: flex;
   align-items: center;
   background-image: url(../Imagenes/FondoDiscreto.png);
-  overflow-x: hidden;
+  justify-content: space-between;
+  height: 100vh;
 }
 
 .rank__article {
@@ -62,6 +63,7 @@
   background: transparent;
   border-radius: 8px;
   cursor: pointer;
+  margin-top: 160px;
 }
 
 .rank__article-div {
@@ -241,15 +243,24 @@
   display: none;
 }
 
-/* .main {
-  display: none; 
-  opacity: 0;    
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+.slider-container {
+  overflow: hidden;
+  width: 90vw;
 }
 
-.main.active {
-  display: block;      
-  opacity: 1;        
-  transform: translateY(0);
-} */
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.tarjeta {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.grupoDeProyectos {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px;
+  width: 60vw;
+}

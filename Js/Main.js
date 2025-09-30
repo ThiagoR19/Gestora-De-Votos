@@ -91,19 +91,11 @@ fetch("./Js/json/proyectos.json")
   .then(response => response.json())
   .then(dataProyectos => {
     let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
+    mostrarRanking(dataProyectos)
     mostrarTopDelMain(Top3)
     mostrarListaProyectos(dataProyectos)
+    mostrarListaProyectosAdmin(dataProyectos)
   });
-
-fetch("./Js/json/proyectos.json")
-  .then(response => response.json())
-  .then(dataProyectos => {
-    let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
-    mostrarTopDelMain(Top3)
-    mostrarListaProyectos(dataProyectos)
-  });
-
-
 
 function mostrarTopDelMain(Top3) {
   const Tops = document.getElementById('tops')
@@ -174,9 +166,7 @@ function mostrarTopDelMain(Top3) {
         <div class="article-overlay">
           <button class="btn-overlay" id="buttonMoreHome">Ver más</button>
         </div>
-      </article>
-  
-  `
+      </article>`
 }
 
 function mostrarListaProyectos(dataProyectos) {
@@ -210,6 +200,71 @@ function mostrarListaProyectos(dataProyectos) {
   });
 }
 
+function mostrarListaProyectosAdmin(dataProyectos) {
+
+   dataProyectos.forEach(e => {
+
+    mainListaAdmin.insertAdjacentHTML('beforeend', `
+    <article class="ListaAdmin__article">
+      <div class="ListaAdmin__article-div">
+        <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+      </div>
+      <div class="ListaAdmin__article-div">
+        <div class="ListaAdmin__article-div-div">
+          <h2>${e.nombre}</h2>
+          <div>
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          </div>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <p class="ListaAdmin__article-div-div-p">${e.descripcion}</p>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
+          <button id="Editar1" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button id="Ver1" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+      </div>
+    </article>`) 
+  });
+}
+
+const slider = document.getElementById('slider')
+const groups = document.querySelectorAll('.grupoDeProyectos')
+let currentIndex = 0
+
+function updateSlider() {
+  const groupWidth = groups[0].offsetWidth + 20;
+  slider.style.transform = `translateX(${-currentIndex * groupWidth}px)`;
+}
+
+function moveLeft() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateSlider();
+  }
+}
+
+function moveRight() {
+  if (currentIndex < groups.length - 1) {
+    currentIndex++;
+    updateSlider();
+  }
+}
+
+window.addEventListener('resize', updateSlider);
+
+function mostrarRanking(dataProyectos) {
+  let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length/3)
+  for (let i = 0; i < dataProyectos.length; i++) {
+  
+  }
+}
 
 
 
