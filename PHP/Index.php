@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'Usuario.php';
@@ -8,6 +9,14 @@ require_once 'Usuario.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Cabeceras que permiten la solicitud real
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+    http_response_code(200);
+    exit;
+}
 switch ($_SERVER['REQUEST_METHOD']) {
     case "POST":
 
@@ -15,12 +24,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $data = json_decode(file_get_contents("php://input"), true);
         
         if (isset($data['accion']) && $data['accion'] == 'login') {
-            
-            if (Usuario::logueo($data['email'], $data['password']) === true) {
-                file_put_contents("log.json", "he pasado de año");
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Inicio de sesión exitoso",
+            $resultado = Usuario::logueo($data['email'], $data['password']);
+
+            if ($resultado === true) {
+                file_put_contents("log.json", '[{"he pasado de año" : "true"}]');
+                 echo json_encode([
+                     "success" => true,
+                     "message" => "Inicio de sesión exitoso",
                 ]);
             }
             else {
@@ -31,9 +41,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
         }
         
-        if (isset($data['accion']) && $data['accion'] == 'registrar') {
+        else if (isset($data['accion']) && $data['accion'] == 'registrar') {
             Usuario::validacion($data);
-            if (Usuario::validacion($data) == true) {
+            if (Usuario::validacion($data)) {
                 $usuario = new Usuario($data['nombre'], $data['apellido'], $data['email'], $data['password'], 1);
             }
         }

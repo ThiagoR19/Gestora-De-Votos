@@ -6,7 +6,7 @@ class Usuario {
     private $password;
     private $tipo; 
     private $id;
-    private static $usuarios = "../JSON/Usuarios.json";
+    private static $usuarios = __DIR__ . '/../JSON/Usuarios.json';
 
     public static function validacion($data){
 
@@ -31,7 +31,7 @@ class Usuario {
             return false;
         }
         // Validar que la contraseña y confirmación coincidan
-        if ($data['password'] !== $data['confirmPassword']) {
+        else if ($data['password'] !== $data['confirmPassword']) {
             echo json_encode([
                 "success" => false,
                 "message" => "Las contraseñas no coinciden"
