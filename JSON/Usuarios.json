@@ -14,5 +14,37 @@
         "email": "nahuel.odi.tv@gmail.com4",
         "password": "1234",
         "tipo": 1
+    },
+    {
+        "id": 2,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.com",
+        "password": "1234567890",
+        "tipo": 1
+    },
+    {
+        "id": 3,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.com",
+        "password": "12",
+        "tipo": 1
+    },
+    {
+        "id": 4,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.com",
+        "password": "123456",
+        "tipo": 1
+    },
+    {
+        "id": 5,
+        "nombre": "Thiago",
+        "apellido": "Riffo",
+        "email": "riffothiago19@gmail.com",
+        "password": "1234",
+        "tipo": 1
     }
 ]

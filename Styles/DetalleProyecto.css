@@ -7,8 +7,6 @@
   font-style: normal;
 }
 
-
-
 #Proyectos {
   display: flex;
   flex-direction: column;
@@ -46,7 +44,7 @@
   width: 100%;
 }
 
-#Proyectos__article-div-imgs img{
+#Proyectos__article-div-imgs img {
   width: 33%;
   padding: 5px;
   object-fit: cover;
@@ -157,7 +155,8 @@ aside {
   align-items: end;
 }
 
-.aside__div-h2, .aside__div-p {
+.aside__div-h2,
+.aside__div-p {
   color: #062F4F;
   margin: 0 10px;
   align-self: flex-start;
@@ -227,7 +226,7 @@ aside {
   }
 
   .proyecto-esp__article-div-div-p {
-    margin:20px 15px;
+    margin: 20px 15px;
     text-align: center;
   }
 

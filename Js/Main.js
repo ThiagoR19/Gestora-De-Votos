@@ -8,8 +8,9 @@ const mainListaAdmin = document.getElementById('ListaAdmin')
 const mainLogin = document.getElementById('Login')
 const mainReporte = document.getElementById('Reporte')
 const mainCarga = document.getElementById('Carga')
+const mainEstadisticas = document.getElementById('Estadisticas')
 
-const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
+const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas]
 
 const Header = document.getElementById('Header')
 const Footer = document.getElementById('Footer')
@@ -31,7 +32,7 @@ const buttonListaHome = document.getElementById('buttonListaHome')
 
 // Agregandole funcionalidad a cada boton del header
 
-aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
+aRanking.addEventListener('click', () => mostrarMain('Estadisticas', mains))
 aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
 aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 aHome.addEventListener('click', () => mostrarMain('Home', mains))
@@ -69,7 +70,7 @@ function moveRight() {
   const groups = document.querySelectorAll('.grupoDeProyectos')
   if (currentIndex < groups.length - 1) {
     currentIndex++
-    updateSlider()    
+    updateSlider()
   }
 }
 
@@ -98,14 +99,13 @@ function mostrarMain(mainAMostrar, mains) {
       Header.classList.remove('none');
       Footer.classList.remove('none');
     }
-    
   })
 }
 
 // Funciones que muestran dinamicamente del JSON
 
 function mostrarTopDelMain(dataProyectos) {
-  let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
+  let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0, 3);
   const Tops = document.getElementById('tops')
   Tops.innerHTML = `
     <article class="tops__article">
@@ -204,13 +204,13 @@ function mostrarListaProyectos(dataProyectos) {
           <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
-    </article>`) 
+    </article>`)
   });
 }
 
 function mostrarListaProyectosAdmin(dataProyectos) {
 
-   dataProyectos.forEach((e, index) => {
+  dataProyectos.forEach((e, index) => {
 
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
@@ -238,14 +238,14 @@ function mostrarListaProyectosAdmin(dataProyectos) {
               class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
-    </article>`) 
+    </article>`)
   });
 }
 
 function mostrarRanking(dataProyectos) {
 
   let cont = 0
-  let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length/3)
+  let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length / 3)
 
   for (let i = 0; i < cantidadDeGruposDe3; i++) {
     let grupoDeProyectos = document.createElement('DIV')
@@ -256,14 +256,14 @@ function mostrarRanking(dataProyectos) {
       if (cont === dataProyectos.length) {
         break
       }
-      
+
       let tarjeta = document.createElement('DIV')
       tarjeta.classList.add('tarjeta')
 
       tarjeta.innerHTML = `
         <div class="rank__article-div-div">
           <div class="rank__article-div-div-div">
-            <h2 class="rank__article-div-div-div-h2">0${cont+1}</h2>
+            <h2 class="rank__article-div-div-div-h2">0${cont + 1}</h2>
             <div class="rank__article-div-div-div-div"></div>
           </div>
           <h2 class="rank__article-div-div-div-h2">${dataProyectos[cont].nombre}</h2>
@@ -288,14 +288,14 @@ function mostrarRanking(dataProyectos) {
           </div>
         </div>`
 
-        cont++
-        grupoDeProyectos.appendChild(tarjeta)
+      cont++
+      grupoDeProyectos.appendChild(tarjeta)
     }
     slider.appendChild(grupoDeProyectos)
   }
 }
 
-function verDescripcionDelProyecto (e) {
+function verDescripcionDelProyecto(e) {
 
   mainDetalleProyecto.innerHTML = ``
 
@@ -354,7 +354,7 @@ function verDescripcionDelProyecto (e) {
   p2.classList.add('aside__div-p');
   p2.textContent = profesores.map(p => p.nombre).join(" - ");
 
-    aside.innerHTML = `
+  aside.innerHTML = `
       <aside>
         <div class="aside__div">
           <h2 class="aside__div-h2">Estudiantes</h2>
@@ -366,8 +366,8 @@ function verDescripcionDelProyecto (e) {
         </div>
       </aside>`
 
-    mainDetalleProyecto.appendChild(article)
-    mainDetalleProyecto.appendChild(aside)
+  mainDetalleProyecto.appendChild(article)
+  mainDetalleProyecto.appendChild(aside)
 }
 
 // LLamada al json y ejecucion de las funciones.
