@@ -38,5 +38,13 @@
         "email": "nahuel.odi.tv@gmail.com",
         "password": "123456",
         "tipo": 1
+    },
+    {
+        "id": 5,
+        "nombre": "Thiago",
+        "apellido": "Riffo",
+        "email": "riffothiago19@gmail.com",
+        "password": "1234",
+        "tipo": 1
     }
 ]
