@@ -18,22 +18,8 @@ const aListaNormalFooter = document.getElementById('aListaNormalFooter')
 const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
+
 const buttonListaHome = document.getElementById('buttonListaHome')
-const buttonMoreHome = document.getElementById('buttonMoreHome')
-const VerProyecto1 = document.getElementById('VerProyecto1')
-const VerProyecto2 = document.getElementById('VerProyecto2')
-const VerProyecto3 = document.getElementById('VerProyecto3')
-const Editar1 = document.getElementById('Editar1')
-const Editar2 = document.getElementById('Editar2')
-const Editar3 = document.getElementById('Editar3')
-
-const buttonProyectoIndividual1 = document.getElementById('buttonProyectoIndividual1')
-const buttonProyectoIndividual2 = document.getElementById('buttonProyectoIndividual2')
-const buttonProyectoIndividual3 = document.getElementById('buttonProyectoIndividual3')
-
-const Ver1 = document.getElementById('Ver1')
-const Ver2 = document.getElementById('Ver2')
-const Ver3 = document.getElementById('Ver3')
 
 const UsuarioLogin = document.getElementById('UsuarioLogin')
 
@@ -46,21 +32,39 @@ aHome.addEventListener('click', () => mostrarMain('Home', mains))
 aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 buttonListaHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-buttonMoreHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-VerProyecto1.addEventListener('click', () => mostrarMain('Proyectos', mains))
-VerProyecto2.addEventListener('click', () => mostrarMain('Proyectos', mains))
-VerProyecto3.addEventListener('click', () => mostrarMain('Proyectos', mains))
-buttonProyectoIndividual1.addEventListener('click', () => mostrarMain('Proyectos', mains))
-buttonProyectoIndividual2.addEventListener('click', () => mostrarMain('Proyectos', mains))
-buttonProyectoIndividual3.addEventListener('click', () => mostrarMain('Proyectos', mains))
-Editar1.addEventListener('click', () => mostrarMain('Carga', mains))
-Editar2.addEventListener('click', () => mostrarMain('Carga', mains))
-Editar3.addEventListener('click', () => mostrarMain('Carga', mains))
-Ver1.addEventListener('click', () => mostrarMain('Proyectos', mains))
-Ver2.addEventListener('click', () => mostrarMain('Proyectos', mains))
-Ver3.addEventListener('click', () => mostrarMain('Proyectos', mains))
 
 UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
+
+const slider = document.getElementById('slider')
+const groups = document.querySelectorAll('.grupoDeProyectos')
+
+let currentIndex = 0
+
+function updateSlider() {
+  const groups = document.querySelectorAll('.grupoDeProyectos')
+  if (groups.length === 0) return
+
+  const groupWidth = groups[0].offsetWidth + 20
+  slider.style.transform = `translateX(${-currentIndex * groupWidth}px)`
+}
+
+function moveLeft() {
+  const groups = document.querySelectorAll('.grupoDeProyectos')
+  if (currentIndex > 0) {
+    currentIndex--
+    updateSlider()
+  }
+}
+
+function moveRight() {
+  const groups = document.querySelectorAll('.grupoDeProyectos')
+  if (currentIndex < groups.length - 1) {
+    currentIndex++
+    updateSlider()    
+  }
+}
+
+window.addEventListener('resize', updateSlider)
 
 for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
@@ -86,16 +90,6 @@ function mostrarMain(mainAMostrar, mains) {
     
   })
 }
-
-fetch("./Js/json/proyectos.json")
-  .then(response => response.json())
-  .then(dataProyectos => {
-    let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
-    mostrarRanking(dataProyectos)
-    mostrarTopDelMain(Top3)
-    mostrarListaProyectos(dataProyectos)
-    mostrarListaProyectosAdmin(dataProyectos)
-  });
 
 function mostrarTopDelMain(Top3) {
   const Tops = document.getElementById('tops')
@@ -193,7 +187,7 @@ function mostrarListaProyectos(dataProyectos) {
           <p class="ListaNormal__article-div-div-p">${e.descripcion}</p>
         </div>
         <div class="ListaNormal__article-div-div">
-          <button id="VerProyecto1" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+          <button onClick="mostrarMain('Proyectos', mains)" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>`) 
@@ -225,8 +219,8 @@ function mostrarListaProyectosAdmin(dataProyectos) {
         </div>
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-          <button id="Editar1" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-          <button id="Ver1" class="ListaAdmin__article-div-div-button"><i
+          <button onClick="mostrarMain('Carga', mains)" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button onClick="mostrarMain('Proyectos', mains)" class="ListaAdmin__article-div-div-button"><i
               class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
@@ -234,37 +228,68 @@ function mostrarListaProyectosAdmin(dataProyectos) {
   });
 }
 
-const slider = document.getElementById('slider')
-const groups = document.querySelectorAll('.grupoDeProyectos')
-let currentIndex = 0
-
-function updateSlider() {
-  const groupWidth = groups[0].offsetWidth + 20;
-  slider.style.transform = `translateX(${-currentIndex * groupWidth}px)`;
-}
-
-function moveLeft() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateSlider();
-  }
-}
-
-function moveRight() {
-  if (currentIndex < groups.length - 1) {
-    currentIndex++;
-    updateSlider();
-  }
-}
-
-window.addEventListener('resize', updateSlider);
-
 function mostrarRanking(dataProyectos) {
+
+  let cont = 0
   let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length/3)
-  for (let i = 0; i < dataProyectos.length; i++) {
-  
+
+  for (let i = 0; i < cantidadDeGruposDe3; i++) {
+    let grupoDeProyectos = document.createElement('DIV')
+    grupoDeProyectos.classList.add('grupoDeProyectos')
+
+    for (let j = 0; j < 3; j++) {
+
+      if (cont === dataProyectos.length) {
+        break
+      }
+      
+      let tarjeta = document.createElement('DIV')
+      tarjeta.classList.add('tarjeta')
+
+      tarjeta.innerHTML = `
+        <div class="rank__article-div-div">
+          <div class="rank__article-div-div-div">
+            <h2 class="rank__article-div-div-div-h2">0${cont+1}</h2>
+            <div class="rank__article-div-div-div-div"></div>
+          </div>
+          <h2 class="rank__article-div-div-div-h2">${dataProyectos[cont].nombre}</h2>
+        </div>
+        <div class="rank__article-div-div">
+          <div id="container" class="rank__article-div-div-div">
+            <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+          </div>
+          <p class="rank__article-div-div-p">${dataProyectos[cont].descripcion}</p>
+        </div>
+        <div class="rank__article-div-div">
+          <div id="votosYVer" class="rank__article-div-div-div">
+            <button class="rank__article-div-div-div-button">Votos: ${dataProyectos[cont].cantVotos}</button>
+            <button class="rank__article-div-div-div-button">Ver Proyecto</button>
+          </div>
+          <div class="estrellas rank__article-div-div-div">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+          </div>
+        </div>`
+
+        cont++
+        grupoDeProyectos.appendChild(tarjeta)
+    }
+    slider.appendChild(grupoDeProyectos)
   }
 }
+
+fetch("./Js/json/proyectos.json")
+  .then(response => response.json())
+  .then(dataProyectos => {
+    let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
+    mostrarRanking(dataProyectos)
+    mostrarTopDelMain(Top3)
+    mostrarListaProyectos(dataProyectos)
+    mostrarListaProyectosAdmin(dataProyectos)
+  });
 
 
 
