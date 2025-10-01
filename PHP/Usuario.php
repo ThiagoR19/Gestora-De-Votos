@@ -92,12 +92,27 @@ class Usuario {
     public static function logueo($email, $password) {
         $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
         foreach ($usuariosArray as $usuario) {
-            if ($usuario['email'] === $email && $usuario['password'] === $password) {
-                file_put_contents("log.json", "he llegado hasta aqui");
-                return true;
+            if ($usuario['email'] == $email && $usuario['password'] == $password) {
+                $datos = [
+                    'id' => $usuario['id'],
+                    'nombre' => $usuario['nombre'],
+                    'apellido' => $usuario['apellido'],
+                    'email' => $usuario['email'],
+                    'tipo' => $usuario['tipo']
+                ];
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Inicio de sesión exitoso",
+                    "datos" => $datos
+                ]);
+                exit;
             }
         }
-        return false;
+        echo json_encode([
+            "success" => false,
+            "message" => "Credenciales inválidas"
+        ]);
+        exit;
     }
     // Getters
     public function getNombre() { return $this->nombre; }

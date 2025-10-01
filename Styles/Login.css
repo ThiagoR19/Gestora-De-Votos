@@ -253,6 +253,9 @@ animation: move 0.6s;
 .toggle-left{
   transform: translateX(-200%);
 }
+.invalid{
+  border-color: red !important;
+}
 
 .container.active .toggle-left{
   transform: translateX(0);

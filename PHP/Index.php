@@ -27,21 +27,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             exit;
         }
         if (isset($data['accion']) && $data['accion'] == 'login') {
-            $resultado = Usuario::logueo($data['email'], $data['password']);
-
-            if ($resultado === true) {
-                file_put_contents("log.json", '[{"he pasado de año" : "true"}]');
-                 echo json_encode([
-                     "success" => true,
-                     "message" => "Inicio de sesión exitoso",
-                ]);
-            }
-            else {
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Credenciales inválidas"
-                ]);
-            }
+            Usuario::logueo($data['email'], $data['password']);
         }
         
         else if (isset($data['accion']) && $data['accion'] == 'registrar') {

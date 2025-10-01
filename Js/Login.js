@@ -1,4 +1,5 @@
 const localizacion = "PHP/Index.php"
+const usuario = ["usuario", "coordinador","admin"];
 
 const container = document.getElementById("container");
 const registerBtn = document.getElementById("register");
@@ -15,8 +16,29 @@ const emaillog = document.getElementById("emailLog");
 const passwordlog = document.getElementById("passwordLog");
 const buttonInicio = document.getElementById("buttonInicio");
 
+email.addEventListener("input", verificarCorreo);
+emailRe.addEventListener("input", verificarCorreo);
+
+function verificarCorreo() {
+
+  let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (!regex.test(emaillog.value)) {
+    emaillog.classList.add("invalid");
+  }
+  else{
+    emaillog.classList.remove("invalid");
+  }
+  if (!regex.test(email.value)) {
+    email.classList.add("invalid");
+  }
+  else{
+    email.classList.remove("invalid");
+  }
+}
+
 buttonInicio.addEventListener("click", async () => {
-  try {
+  // try {
     const response = await fetch(`${localizacion}`, {
         method: 'POST',
         headers: {
@@ -39,28 +61,26 @@ buttonInicio.addEventListener("click", async () => {
 
     // Validar la respuesta del backend
     if (data.success) {
-        alert("✅ Bien: " + data.message);
+      alert("✅ Bien: " + data.message);
+      mostrarHeaderPorUsuario(data.datos.tipo)
     } else {
         alert("❌ Mal: " + data.message);
     }
-} catch (error) {
-    // Manejo más específico de errores
-    if (error instanceof TypeError) {
-        // Problemas de red, CORS, URL incorrecta
-        console.error("Error de red o CORS:", error);
-        alert("No se pudo conectar al servidor. Verifique la URL o su conexión.");
-    } else if (error instanceof SyntaxError) {
-        // JSON inválido
-        console.error("Error de JSON:", error);
-        alert("La respuesta del servidor no es válida.");
-    } else {
-        // Otros errores
-        console.error("Error desconocido:", error);
-        alert("Ocurrió un error inesperado: " + error.message);
-    }
-}
+
 
 });
+function mostrarHeaderPorUsuario(tipo) {
+  if (tipo == 1){
+    console.log ("hola soy usuario")
+  }
+  else if (tipo == 2){
+    console.log ("hola soy coordinador")
+  }
+  else if (tipo == 3){
+    console.log ("hola soy admin")
+  }
+}
+
 buttonRegister.addEventListener("click", async () => {
   try {
     const response = await fetch(`${localizacion}`, {
