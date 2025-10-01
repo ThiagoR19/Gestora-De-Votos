@@ -1,3 +1,5 @@
+// LLamando a todos los mains
+
 const mainHome = document.getElementById('Home')
 const mainRanking = document.getElementById('Ranking')
 const mainProyectos = document.getElementById('Proyectos')
@@ -7,10 +9,14 @@ const mainLogin = document.getElementById('Login')
 const mainReporte = document.getElementById('Reporte')
 const mainCarga = document.getElementById('Carga')
 
+const mains = [mainHome, mainRanking, mainProyectos, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
+
 const Header = document.getElementById('Header')
 const Footer = document.getElementById('Footer')
 
-const styleTag = document.getElementById('styles')
+const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
+
+// LLamando a todos los botones del header
 
 const aRanking = document.getElementById('aRanking')
 const aListaNormal = document.getElementById('aListaNormal')
@@ -19,11 +25,11 @@ const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 
+//Boton de VerProyectos del Home (Hero)
+
 const buttonListaHome = document.getElementById('buttonListaHome')
 
-const UsuarioLogin = document.getElementById('UsuarioLogin')
-
-const mains = [mainHome, mainRanking, mainProyectos, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
+// Agregandole funcionalidad a cada boton del header
 
 aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
 aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
@@ -33,7 +39,10 @@ aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 buttonListaHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 
+const UsuarioLogin = document.getElementById('UsuarioLogin')
 UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
+
+// Seccion del slider del ranking
 
 const slider = document.getElementById('slider')
 const groups = document.querySelectorAll('.grupoDeProyectos')
@@ -66,10 +75,13 @@ function moveRight() {
 
 window.addEventListener('resize', updateSlider)
 
+// Se le da un display none a todo menos el Home
+
 for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
-}
-mains[0].classList.remove('none')
+} mains[0].classList.remove('none')
+
+// Funciones que muestran dinamicamente del JSON
 
 function mostrarMain(mainAMostrar, mains) {
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
@@ -280,6 +292,8 @@ function mostrarRanking(dataProyectos) {
     slider.appendChild(grupoDeProyectos)
   }
 }
+
+// LLamada al json y ejecucion de las funciones.
 
 fetch("./Js/json/proyectos.json")
   .then(response => response.json())
