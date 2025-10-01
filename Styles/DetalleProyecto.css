@@ -96,7 +96,7 @@
 }
 
 .proyecto-esp__article-div-div-h1 {
-  font-size: 300%;
+  font-size: 250%;
   font-weight: 800;
 }
 
@@ -259,16 +259,3 @@ aside {
 .none {
   display: none;
 }
-
-/* .main {
-  display: none; 
-  opacity: 0;    
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.main.active {
-  display: block;      
-  opacity: 1;        
-  transform: translateY(0);
-} */

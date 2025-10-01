@@ -6,7 +6,6 @@
     "cantEstrellas": 250,
     "cantVotos": 180,
     "codigoPermiso": "RB2025",
-    "IdCategoria": 1,
     "años": 4,
     "division": 5,
     "profesores": [
@@ -18,6 +17,13 @@
       { "nombre": "Estudiante 2", "año": 4, "division": 5 },
       { "nombre": "Estudiante 3", "año": 4, "division": 5 },
       { "nombre": "Estudiante 4", "año": 4, "division": 5 }
+    ],
+    "categoria": "Robótica",
+    "imagenes": [
+      "imagenes/Captura de pantalla 2025-03-23 140139.png",
+      "imagenes/Captura de pantalla 2025-03-23 140153.png",
+      "imagenes/Captura de pantalla 2025-03-23 140212.png",
+      "imagenes/Captura de pantalla 2025-03-23 140229.png"
     ]
   },
   {
@@ -27,7 +33,6 @@
     "cantEstrellas": 190,
     "cantVotos": 220,
     "codigoPermiso": "EN2025",
-    "IdCategoria": 2,
     "años": 5,
     "division": 4,
     "profesores": [
@@ -39,6 +44,11 @@
       { "nombre": "Estudiante 3", "año": 5, "division": 4 },
       { "nombre": "Estudiante 4", "año": 5, "division": 4 },
       { "nombre": "Estudiante 5", "año": 5, "division": 4 }
+    ],
+    "categoria": "Energías Renovables",
+    "imagenes": [
+      "imagenes/Captura de pantalla 2025-09-13 220751.png",
+      "imagenes/Captura de pantalla 2025-09-14 113618.png"
     ]
   },
   {
@@ -48,7 +58,6 @@
     "cantEstrellas": 300,
     "cantVotos": 270,
     "codigoPermiso": "AP2025",
-    "IdCategoria": 3,
     "años": 5,
     "division": 6,
     "profesores": [
@@ -60,6 +69,15 @@
       { "nombre": "Estudiante 2", "año": 5, "division": 6 },
       { "nombre": "Estudiante 3", "año": 5, "division": 6 },
       { "nombre": "Estudiante 4", "año": 5, "division": 6 }
+    ],
+    "categoria": "Programación",
+    "imagenes": [
+      "imagenes/Captura de pantalla 2025-09-17 225310.png",
+      "imagenes/Captura de pantalla 2025-09-14 113618.png",
+      "imagenes/Captura de pantalla 2025-09-13 220751.png",
+      "imagenes/Captura de pantalla 2025-09-03 175655.png",
+      "imagenes/Captura de pantalla 2025-09-03 174517.png",
+      "imagenes/Captura de pantalla 2025-08-29 104245.png"
     ]
   },
   {
@@ -69,7 +87,6 @@
     "cantEstrellas": 120,
     "cantVotos": 95,
     "codigoPermiso": "EC2025",
-    "IdCategoria": 4,
     "años": 2,
     "division": 2,
     "profesores": [
@@ -81,7 +98,9 @@
       { "nombre": "Estudiante 3", "año": 2, "division": 2 },
       { "nombre": "Estudiante 4", "año": 2, "division": 2 },
       { "nombre": "Estudiante 5", "año": 2, "division": 2 }
-    ]
+    ],
+    "categoria": "Economía",
+    "imagenes": []
   },
   {
     "id": 5,
@@ -90,7 +109,6 @@
     "cantEstrellas": 75,
     "cantVotos": 60,
     "codigoPermiso": "MC2025",
-    "IdCategoria": 5,
     "años": 7,
     "division": 1,
     "profesores": [
@@ -101,6 +119,10 @@
       { "nombre": "Estudiante 2", "año": 7, "division": 1 },
       { "nombre": "Estudiante 3", "año": 7, "division": 1 },
       { "nombre": "Estudiante 4", "año": 7, "division": 1 }
+    ],
+    "categoria": "Ciencias",
+    "imagenes": [
+      "imagenes/Captura de pantalla 2025-08-26 150727.png"
     ]
   }
 ]

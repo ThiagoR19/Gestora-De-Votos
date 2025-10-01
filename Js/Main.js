@@ -1,16 +1,22 @@
+// LLamando a todos los mains
+
 const mainHome = document.getElementById('Home')
 const mainRanking = document.getElementById('Ranking')
-const mainProyectos = document.getElementById('Proyectos')
+const mainDetalleProyecto = document.getElementById('DetalleProyecto')
 const mainListaNormal = document.getElementById('ListaNormal')
 const mainListaAdmin = document.getElementById('ListaAdmin')
 const mainLogin = document.getElementById('Login')
 const mainReporte = document.getElementById('Reporte')
 const mainCarga = document.getElementById('Carga')
 
+const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
+
 const Header = document.getElementById('Header')
 const Footer = document.getElementById('Footer')
 
-const styleTag = document.getElementById('styles')
+const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
+
+// LLamando a todos los botones del header
 
 const aRanking = document.getElementById('aRanking')
 const aListaNormal = document.getElementById('aListaNormal')
@@ -18,26 +24,12 @@ const aListaNormalFooter = document.getElementById('aListaNormalFooter')
 const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
+
+//Boton de VerProyectos del Home (Hero)
+
 const buttonListaHome = document.getElementById('buttonListaHome')
-const buttonMoreHome = document.getElementById('buttonMoreHome')
-const VerProyecto1 = document.getElementById('VerProyecto1')
-const VerProyecto2 = document.getElementById('VerProyecto2')
-const VerProyecto3 = document.getElementById('VerProyecto3')
-const Editar1 = document.getElementById('Editar1')
-const Editar2 = document.getElementById('Editar2')
-const Editar3 = document.getElementById('Editar3')
 
-const buttonProyectoIndividual1 = document.getElementById('buttonProyectoIndividual1')
-const buttonProyectoIndividual2 = document.getElementById('buttonProyectoIndividual2')
-const buttonProyectoIndividual3 = document.getElementById('buttonProyectoIndividual3')
-
-const Ver1 = document.getElementById('Ver1')
-const Ver2 = document.getElementById('Ver2')
-const Ver3 = document.getElementById('Ver3')
-
-const UsuarioLogin = document.getElementById('UsuarioLogin')
-
-const mains = [mainHome, mainRanking, mainProyectos, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
+// Agregandole funcionalidad a cada boton del header
 
 aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
 aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
@@ -46,26 +38,49 @@ aHome.addEventListener('click', () => mostrarMain('Home', mains))
 aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 buttonListaHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-buttonMoreHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-VerProyecto1.addEventListener('click', () => mostrarMain('Proyectos', mains))
-VerProyecto2.addEventListener('click', () => mostrarMain('Proyectos', mains))
-VerProyecto3.addEventListener('click', () => mostrarMain('Proyectos', mains))
-buttonProyectoIndividual1.addEventListener('click', () => mostrarMain('Proyectos', mains))
-buttonProyectoIndividual2.addEventListener('click', () => mostrarMain('Proyectos', mains))
-buttonProyectoIndividual3.addEventListener('click', () => mostrarMain('Proyectos', mains))
-Editar1.addEventListener('click', () => mostrarMain('Carga', mains))
-Editar2.addEventListener('click', () => mostrarMain('Carga', mains))
-Editar3.addEventListener('click', () => mostrarMain('Carga', mains))
-Ver1.addEventListener('click', () => mostrarMain('Proyectos', mains))
-Ver2.addEventListener('click', () => mostrarMain('Proyectos', mains))
-Ver3.addEventListener('click', () => mostrarMain('Proyectos', mains))
 
+const UsuarioLogin = document.getElementById('UsuarioLogin')
 UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
+
+// Seccion del slider del ranking
+
+const slider = document.getElementById('slider')
+const groups = document.querySelectorAll('.grupoDeProyectos')
+
+let currentIndex = 0
+
+function updateSlider() {
+  const groups = document.querySelectorAll('.grupoDeProyectos')
+  if (groups.length === 0) return
+
+  const groupWidth = groups[0].offsetWidth + 20
+  slider.style.transform = `translateX(${-currentIndex * groupWidth}px)`
+}
+
+function moveLeft() {
+  const groups = document.querySelectorAll('.grupoDeProyectos')
+  if (currentIndex > 0) {
+    currentIndex--
+    updateSlider()
+  }
+}
+
+function moveRight() {
+  const groups = document.querySelectorAll('.grupoDeProyectos')
+  if (currentIndex < groups.length - 1) {
+    currentIndex++
+    updateSlider()    
+  }
+}
+
+window.addEventListener('resize', updateSlider)
+
+// Se le da un display none a todo menos el Home
 
 for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
-}
-mains[0].classList.remove('none')
+} mains[0].classList.remove('none')
+
 
 function mostrarMain(mainAMostrar, mains) {
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
@@ -87,25 +102,10 @@ function mostrarMain(mainAMostrar, mains) {
   })
 }
 
-fetch("./Js/json/proyectos.json")
-  .then(response => response.json())
-  .then(dataProyectos => {
-    let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
-    mostrarTopDelMain(Top3)
-    mostrarListaProyectos(dataProyectos)
-  });
+// Funciones que muestran dinamicamente del JSON
 
-fetch("./Js/json/proyectos.json")
-  .then(response => response.json())
-  .then(dataProyectos => {
-    let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
-    mostrarTopDelMain(Top3)
-    mostrarListaProyectos(dataProyectos)
-  });
-
-
-
-function mostrarTopDelMain(Top3) {
+function mostrarTopDelMain(dataProyectos) {
+  let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
   const Tops = document.getElementById('tops')
   Tops.innerHTML = `
     <article class="tops__article">
@@ -174,14 +174,12 @@ function mostrarTopDelMain(Top3) {
         <div class="article-overlay">
           <button class="btn-overlay" id="buttonMoreHome">Ver más</button>
         </div>
-      </article>
-  
-  `
+      </article>`
 }
 
 function mostrarListaProyectos(dataProyectos) {
 
-  dataProyectos.forEach(e => {
+  dataProyectos.forEach((e, index) => {
 
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
@@ -203,12 +201,188 @@ function mostrarListaProyectos(dataProyectos) {
           <p class="ListaNormal__article-div-div-p">${e.descripcion}</p>
         </div>
         <div class="ListaNormal__article-div-div">
-          <button id="VerProyecto1" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>`) 
   });
 }
+
+function mostrarListaProyectosAdmin(dataProyectos) {
+
+   dataProyectos.forEach((e, index) => {
+
+    mainListaAdmin.insertAdjacentHTML('beforeend', `
+    <article class="ListaAdmin__article">
+      <div class="ListaAdmin__article-div">
+        <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+      </div>
+      <div class="ListaAdmin__article-div">
+        <div class="ListaAdmin__article-div-div">
+          <h2>${e.nombre}</h2>
+          <div>
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          </div>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <p class="ListaAdmin__article-div-div-p">${e.descripcion}</p>
+        </div>
+        <div class="ListaAdmin__article-div-div">
+          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
+          <button onClick="mostrarMain('Carga', mains)" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaAdmin__article-div-div-button"><i
+              class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+      </div>
+    </article>`) 
+  });
+}
+
+function mostrarRanking(dataProyectos) {
+
+  let cont = 0
+  let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length/3)
+
+  for (let i = 0; i < cantidadDeGruposDe3; i++) {
+    let grupoDeProyectos = document.createElement('DIV')
+    grupoDeProyectos.classList.add('grupoDeProyectos')
+
+    for (let j = 0; j < 3; j++) {
+
+      if (cont === dataProyectos.length) {
+        break
+      }
+      
+      let tarjeta = document.createElement('DIV')
+      tarjeta.classList.add('tarjeta')
+
+      tarjeta.innerHTML = `
+        <div class="rank__article-div-div">
+          <div class="rank__article-div-div-div">
+            <h2 class="rank__article-div-div-div-h2">0${cont+1}</h2>
+            <div class="rank__article-div-div-div-div"></div>
+          </div>
+          <h2 class="rank__article-div-div-div-h2">${dataProyectos[cont].nombre}</h2>
+        </div>
+        <div class="rank__article-div-div">
+          <div id="container" class="rank__article-div-div-div">
+            <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+          </div>
+          <p class="rank__article-div-div-p">${dataProyectos[cont].descripcion}</p>
+        </div>
+        <div class="rank__article-div-div">
+          <div class="rank__article-div-div-div">
+            <button class="rank__article-div-div-div-button">Votos: ${dataProyectos[cont].cantVotos}</button>
+            <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${dataProyectos[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
+          </div>
+          <div class="estrellas rank__article-div-div-div">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+          </div>
+        </div>`
+
+        cont++
+        grupoDeProyectos.appendChild(tarjeta)
+    }
+    slider.appendChild(grupoDeProyectos)
+  }
+}
+
+function verDescripcionDelProyecto (e) {
+
+  mainDetalleProyecto.innerHTML = ``
+
+  let proyecto = dataProyectosGlobal[e];
+  let article = document.createElement('ARTICLE')
+  let aside = document.createElement('ASIDE')
+
+  article.classList.add('proyecto-esp__article')
+  aside.classList.add('aside__div')
+
+  article.innerHTML = `
+    <article class="proyecto-esp__article">
+      <div class="proyecto-esp__article-div">
+        <img id="Proyectos__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+        <div id="Proyectos__article-div-imgs">
+          <img src="./Imagenes/FotoEjemplo.png" alt="">
+          <img src="./Imagenes/FotoEjemplo.png" alt="">
+          <img src="./Imagenes/FotoEjemplo.png" alt="">
+        </div>
+      </div>
+      <div class="proyecto-esp__article-div">
+        <div class="proyecto-esp__article-div-div">
+          <h1 class="proyecto-esp__article-div-div-h1">${proyecto.nombre}</h1>
+          <p class="proyecto-esp__article-div-div-p">${proyecto.descripcion}</p>
+          <button class="proyecto-esp__article-div-div-button">VOTAR</button>
+        </div>
+        <div class="proyecto-esp__article-div-div">
+          <div class="proyecto-esp__article-div-div-div">
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoria</h2>
+              <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.categoria}</p>
+            </div>
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
+              <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.años}o ${proyecto.division}a</p>
+            </div>
+          </div>
+          <div class="proyecto-esp__article-div-div-div">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+          </div>
+        </div>
+      </div>
+    </article>`
+
+  let estudiantes = proyecto.estudiantes;
+  let p1 = document.createElement('p');
+  p1.classList.add('aside__div-p');
+  p1.textContent = estudiantes.map(e => e.nombre).join(" - ");
+
+  let profesores = proyecto.profesores;
+  let p2 = document.createElement('p');
+  p2.classList.add('aside__div-p');
+  p2.textContent = profesores.map(p => p.nombre).join(" - ");
+
+    aside.innerHTML = `
+      <aside>
+        <div class="aside__div">
+          <h2 class="aside__div-h2">Estudiantes</h2>
+          <p class="aside__div-p">${p1.textContent}</p>
+        </div>
+        <div class="aside__div">
+          <h2 class="aside__div-h2">Profesores</h2>
+          <p class="aside__div-p">${p2.textContent}</p>
+        </div>
+      </aside>`
+
+    mainDetalleProyecto.appendChild(article)
+    mainDetalleProyecto.appendChild(aside)
+}
+
+// LLamada al json y ejecucion de las funciones.
+
+let dataProyectosGlobal = []
+
+async function cargarProyectos() {
+  const response = await fetch("./Js/json/proyectos.json")
+  const dataProyectos = await response.json()
+  dataProyectosGlobal = dataProyectos
+  mostrarRanking(dataProyectos)
+  mostrarTopDelMain(dataProyectos)
+  mostrarListaProyectos(dataProyectos)
+  mostrarListaProyectosAdmin(dataProyectos)
+} cargarProyectos()
 
 
 

@@ -100,7 +100,6 @@ buttonRegister.addEventListener("click", async () => {
 registerBtn.addEventListener("click", (e) => {
   e.preventDefault();
   container.classList.add("active");
-  console.log('hola')
 });
 
 loginBtn.addEventListener("click", (e) => {
