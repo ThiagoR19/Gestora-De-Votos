@@ -1,3 +1,5 @@
+var pasaEmail = false
+var pasaCuenta = true
 const localizacion = "PHP/Index.php"
 const usuario = ["usuario", "coordinador","admin"];
 
@@ -25,15 +27,19 @@ function verificarCorreo() {
   
   if (!regex.test(emaillog.value)) {
     emaillog.classList.add("invalid");
+    pasaEmail = false
   }
   else{
     emaillog.classList.remove("invalid");
+    pasaEmail = true
   }
   if (!regex.test(email.value)) {
     email.classList.add("invalid");
+    pasaEmail = false
   }
   else{
     email.classList.remove("invalid");
+    pasaEmail = true
   }
 }
 
@@ -82,38 +88,44 @@ function mostrarHeaderPorUsuario(tipo) {
 }
 
 buttonRegister.addEventListener("click", async () => {
-  try {
-    const response = await fetch(`${localizacion}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        accion: "registrar",
-        nombre: nombre.value,
-        apellido: apellido.value,
-        email: email.value,
-        password: password.value,
-        confirmPassword: confirmPassword.value
-      })
-    });
+  if (pasaEmail==true) {
+    try {
+      const response = await fetch(`${localizacion}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          accion: "registrar",
+          nombre: nombre.value,
+          apellido: apellido.value,
+          email: email.value,
+          password: password.value,
+          confirmPassword: confirmPassword.value
+        })
+      });
 
-    const data = await response.json();
-    console.log(data);
-    if (!data.success) {
-      if (data.faltantes) {
-        alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
-      } else {
-        alert(data.message);
+      const data = await response.json();
+      console.log(data);
+      if (!data.success) {
+        if (data.faltantes) {
+          alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
+        } else {
+          alert(data.message);
+        }
+      } 
+      else {
+        creacion(email.value);
+        console.log("Usuario registrado con éxito");
       }
     } 
-    else {
-      alert(data.message);
+    catch (error) {
+      console.error("Error:", error);
+      alert("Hubo un error en la solicitud");
     }
-  } 
-  catch (error) {
-    console.error("Error:", error);
-    alert("Hubo un error en la solicitud");
+  }
+  else{
+    alert("El correo no es válido")
   }
 });
 
@@ -127,3 +139,17 @@ loginBtn.addEventListener("click", (e) => {
   container.classList.remove("active");
 });
 
+function creacion(email){
+    
+    const clave = "RegistroAnterior";
+    const registro = localStorage.getItem(clave);
+
+    if (!registro) {
+        // No hay registro previo → lo guardamos
+        localStorage.setItem(clave, email);
+        console.log("📩 Nuevo registro guardado:", email);
+    } else {
+        // Ya había un registro
+        console.log("⚠️ Ya existe un registro previo:", registro);
+    }
+}

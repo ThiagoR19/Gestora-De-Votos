@@ -41,6 +41,16 @@ class Usuario {
             return false;
         }
         else{
+            $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
+            foreach ($usuariosArray as $usuario) {
+                if ($usuario['email'] == $data['email']) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "El email ya está registrado"
+                    ]);
+                    return false;
+                }
+            }
             // Si todo está bien, enviamos éxit
             echo json_encode([
                 "success" => true,
