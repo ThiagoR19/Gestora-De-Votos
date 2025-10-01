@@ -2,14 +2,14 @@
 
 const mainHome = document.getElementById('Home')
 const mainRanking = document.getElementById('Ranking')
-const mainProyectos = document.getElementById('Proyectos')
+const mainDetalleProyecto = document.getElementById('DetalleProyecto')
 const mainListaNormal = document.getElementById('ListaNormal')
 const mainListaAdmin = document.getElementById('ListaAdmin')
 const mainLogin = document.getElementById('Login')
 const mainReporte = document.getElementById('Reporte')
 const mainCarga = document.getElementById('Carga')
 
-const mains = [mainHome, mainRanking, mainProyectos, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
+const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga]
 
 const Header = document.getElementById('Header')
 const Footer = document.getElementById('Footer')
@@ -81,7 +81,6 @@ for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
 } mains[0].classList.remove('none')
 
-// Funciones que muestran dinamicamente del JSON
 
 function mostrarMain(mainAMostrar, mains) {
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
@@ -103,7 +102,10 @@ function mostrarMain(mainAMostrar, mains) {
   })
 }
 
-function mostrarTopDelMain(Top3) {
+// Funciones que muestran dinamicamente del JSON
+
+function mostrarTopDelMain(dataProyectos) {
+  let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
   const Tops = document.getElementById('tops')
   Tops.innerHTML = `
     <article class="tops__article">
@@ -177,7 +179,7 @@ function mostrarTopDelMain(Top3) {
 
 function mostrarListaProyectos(dataProyectos) {
 
-  dataProyectos.forEach(e => {
+  dataProyectos.forEach((e, index) => {
 
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
@@ -199,7 +201,7 @@ function mostrarListaProyectos(dataProyectos) {
           <p class="ListaNormal__article-div-div-p">${e.descripcion}</p>
         </div>
         <div class="ListaNormal__article-div-div">
-          <button onClick="mostrarMain('Proyectos', mains)" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>`) 
@@ -208,7 +210,7 @@ function mostrarListaProyectos(dataProyectos) {
 
 function mostrarListaProyectosAdmin(dataProyectos) {
 
-   dataProyectos.forEach(e => {
+   dataProyectos.forEach((e, index) => {
 
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
@@ -232,7 +234,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
           <button onClick="mostrarMain('Carga', mains)" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-          <button onClick="mostrarMain('Proyectos', mains)" class="ListaAdmin__article-div-div-button"><i
+          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaAdmin__article-div-div-button"><i
               class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
@@ -273,9 +275,9 @@ function mostrarRanking(dataProyectos) {
           <p class="rank__article-div-div-p">${dataProyectos[cont].descripcion}</p>
         </div>
         <div class="rank__article-div-div">
-          <div id="votosYVer" class="rank__article-div-div-div">
+          <div class="rank__article-div-div-div">
             <button class="rank__article-div-div-div-button">Votos: ${dataProyectos[cont].cantVotos}</button>
-            <button class="rank__article-div-div-div-button">Ver Proyecto</button>
+            <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${dataProyectos[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
           </div>
           <div class="estrellas rank__article-div-div-div">
             <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
@@ -293,17 +295,95 @@ function mostrarRanking(dataProyectos) {
   }
 }
 
+function verDescripcionDelProyecto (e) {
+
+  mainDetalleProyecto.innerHTML = ``
+
+  let proyecto = dataProyectosGlobal[e];
+  let article = document.createElement('ARTICLE')
+  let aside = document.createElement('ASIDE')
+
+  article.classList.add('proyecto-esp__article')
+  aside.classList.add('aside__div')
+
+  article.innerHTML = `
+    <article class="proyecto-esp__article">
+      <div class="proyecto-esp__article-div">
+        <img id="Proyectos__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+        <div id="Proyectos__article-div-imgs">
+          <img src="./Imagenes/FotoEjemplo.png" alt="">
+          <img src="./Imagenes/FotoEjemplo.png" alt="">
+          <img src="./Imagenes/FotoEjemplo.png" alt="">
+        </div>
+      </div>
+      <div class="proyecto-esp__article-div">
+        <div class="proyecto-esp__article-div-div">
+          <h1 class="proyecto-esp__article-div-div-h1">${proyecto.nombre}</h1>
+          <p class="proyecto-esp__article-div-div-p">${proyecto.descripcion}</p>
+          <button class="proyecto-esp__article-div-div-button">VOTAR</button>
+        </div>
+        <div class="proyecto-esp__article-div-div">
+          <div class="proyecto-esp__article-div-div-div">
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoria</h2>
+              <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.categoria}</p>
+            </div>
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
+              <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.años}o ${proyecto.division}a</p>
+            </div>
+          </div>
+          <div class="proyecto-esp__article-div-div-div">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+          </div>
+        </div>
+      </div>
+    </article>`
+
+  let estudiantes = proyecto.estudiantes;
+  let p1 = document.createElement('p');
+  p1.classList.add('aside__div-p');
+  p1.textContent = estudiantes.map(e => e.nombre).join(" - ");
+
+  let profesores = proyecto.profesores;
+  let p2 = document.createElement('p');
+  p2.classList.add('aside__div-p');
+  p2.textContent = profesores.map(p => p.nombre).join(" - ");
+
+    aside.innerHTML = `
+      <aside>
+        <div class="aside__div">
+          <h2 class="aside__div-h2">Estudiantes</h2>
+          <p class="aside__div-p">${p1.textContent}</p>
+        </div>
+        <div class="aside__div">
+          <h2 class="aside__div-h2">Profesores</h2>
+          <p class="aside__div-p">${p2.textContent}</p>
+        </div>
+      </aside>`
+
+    mainDetalleProyecto.appendChild(article)
+    mainDetalleProyecto.appendChild(aside)
+}
+
 // LLamada al json y ejecucion de las funciones.
 
-fetch("./Js/json/proyectos.json")
-  .then(response => response.json())
-  .then(dataProyectos => {
-    let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0,3);
-    mostrarRanking(dataProyectos)
-    mostrarTopDelMain(Top3)
-    mostrarListaProyectos(dataProyectos)
-    mostrarListaProyectosAdmin(dataProyectos)
-  });
+let dataProyectosGlobal = []
+
+async function cargarProyectos() {
+  const response = await fetch("./Js/json/proyectos.json")
+  const dataProyectos = await response.json()
+  dataProyectosGlobal = dataProyectos
+  mostrarRanking(dataProyectos)
+  mostrarTopDelMain(dataProyectos)
+  mostrarListaProyectos(dataProyectos)
+  mostrarListaProyectosAdmin(dataProyectos)
+} cargarProyectos()
+
 
 
 
