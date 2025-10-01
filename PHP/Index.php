@@ -6,9 +6,6 @@ header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'Usuario.php';
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // Cabeceras que permiten la solicitud real
     header("Access-Control-Allow-Origin: *");
@@ -22,7 +19,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         
         $data = json_decode(file_get_contents("php://input"), true);
-        
+        if (!$data) {
+            echo json_encode([
+                "success" => false,
+                "message" => "No se recibieron datos válidos"
+            ]);
+            exit;
+        }
         if (isset($data['accion']) && $data['accion'] == 'login') {
             $resultado = Usuario::logueo($data['email'], $data['password']);
 
@@ -42,7 +45,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         
         else if (isset($data['accion']) && $data['accion'] == 'registrar') {
-            Usuario::validacion($data);
             if (Usuario::validacion($data)) {
                 $usuario = new Usuario($data['nombre'], $data['apellido'], $data['email'], $data['password'], 1);
             }

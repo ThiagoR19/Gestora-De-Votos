@@ -29,6 +29,7 @@ class Usuario {
                 "faltantes" => $camposFaltantes
             ]);
             return false;
+            
         }
         // Validar que la contraseña y confirmación coincidan
         else if ($data['password'] !== $data['confirmPassword']) {
