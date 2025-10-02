@@ -6,29 +6,5 @@
         "email": "riffothiago19@gmail.com",
         "password": "1234",
         "tipo": 2
-    },
-    {
-        "id": 1,
-        "nombre": "Nahuel",
-        "apellido": "Gallo Mattera",
-        "email": "nahuel.odi.tv@gmail.com",
-        "password": "123",
-        "tipo": 1
-    },
-    {
-        "id": 2,
-        "nombre": "nahuel",
-        "apellido": "galllo",
-        "email": "nahuel.odi.tv@gmail.net",
-        "password": "123",
-        "tipo": 1
-    },
-    {
-        "id": 3,
-        "nombre": "nahuel",
-        "apellido": "galllo",
-        "email": "nahuel.odi.tv@gmail.yaoi",
-        "password": "123",
-        "tipo": 1
     }
 ]

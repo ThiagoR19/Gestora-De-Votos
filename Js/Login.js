@@ -1,5 +1,6 @@
 var pasaEmail = false
-var pasaCuenta = true
+var motivo = ""
+
 const localizacion = "PHP/Index.php"
 const usuario = ["usuario", "coordinador","admin"];
 
@@ -21,27 +22,6 @@ const buttonInicio = document.getElementById("buttonInicio");
 email.addEventListener("input", verificarCorreo);
 emailRe.addEventListener("input", verificarCorreo);
 
-function verificarCorreo() {
-
-  let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-  if (!regex.test(emaillog.value)) {
-    emaillog.classList.add("invalid");
-    pasaEmail = false
-  }
-  else{
-    emaillog.classList.remove("invalid");
-    pasaEmail = true
-  }
-  if (!regex.test(email.value)) {
-    email.classList.add("invalid");
-    pasaEmail = false
-  }
-  else{
-    email.classList.remove("invalid");
-    pasaEmail = true
-  }
-}
 
 buttonInicio.addEventListener("click", async () => {
   // try {
@@ -75,20 +55,13 @@ buttonInicio.addEventListener("click", async () => {
 
 
 });
-function mostrarHeaderPorUsuario(tipo) {
-  if (tipo == 1){
-    console.log ("hola soy usuario")
-  }
-  else if (tipo == 2){
-    console.log ("hola soy coordinador")
-  }
-  else if (tipo == 3){
-    console.log ("hola soy admin")
-  }
-}
 
 buttonRegister.addEventListener("click", async () => {
+
+  pasaEmail = verificacionRegistro(email.value);
+
   if (pasaEmail==true) {
+    console.log ("el correo ha sido verificado")
     try {
       const response = await fetch(`${localizacion}`, {
         method: 'POST',
@@ -125,7 +98,14 @@ buttonRegister.addEventListener("click", async () => {
     }
   }
   else{
-    alert("El correo no es válido")
+    switch (motivo) {
+      case "Ya estabas registrado con otra cuenta":
+        alert("❌ Mal: " + motivo);
+        break;
+      case "El correo no es válido":
+        alert("❌ Mal: " + motivo);
+        break;
+    }
   }
 });
 
@@ -139,17 +119,80 @@ loginBtn.addEventListener("click", (e) => {
   container.classList.remove("active");
 });
 
+
+function verificacionRegistro(email){
+  const clave = "RegistroAnterior";
+  const registro = localStorage.getItem(clave);
+  if (registro){
+    if (registro != email) {
+      // El email ya está registrado
+      console.log("ya haz entrado con otra cuenta")
+      if (pasaEmail){
+        motivo = "Ya estabas registrado con otra cuenta"
+      }
+      return false;
+      
+    }else{
+      //console.log ("Bienvenido de nuevo");
+      
+      return true;
+    }
+    
+  }else{
+    //console.log ("Nuevo usuario, puede continuar");
+    return true;
+  }
+}
 function creacion(email){
     
     const clave = "RegistroAnterior";
     const registro = localStorage.getItem(clave);
 
     if (!registro) {
-        // No hay registro previo → lo guardamos
-        localStorage.setItem(clave, email);
-        console.log("📩 Nuevo registro guardado:", email);
-    } else {
-        // Ya había un registro
-        console.log("⚠️ Ya existe un registro previo:", registro);
+      // No hay registro previo → lo guardamos
+      localStorage.setItem(clave, email);
+      console.log("📩 Nuevo registro guardado:", email);
+    } 
+    else {
+      // Ya había un registro
+      //console.log("⚠️ Ya existe un registro previo:", registro);
     }
+}
+
+
+function mostrarHeaderPorUsuario(tipo) {
+  if (tipo == 1){
+    console.log ("hola soy usuario")
+  }
+  else if (tipo == 2){
+    console.log ("hola soy coordinador")
+  }
+  else if (tipo == 3){
+    console.log ("hola soy admin")
+  }
+}
+
+
+function verificarCorreo() {
+  
+  let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (!regex.test(emaillog.value)) {
+    emaillog.classList.add("invalid");
+    pasaEmail = false
+
+  }
+  else{
+    emaillog.classList.remove("invalid");
+    pasaEmail = true
+  }
+  if (!regex.test(email.value)) {
+    email.classList.add("invalid");
+    pasaEmail = false
+    motivo = "El correo no es válido"
+  }
+  else{
+    email.classList.remove("invalid");
+    pasaEmail = true
+  }
 }
