@@ -29,6 +29,10 @@ const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 const footerResultados = document.getElementById('footerResultados')
+const VerProyectosHome = document.getElementById('VerProyectosHome')
+const headerInicioHome = document.getElementById('headerInicioHome')
+const headerProyectosHome = document.getElementById('headerProyectosHome')
+const headerRankingHome = document.getElementById('headerRankingHome')
 
 const HomeDesp = document.getElementById('HomeDesp')
 const ListaNormalDesp = document.getElementById('ListaNormalDesp')
@@ -58,6 +62,10 @@ aHome.addEventListener('click', () => mostrarMain('Home', mains))
 aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
+VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+headerInicioHome.addEventListener('click', () => mostrarMain('Home', mains))
+headerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+headerRankingHome.addEventListener('click', () => mostrarMain('Ranking', mains))
 
 HomeDesp.addEventListener('click', () => mostrarMain('Home', mains))
 ListaNormalDesp.addEventListener('click', () => mostrarMain('ListaNormal', mains))
@@ -147,6 +155,7 @@ function mostrarMain(mainAMostrar, mains) {
 function mostrarTopDelMain(dataProyectos) {
   let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0, 3);
   const Tops = document.getElementById('tops')
+
   Tops.innerHTML = `
     <article class="tops__article">
         <div class="tops__article-divImg">
@@ -163,7 +172,7 @@ function mostrarTopDelMain(dataProyectos) {
           </div>
           <div class="tops__article-divcard-buttons">
             <button class="tops__article-divcard-buttons-button blanco">Votos: ${Top3[0].cantVotos}</button>
-            <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual1">Ver
+            <button class="tops__article-divcard-buttons-button azul" onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${Top3[0].id})">Ver
               Proyecto</button>
           </div>
         </div>
@@ -184,7 +193,7 @@ function mostrarTopDelMain(dataProyectos) {
           </div>
           <div class="tops__article-divcard-buttons">
             <button class="tops__article-divcard-buttons-button blanco">Votos: ${Top3[1].cantVotos}</button>
-            <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual2">Ver
+            <button class="tops__article-divcard-buttons-button azul" onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${Top3[1].id})">Ver
               Proyecto</button>
           </div>
         </div>
@@ -206,20 +215,20 @@ function mostrarTopDelMain(dataProyectos) {
             </div>
             <div class="tops__article-divcard-buttons">
               <button class="tops__article-divcard-buttons-button blanco">Votos: ${Top3[2].cantVotos}</button>
-              <button class="tops__article-divcard-buttons-button azul" id="buttonProyectoIndividual3">Ver
+              <button class="tops__article-divcard-buttons-button azul" onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${Top3[2].id})">Ver
                 Proyecto</button>
             </div>
           </div>
         </article>
         <div class="article-overlay">
-          <button class="btn-overlay" id="buttonMoreHome">Ver más</button>
+          <button class="btn-overlay" onClick="mostrarMain('ListaNormal', mains)">Ver más</button>
         </div>
       </article>`
 }
 
 function mostrarListaProyectos(dataProyectos) {
 
-  dataProyectos.forEach((e, index) => {
+  dataProyectos.forEach((e) => {
 
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
@@ -241,7 +250,7 @@ function mostrarListaProyectos(dataProyectos) {
           <p class="ListaNormal__article-div-div-p">${e.descripcion}</p>
         </div>
         <div class="ListaNormal__article-div-div">
-          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
+          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${e.id})" class="ListaNormal__article-div-div-button">Ver Proyecto</button>
         </div>
       </div>
     </article>`)
@@ -250,7 +259,7 @@ function mostrarListaProyectos(dataProyectos) {
 
 function mostrarListaProyectosAdmin(dataProyectos) {
 
-  dataProyectos.forEach((e, index) => {
+  dataProyectos.forEach((e) => {
 
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
@@ -274,7 +283,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
           <button onClick="mostrarMain('Carga', mains)" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
-          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${index})" class="ListaAdmin__article-div-div-button"><i
+          <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i
               class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
@@ -283,6 +292,8 @@ function mostrarListaProyectosAdmin(dataProyectos) {
 }
 
 function mostrarRanking(dataProyectos) {
+
+  let ordenadosPorVotos = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos);
 
   let cont = 0
   let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length / 3)
@@ -306,18 +317,18 @@ function mostrarRanking(dataProyectos) {
             <h2 class="rank__article-div-div-div-h2">0${cont + 1}</h2>
             <div class="rank__article-div-div-div-div"></div>
           </div>
-          <h2 class="rank__article-div-div-div-h2">${dataProyectos[cont].nombre}</h2>
+          <h2 class="rank__article-div-div-div-h2">${ordenadosPorVotos[cont].nombre}</h2>
         </div>
         <div class="rank__article-div-div">
           <div id="container" class="rank__article-div-div-div">
             <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
           </div>
-          <p class="rank__article-div-div-p">${dataProyectos[cont].descripcion}</p>
+          <p class="rank__article-div-div-p">${ordenadosPorVotos[cont].descripcion}</p>
         </div>
         <div class="rank__article-div-div">
           <div class="rank__article-div-div-div">
-            <button class="rank__article-div-div-div-button">Votos: ${dataProyectos[cont].cantVotos}</button>
-            <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${dataProyectos[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
+            <button class="rank__article-div-div-div-button">Votos: ${ordenadosPorVotos[cont].cantVotos}</button>
+            <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${ordenadosPorVotos[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
           </div>
           <div class="estrellas rank__article-div-div-div">
             <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
@@ -339,12 +350,18 @@ function verDescripcionDelProyecto(e) {
 
   mainDetalleProyecto.innerHTML = ``
 
-  let proyecto = dataProyectosGlobal[e];
+
+
+  dataProyectosGlobal.forEach(element => {
+    if(element.id === e) {
+      proyecto = element
+    }
+  });
+
   let article = document.createElement('ARTICLE')
   let aside = document.createElement('ASIDE')
 
   article.classList.add('proyecto-esp__article')
-  aside.classList.add('aside__div')
 
   article.innerHTML = `
     <article class="proyecto-esp__article">
@@ -395,16 +412,14 @@ function verDescripcionDelProyecto(e) {
   p2.textContent = profesores.map(p => p.nombre).join(" - ");
 
   aside.innerHTML = `
-      <aside>
-        <div class="aside__div">
+      <div class="aside__div">
           <h2 class="aside__div-h2">Estudiantes</h2>
           <p class="aside__div-p">${p1.textContent}</p>
         </div>
         <div class="aside__div">
           <h2 class="aside__div-h2">Profesores</h2>
           <p class="aside__div-p">${p2.textContent}</p>
-        </div>
-      </aside>`
+        </div>`
 
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)

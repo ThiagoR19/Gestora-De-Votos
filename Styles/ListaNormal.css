@@ -21,8 +21,8 @@
   margin: 20px 30px;
   border-radius: 8px;
   border: 1px solid rgb(228, 228, 228);
-  width: 90%;
   background-color: #FFFFFF;
+  justify-content: space-between;
 }
 
 .ListaNormal__article-div {
@@ -33,6 +33,7 @@
 
 .ListaNormal__article-div:first-child {
   width: 30%;
+  height: 100%;
 }
 
 .ListaNormal__article-div:last-child {
@@ -44,7 +45,6 @@
   object-fit: cover;
   width: 100%;
   height: 200px;
-  padding: 10px 0;
 }
 
 .ListaNormal__article-div-div {
@@ -104,7 +104,6 @@
 
   .ListaNormal__article {
     flex-direction: column;
-    width: 70%;
   }
 
   .ListaNormal__article-div:first-child {

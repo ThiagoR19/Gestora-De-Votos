@@ -54,16 +54,14 @@ button {
 }
 
 .article__div {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  width: 90%;
 }
 
-.article__div:first-child {
-  width: 30%;
-}
+
 
 .article__div-div:first-child {
   display: flex;
@@ -173,6 +171,11 @@ button {
 @media (max-width:900px) {
   #MiCuenta {
     height: auto;
+    padding: 15px;
+  }
+
+  .article__div-img {
+    width: 50%;
   }
 
   article {
@@ -185,11 +188,6 @@ button {
 
   .article__div:first-child {
     margin: 20px 0;
-    width: 100%;
-  }
-
-  img {
-    width: 50%;
   }
   
   .article__div-button,
@@ -208,5 +206,16 @@ button {
   .article__div-div {
     margin: 5px;
     width: 90%;
+  }
+
+  .article__div-div:first-child {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .article__div-div-div {
+    width: 90%;
+    padding: 0 !important;
+    margin: 5px;
   }
 }

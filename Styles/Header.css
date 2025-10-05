@@ -27,7 +27,7 @@
 
 .header__div:first-child {
   width: 35%;
-  font-size: 25px;
+  font-size: 20px;
   margin: 0 10px;
 }
 
@@ -172,3 +172,12 @@
   left: 85%;
 }
 
+@media (max-width:900px) {
+  #fullscreenMenuGeneral a,.iDesplegable {
+    font-size: 30px;
+  }
+
+  #fullscreenMenuGeneral li {
+    margin: 0;
+  }
+}

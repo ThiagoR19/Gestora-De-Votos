@@ -118,7 +118,6 @@
 
   .ListaAdmin__article {
     flex-direction: column;
-    width: 70%;
   }
 
   .ListaAdmin__article-div:first-child {
