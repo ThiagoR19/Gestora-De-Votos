@@ -104,6 +104,7 @@
 
   .ListaNormal__article {
     flex-direction: column;
+    width: 90%;
   }
 
   .ListaNormal__article-div:first-child {
