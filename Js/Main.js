@@ -9,8 +9,11 @@ const mainLogin = document.getElementById('Login')
 const mainReporte = document.getElementById('Reporte')
 const mainCarga = document.getElementById('Carga')
 const mainEstadisticas = document.getElementById('Estadisticas')
+const mainMiCuenta = document.getElementById('MiCuenta')
+const mainGestionar = document.getElementById('Gestionar')
+const mainResultados = document.getElementById('Resultados')
 
-const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas]
+const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
 const Header = document.getElementById('Header')
 const Footer = document.getElementById('Footer')
@@ -25,6 +28,22 @@ const aListaNormalFooter = document.getElementById('aListaNormalFooter')
 const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
+const footerResultados = document.getElementById('footerResultados')
+
+const HomeDesp = document.getElementById('HomeDesp')
+const ListaNormalDesp = document.getElementById('ListaNormalDesp')
+const RankingDesp = document.getElementById('RankingDesp')
+const MiCuentaDesp = document.getElementById('MiCuentaDesp')
+const EstadisticasDesp = document.getElementById('EstadisticasDesp')
+const GestionarDesp = document.getElementById('GestionarDesp')
+
+const HomeDespG = document.getElementById('HomeDespG')
+const ListaNormalDespG = document.getElementById('ListaNormalDespG')
+const RankingDespG = document.getElementById('RankingDespG')
+const MiCuentaDespG = document.getElementById('MiCuentaDespG')
+const EstadisticasDespG = document.getElementById('EstadisticasDespG')
+const GestionarDespG = document.getElementById('GestionarDespG')
+
 
 //Boton de VerProyectos del Home (Hero)
 
@@ -32,13 +51,28 @@ const buttonListaHome = document.getElementById('buttonListaHome')
 
 // Agregandole funcionalidad a cada boton del header
 
-aRanking.addEventListener('click', () => mostrarMain('Estadisticas', mains))
+aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
 aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
 aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 aHome.addEventListener('click', () => mostrarMain('Home', mains))
 aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
-buttonListaHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
+
+HomeDesp.addEventListener('click', () => mostrarMain('Home', mains))
+ListaNormalDesp.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+RankingDesp.addEventListener('click', () => mostrarMain('Ranking', mains))
+MiCuentaDesp.addEventListener('click', () => mostrarMain('MiCuenta', mains))
+EstadisticasDesp.addEventListener('click', () => mostrarMain('Estadisticas', mains))
+GestionarDesp.addEventListener('click', () => mostrarMain('Gestionar', mains))
+
+HomeDespG.addEventListener('click', () => mostrarMain('Home', mains))
+ListaNormalDespG.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+RankingDespG.addEventListener('click', () => mostrarMain('Ranking', mains))
+MiCuentaDespG.addEventListener('click', () => mostrarMain('MiCuenta', mains))
+EstadisticasDespG.addEventListener('click', () => mostrarMain('Estadisticas', mains))
+GestionarDespG.addEventListener('click', () => mostrarMain('Gestionar', mains))
+
 
 const UsuarioLogin = document.getElementById('UsuarioLogin')
 UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
@@ -80,7 +114,9 @@ window.addEventListener('resize', updateSlider)
 
 for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
-} mains[0].classList.remove('none')
+} 
+mains[0].classList.remove('none')
+Header.classList.add('none')
 
 
 function mostrarMain(mainAMostrar, mains) {
@@ -98,6 +134,10 @@ function mostrarMain(mainAMostrar, mains) {
     } else {
       Header.classList.remove('none');
       Footer.classList.remove('none');
+    }
+
+    if (mainAMostrar === 'Home') {
+      Header.classList.add('none');
     }
   })
 }
