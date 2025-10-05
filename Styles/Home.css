@@ -420,12 +420,12 @@ button {
 
 .tops__article-divcard-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 30px;
 }
 
 .tops__article-divcard-buttons:last-child {
-  margin: 30px;
+  margin: 30px 0;
 }
 
 .tops__article-divcard-buttons-button {
@@ -548,4 +548,9 @@ button {
     border-radius: 10px;
     align-self: center;
   }
+
+  .tops__article-divcard-buttons {
+    justify-content: center;
+  }
+
 }
