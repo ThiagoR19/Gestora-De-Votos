@@ -1,2 +1,4 @@
 # Gestora-De-Votos
 El proyecto consiste en el desarrollo de un sistema de votación en línea para la Expo Técnica, pensado para estudiantes, docentes y visitantes. Se trata de una aplicación web responsiva que permite registrarse, visualizar proyectos y votar de forma segura y transparente (con un máximo de tres votos por usuario), además de contar con un módulo administrativo para la gestión de usuarios y proyectos, y un sistema de reportes de resultados. Su objetivo principal es fomentar la participación, la transparencia y la retroalimentación, utilizando tecnologías como HTML, CSS, JavaScript, PHP y MySQL, con soporte de librerías y frameworks como Bootstrap y Axios.
+
+
