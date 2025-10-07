@@ -63,7 +63,7 @@ buttonRegister.addEventListener("click", async () => {
   if (pasaEmail==true) {
     console.log ("el correo ha sido verificado")
     try {
-      const response = await fetch(`${localizacion}`, {
+      const response = await fetch(localizacion, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -77,6 +77,7 @@ buttonRegister.addEventListener("click", async () => {
           confirmPassword: confirmPassword.value
         })
       });
+      console.log("Status:", response.status);
 
       const data = await response.json();
       console.log(data);
@@ -89,12 +90,15 @@ buttonRegister.addEventListener("click", async () => {
       } 
       else {
         creacion(email.value);
-        console.log("Usuario registrado con éxito");
+        localStorage.setItem("usuario", JSON.stringify(data.id, data.tipo));
+        alert("✅ Bien: " + data.message);
+        var info = JSON.parse(localStorage.getItem("usuario"));
+        console.log(info);
       }
     } 
     catch (error) {
-      console.error("Error:", error);
-      alert("Hubo un error en la solicitud");
+      console.error("❌ Eror en fetch:", error);
+      alert("❌ Error: " + (error.message || error));
     }
   }
   else{
@@ -104,6 +108,10 @@ buttonRegister.addEventListener("click", async () => {
         break;
       case "El correo no es válido":
         alert("❌ Mal: " + motivo);
+        break;
+
+      default:
+        alert("❌ Mal: Ha ocurrido un error inesperado");
         break;
     }
   }

@@ -6,5 +6,13 @@
         "email": "riffothiago19@gmail.com",
         "password": "1234",
         "tipo": 2
+    },
+    {
+        "id": 1,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.com",
+        "password": "123",
+        "tipo": 1
     }
 ]

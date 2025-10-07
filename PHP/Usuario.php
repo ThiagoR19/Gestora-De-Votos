@@ -9,7 +9,11 @@ class Usuario {
     private static $usuarios = __DIR__ . '/../JSON/Usuarios.json';
 
     public static function validacion($data){
-
+        $success = false;
+        $message = "";
+        $faltantes= null;
+        $datos = null;
+        $pasa = true;
         $campos = ['nombre', 'apellido', 'email', 'password', 'confirmPassword'];
         $camposFaltantes = [];
 
@@ -23,42 +27,32 @@ class Usuario {
 
         // Si faltan campos, enviarlos al JS
         if (!empty($camposFaltantes)) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Faltan datos obligatorios",
-                "faltantes" => $camposFaltantes
-            ]);
-            return false;
+             $success = self::mensaje(false,"Faltan datos obligatorios",null,$camposFaltantes);
             
         }
         // Validar que la contraseña y confirmación coincidan
         else if ($data['password'] !== $data['confirmPassword']) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Las contraseñas no coinciden"
-            ]);
-            
-            return false;
+             $success = self::mensaje(false,"las contraseñas no coinsiden", null,null);
         }
         else{
             $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
             foreach ($usuariosArray as $usuario) {
                 if ($usuario['email'] == $data['email']) {
-                    echo json_encode([
-                        "success" => false,
-                        "message" => "El email ya está registrado"
-                    ]);
-                    return false;
+                     $success = self::mensaje(false,"Email ya resgistrado", null,null);
+                    $pasa = false;
                 }
             }
-            // Si todo está bien, enviamos éxit
-            echo json_encode([
-                "success" => true,
-                "message" => "Usuario registrado con éxito",
-                "datos" => $data
-            ]);
-            return true;
+            if ($pasa){
+                // Si todo está bien, enviamos éxit
+            $success = self::mensaje(true,"Usuario registrado con exito", $data,null); 
+            }
+            
         }
+        return $success;
+    }
+    private static function mensaje($suceso,$mensaje,$datos,$faltantes){
+        echo json_encode("holaaaaaa");
+        return $suceso;
         
     }
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
