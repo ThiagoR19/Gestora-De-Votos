@@ -12,7 +12,6 @@ class Usuario {
         $success = false;
         $message = "";
         $faltantes= null;
-        $datos = null;
         $pasa = true;
         $campos = ['nombre', 'apellido', 'email', 'password', 'confirmPassword'];
         $camposFaltantes = [];
@@ -27,38 +26,47 @@ class Usuario {
 
         // Si faltan campos, enviarlos al JS
         if (!empty($camposFaltantes)) {
-             $success = self::mensaje(false,"Faltan datos obligatorios",null,$camposFaltantes);
+            $success = false;
+            $message = "Faltan datos obligatorios";
+            $faltantes= $camposFaltantes;
             
         }
         // Validar que la contraseña y confirmación coincidan
         else if ($data['password'] !== $data['confirmPassword']) {
-             $success = self::mensaje(false,"las contraseñas no coinsiden", null,null);
+            $success = false;
+            $message = "las contraseñas no coinsiden";
         }
         else{
             $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
             foreach ($usuariosArray as $usuario) {
                 if ($usuario['email'] == $data['email']) {
-                     $success = self::mensaje(false,"Email ya resgistrado", null,null);
+                    $success = false;
+                    $message = "Email ya resgistrado";
                     $pasa = false;
                 }
             }
             if ($pasa){
                 // Si todo está bien, enviamos éxit
-            $success = self::mensaje(true,"Usuario registrado con exito", $data,null); 
+            $success = true;
+            $message = "Usuario registrado con exito"; 
             }
             
         }
-        return $success;
+        $todo = [
+            "success" => $success,
+            "message" => $message,
+            "datos" => $data,
+            "faltantes" => $faltantes
+        ];
+        return $todo;
     }
-    private static function mensaje($suceso,$mensaje,$datos,$faltantes){
+    public function mensaje($suceso,$mensaje,$datos,$faltantes){
         echo json_encode([
             "success" => $suceso,
             "message" => $mensaje,
             "datos" => $datos,
             "faltantes" => $faltantes
         ]);
-        return $suceso;
-        
     }
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
        
@@ -99,6 +107,7 @@ class Usuario {
         file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
     }
     public static function logueo($email, $password) {
+        $valida = false;
         $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
         foreach ($usuariosArray as $usuario) {
             if ($usuario['email'] == $email && $usuario['password'] == $password) {
@@ -111,17 +120,20 @@ class Usuario {
                 ];
                 echo json_encode([
                     "success" => true,
-                    "message" => "Inicio de sesión exitoso",
+                    "message" => "Inicio de sesion exitoso",
                     "datos" => $datos
                 ]);
+                $valida = true;
                 exit;
             }
         }
-        echo json_encode([
-            "success" => false,
-            "message" => "Credenciales inválidas"
-        ]);
-        exit;
+        if (!$valida){
+            echo json_encode([
+                "success" => false,
+                "message" => "Credenciales inválidas"
+            ]);
+            exit;
+        }
     }
     // Getters
     public function getNombre() { return $this->nombre; }

@@ -14,5 +14,21 @@
         "email": "nahuel.odi.tv@gmail.com",
         "password": "123",
         "tipo": 1
+    },
+    {
+        "id": 2,
+        "nombre": "manteca",
+        "apellido": "mantecosa",
+        "email": "mantequita3@hotmail.m",
+        "password": "**AAS*",
+        "tipo": 1
+    },
+    {
+        "id": 3,
+        "nombre": "asd",
+        "apellido": "asd",
+        "email": "masd@ga.sssasd",
+        "password": ".,--.,-.,-.,-.,-.,-.,",
+        "tipo": 1
     }
 ]

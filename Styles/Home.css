@@ -161,7 +161,7 @@ h1 {
 }
 
 #Hero__article {
-  background-image: url(./Imagenes/FondoManchado.png);
+  background-image: url(../Imagenes/FondoManchado.png);
   display: flex;
   height: 90vh;
   align-items: center;

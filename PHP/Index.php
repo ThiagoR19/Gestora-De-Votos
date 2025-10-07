@@ -21,19 +21,25 @@ switch ($_SERVER['REQUEST_METHOD']) {
             exit;
         }
         else if (isset($data['accion']) && $data['accion'] == 'login') {
-            /*Usuario::logueo($data['email'], $data['password']);*/
-        }
-        else if (isset($data['accion']) && $data['accion'] == 'registrar') {
-            $notacion = Usuario::validacion($data);
-            /*if (Usuario::validacion($data)) {
-                $usuario = new Usuario($data['nombre'], $data['apellido'], $data['email'], $data['password'], 1);
-                exit;
-            }
-            else{
-                exit;
-            }*/
+            Usuario::logueo($data['email'], $data['password']);
         }
         
+        else if (isset($data['accion']) && $data['accion'] == 'registrar') {
+            $TodoSobreValorado = Usuario::validacion($data);
+            if ($TodoSobreValorado['success']) {
+                $usuario = new Usuario($data['nombre'], $data['apellido'], $data['email'], $data['password'], 1);
+                $usuario->mensaje($TodoSobreValorado['success'], $TodoSobreValorado['message'], $TodoSobreValorado['datos'], $TodoSobreValorado['faltantes']);
+                
+            }
+            else{
+                echo json_encode([
+                    "success" => $TodoSobreValorado['success'],
+                    "message" => $TodoSobreValorado['message'],
+                    "datos" => null,
+                    "faltantes" => $TodoSobreValorado['faltantes']
+                ]);
+            }
+        }
         break;
 
     default:

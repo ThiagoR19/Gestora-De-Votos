@@ -44,7 +44,7 @@ buttonInicio.addEventListener("click", async () => {
 
     // Intentar parsear el JSON
     const data = await response.json();
-
+    console.log (data)
     // Validar la respuesta del backend
     if (data.success) {
       alert("✅ Bien: " + data.message);
@@ -52,8 +52,6 @@ buttonInicio.addEventListener("click", async () => {
     } else {
         alert("❌ Mal: " + data.message);
     }
-
-
 });
 
 buttonRegister.addEventListener("click", async () => {
@@ -93,9 +91,9 @@ buttonRegister.addEventListener("click", async () => {
       } 
       else {
         creacion(email.value);
-        localStorage.setItem("usuario", JSON.stringify(data.tipo));
+        //localStorage.setItem("usuario", JSON.stringify(data.tipo));
         alert("✅ Bien: " + data.message);
-        var info = JSON.parse(localStorage.getItem("usuario"));
+        //var info = JSON.parse(localStorage.getItem("usuario"));
         console.log(info);
       }
     } 
