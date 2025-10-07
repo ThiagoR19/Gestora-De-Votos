@@ -51,7 +51,12 @@ class Usuario {
         return $success;
     }
     private static function mensaje($suceso,$mensaje,$datos,$faltantes){
-        echo json_encode("holaaaaaa");
+        echo json_encode([
+            "success" => $suceso,
+            "message" => $mensaje,
+            "datos" => $datos,
+            "faltantes" => $faltantes
+        ]);
         return $suceso;
         
     }

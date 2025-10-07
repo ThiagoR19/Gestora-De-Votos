@@ -80,17 +80,20 @@ buttonRegister.addEventListener("click", async () => {
       console.log("Status:", response.status);
 
       const data = await response.json();
+
       console.log(data);
+
       if (!data.success) {
         if (data.faltantes) {
           alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
         } else {
+          console.log("el error anda aca")
           alert(data.message);
         }
       } 
       else {
         creacion(email.value);
-        localStorage.setItem("usuario", JSON.stringify(data.id, data.tipo));
+        localStorage.setItem("usuario", JSON.stringify(data.tipo));
         alert("✅ Bien: " + data.message);
         var info = JSON.parse(localStorage.getItem("usuario"));
         console.log(info);

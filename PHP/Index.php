@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
-/*require_once 'Usuario.php';*/
+require_once 'Usuario.php';
 
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -24,7 +24,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             /*Usuario::logueo($data['email'], $data['password']);*/
         }
         else if (isset($data['accion']) && $data['accion'] == 'registrar') {
-            /*$notacion = Usuario::validacion($data);*/
+            $notacion = Usuario::validacion($data);
             /*if (Usuario::validacion($data)) {
                 $usuario = new Usuario($data['nombre'], $data['apellido'], $data['email'], $data['password'], 1);
                 exit;
