@@ -21,9 +21,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
             exit;
         }
         else if (isset($data['accion']) && $data['accion'] == 'login') {
+            
             Usuario::logueo($data['email'], $data['password']);
         }
-        
+
         else if (isset($data['accion']) && $data['accion'] == 'registrar') {
             $TodoSobreValorado = Usuario::validacion($data);
             if ($TodoSobreValorado['success']) {

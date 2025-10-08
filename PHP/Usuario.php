@@ -107,7 +107,9 @@ class Usuario {
         file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
     }
     public static function logueo($email, $password) {
-        $valida = false;
+        $suceso = false;
+        $mensaje = "";
+        $datos = null;
         $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
         foreach ($usuariosArray as $usuario) {
             if ($usuario['email'] == $email && $usuario['password'] == $password) {
@@ -118,22 +120,19 @@ class Usuario {
                     'email' => $usuario['email'],
                     'tipo' => $usuario['tipo']
                 ];
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Inicio de sesion exitoso",
-                    "datos" => $datos
-                ]);
-                $valida = true;
-                exit;
+                $suceso = true;
+                $mensaje = "Inicio de sesion exitoso";
             }
         }
-        if (!$valida){
-            echo json_encode([
-                "success" => false,
-                "message" => "Credenciales inválidas"
-            ]);
-            exit;
+        if (!$suceso){
+            $suceso = false;
+            $mensaje = "Credenciales inválidas";
         }
+        echo json_encode([
+            "success" => $suceso,
+            "message" => $mensaje,
+            "datos" => $datos
+        ]);
     }
     // Getters
     public function getNombre() { return $this->nombre; }

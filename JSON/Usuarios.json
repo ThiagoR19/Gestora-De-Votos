@@ -30,5 +30,21 @@
         "email": "masd@ga.sssasd",
         "password": ".,--.,-.,-.,-.,-.,-.,",
         "tipo": 1
+    },
+    {
+        "id": 4,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.net",
+        "password": "123",
+        "tipo": 1
+    },
+    {
+        "id": 5,
+        "nombre": "Nahuel ",
+        "apellido": "Gallo Mattera",
+        "email": "nahuel.odi.tv@gmail.porhub",
+        "password": "123",
+        "tipo": 1
     }
 ]
