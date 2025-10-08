@@ -46,5 +46,21 @@
         "email": "nahuel.odi.tv@gmail.porhub",
         "password": "123",
         "tipo": 1
+    },
+    {
+        "id": 6,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.hentai",
+        "password": "452",
+        "tipo": 1
+    },
+    {
+        "id": 7,
+        "nombre": "nahuel",
+        "apellido": "galllo",
+        "email": "nahuel.odi.tv@gmail.sex",
+        "password": "1236",
+        "tipo": 1
     }
 ]
