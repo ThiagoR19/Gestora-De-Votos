@@ -148,6 +148,7 @@ Header.classList.add('none')
 
 
 function mostrarMain(mainAMostrar, mains) {
+  window.scrollTo(0, 0);
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
   mains.forEach(element => {
     if (element.id === `${mainAMostrar}`) {
@@ -326,8 +327,6 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
   if (ordenamiento == 2) {
     proyectosOrdenados = dataProyectos.sort((a, b) => b.cantEstrellas - a.cantEstrellas);
   }
-
-  console.log(proyectosOrdenados)
 
   let cont = 0
   let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length / 3)
