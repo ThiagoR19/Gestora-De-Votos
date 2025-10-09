@@ -59,18 +59,12 @@ UserIconHome.addEventListener("click", () => {
 
 actualizarMenuIcon(mediaQuery);
 
-
-
-
-
 //General
-
 
 menu.addEventListener("click", () => {
   const esPantallaChica = mediaQuery.matches;
   menuAbiertoG = !menuAbiertoG;
   fullscreenMenuGeneral.classList.toggle("active", menuAbiertoG);
-
   if (menuAbiertoG) {
     menu.classList.remove("fa-bars");
     menu.classList.add("fa-times");

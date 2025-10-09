@@ -30,23 +30,65 @@ const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 const footerResultados = document.getElementById('footerResultados')
 const VerProyectosHome = document.getElementById('VerProyectosHome')
-const headerInicioHome = document.getElementById('headerInicioHome')
-const headerProyectosHome = document.getElementById('headerProyectosHome')
-const headerRankingHome = document.getElementById('headerRankingHome')
 
-const HomeDesp = document.getElementById('HomeDesp')
-const ListaNormalDesp = document.getElementById('ListaNormalDesp')
-const RankingDesp = document.getElementById('RankingDesp')
-const MiCuentaDesp = document.getElementById('MiCuentaDesp')
-const EstadisticasDesp = document.getElementById('EstadisticasDesp')
-const GestionarDesp = document.getElementById('GestionarDesp')
 
-const HomeDespG = document.getElementById('HomeDespG')
-const ListaNormalDespG = document.getElementById('ListaNormalDespG')
-const RankingDespG = document.getElementById('RankingDespG')
-const MiCuentaDespG = document.getElementById('MiCuentaDespG')
-const EstadisticasDespG = document.getElementById('EstadisticasDespG')
-const GestionarDespG = document.getElementById('GestionarDespG')
+const HeaderHome = document.querySelectorAll('.HeaderHome')
+const HeaderRanking = document.querySelectorAll('.HeaderRanking')
+const HeaderMiCuenta = document.querySelectorAll('.HeaderMiCuenta')
+const HeaderProyectos = document.querySelectorAll('.HeaderProyectos')
+const HeaderEstadistica = document.querySelectorAll('.HeaderEstadistica')
+const HeaderGestionar = document.querySelectorAll('.HeaderGestionar')
+const HeaderLogin = document.querySelectorAll('.HeaderLogin')
+
+HeaderHome.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('Home', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
+HeaderProyectos.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('ListaNormal', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
+HeaderRanking.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('Ranking', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
+HeaderMiCuenta.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('MiCuenta', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
+HeaderEstadistica.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('Estadisticas', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
+HeaderGestionar.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('Gestionar', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
+HeaderLogin.forEach(element => {
+  element.addEventListener('click', ()=> {
+    mostrarMain('Login', mains)
+    fullscreenMenuGeneral.classList.toggle('active')
+  })
+});
+
 
 
 //Boton de VerProyectos del Home (Hero)
@@ -63,23 +105,6 @@ aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
 VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-headerInicioHome.addEventListener('click', () => mostrarMain('Home', mains))
-headerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-headerRankingHome.addEventListener('click', () => mostrarMain('Ranking', mains))
-
-HomeDesp.addEventListener('click', () => mostrarMain('Home', mains))
-ListaNormalDesp.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-RankingDesp.addEventListener('click', () => mostrarMain('Ranking', mains))
-MiCuentaDesp.addEventListener('click', () => mostrarMain('MiCuenta', mains))
-EstadisticasDesp.addEventListener('click', () => mostrarMain('Estadisticas', mains))
-GestionarDesp.addEventListener('click', () => mostrarMain('Gestionar', mains))
-
-HomeDespG.addEventListener('click', () => mostrarMain('Home', mains))
-ListaNormalDespG.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-RankingDespG.addEventListener('click', () => mostrarMain('Ranking', mains))
-MiCuentaDespG.addEventListener('click', () => mostrarMain('MiCuenta', mains))
-EstadisticasDespG.addEventListener('click', () => mostrarMain('Estadisticas', mains))
-GestionarDespG.addEventListener('click', () => mostrarMain('Gestionar', mains))
 
 
 const UsuarioLogin = document.getElementById('UsuarioLogin')

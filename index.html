@@ -16,7 +16,7 @@
   <script defer src="./Js/LoginFacebook.js"></script>
   <script defer src="./Js/SistemaDeVerificacionDeDuplicadosDeCuenta.js"></script>
   <script defer src="./Js/Desplegable.js"></script>
-  <script defer src="./Js/Header.js"></script>
+  <!-- <script defer src="./Js/Header.js"></script> -->
   <title>Expo Tecnica</title>
 </head>
 
@@ -35,7 +35,17 @@
       <a href="#">Registrarse</a>
     </div>
     <div class="header__div">
-      <i id="menu" class="fa-solid fa-bars"></i>
+      <i id="menuNoLogin" class="fa-solid fa-bars"></i>
+      <!-- <div id="fullscreenMenuGeneral">
+        <ul>
+          <li class="HeaderHome"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
+          <li class="HeaderProyectos"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
+          <li class="HeaderRanking"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
+          <li class="HeaderMiCuenta"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
+          <li class="HeaderEstadistica"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
+          <li class="HeaderGestionar"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
+        </ul>
+      </div> -->
     </div>
   </header>
   <header id="Header">
@@ -53,12 +63,12 @@
       <i id="menu" class="fa-solid fa-bars"></i>
       <div id="fullscreenMenuGeneral">
           <ul>
-            <li id="HomeDespG"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
-            <li id="ListaNormalDespG"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
-            <li id="RankingDespG"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
-            <li id="MiCuentaDespG"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
-            <li id="EstadisticasDespG"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
-            <li id="GestionarDespG"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
+            <li class="HeaderHome"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
+            <li class="HeaderProyectos"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
+            <li class="HeaderRanking"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
+            <li class="HeaderMiCuenta"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
+            <li class="HeaderEstadistica"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
+            <li class="HeaderGestionar"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
           </ul>
         </div>
     </div>
@@ -293,11 +303,18 @@
 
     <section id="Hero">
       <article class="Hero__article">
-        <header id="HeaderHome">
+        <!-- <header id="HeaderHome">
           <a id="headerInicioHome" href="#">Inicio</a>
           <a id="headerProyectosHome" href="#">Proyectos</a>
           <a id="headerRankingHome" href="#">Ranking</a>
           <img id="UserIconHome" src="./Imagenes/UsuarioHome.png" alt="">
+        </header> -->
+        <header id="HeaderHomeS">
+          <a class="HeaderHome">Inicio</a>
+          <a class="HeaderProyectos">Proyectos</a>
+          <a class="HeaderRanking">Ranking</a>
+          <a class="HeaderLogin">Iniciar Sesion</a>
+          <a class="HeaderLogin">Registrarse</a>
         </header>
         <div class="Hero__article-div">
           <h1 class="Hero__article-div-h1">¡Bienvenidos a la Expo Técnica!</h1>
@@ -309,12 +326,12 @@
         <i id="menuIcon" class="fa-solid fa-bars"></i>
         <div id="fullscreenMenu">
           <ul>
-            <li id="HomeDesp"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
-            <li id="ListaNormalDesp"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
-            <li id="RankingDesp"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
-            <li id="MiCuentaDesp"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
-            <li id="EstadisticasDesp"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
-            <li id="GestionarDesp"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
+            <li class="HeaderHome"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
+            <li class="HeaderProyectos"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
+            <li class="HeaderRanking"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
+            <li class="HeaderMiCuenta"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
+            <li class="HeaderEstadistica"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
+            <li class="HeaderGestionar"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
           </ul>
         </div>
         <img class="CTPOBA" src="./Imagenes/CTPOBA.png" alt="">
