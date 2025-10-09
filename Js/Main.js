@@ -85,6 +85,26 @@ GestionarDespG.addEventListener('click', () => mostrarMain('Gestionar', mains))
 const UsuarioLogin = document.getElementById('UsuarioLogin')
 UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
 
+let dataProyectosGlobal = []
+
+// Agregandole funcionalidad al ranking 
+
+const btn = document.getElementById("btn-Categorias");
+const menuCategorias = document.getElementById("menuCategorias");
+
+window.addEventListener("click", (e) => {
+  if (!e.target.matches("#menuCategorias")) {
+    menuCategorias.classList.remove("show");
+  }
+});
+
+btn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  menuCategorias.classList.toggle("show");
+});
+
+
+
 // Seccion del slider del ranking
 
 const slider = document.getElementById('slider')
@@ -291,9 +311,23 @@ function mostrarListaProyectosAdmin(dataProyectos) {
   });
 }
 
-function mostrarRanking(dataProyectos) {
+function mostrarRanking(dataProyectos, ordenamiento = 0) {
 
-  let ordenadosPorVotos = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos);
+  slider.innerHTML = ''
+
+  let proyectosOrdenados;
+
+  if (ordenamiento == 0) {
+    proyectosOrdenados = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos);
+  }
+  if (ordenamiento == 1) {
+    proyectosOrdenados = dataProyectos.sort((a, b) => a.categoria.localeCompare(b.categoria));
+  }
+  if (ordenamiento == 2) {
+    proyectosOrdenados = dataProyectos.sort((a, b) => b.cantEstrellas - a.cantEstrellas);
+  }
+
+  console.log(proyectosOrdenados)
 
   let cont = 0
   let cantidadDeGruposDe3 = Math.ceil(dataProyectos.length / 3)
@@ -317,18 +351,18 @@ function mostrarRanking(dataProyectos) {
             <h2 class="rank__article-div-div-div-h2">0${cont + 1}</h2>
             <div class="rank__article-div-div-div-div"></div>
           </div>
-          <h2 class="rank__article-div-div-div-h2">${ordenadosPorVotos[cont].nombre}</h2>
+          <h2 class="rank__article-div-div-div-h2">${proyectosOrdenados[cont].nombre}</h2>
         </div>
         <div class="rank__article-div-div">
           <div id="container" class="rank__article-div-div-div">
             <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
           </div>
-          <p class="rank__article-div-div-p">${ordenadosPorVotos[cont].descripcion}</p>
+          <p class="rank__article-div-div-p">${proyectosOrdenados[cont].descripcion}</p>
         </div>
         <div class="rank__article-div-div">
           <div class="rank__article-div-div-div">
-            <button class="rank__article-div-div-div-button">Votos: ${ordenadosPorVotos[cont].cantVotos}</button>
-            <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${ordenadosPorVotos[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
+            <button class="rank__article-div-div-div-button">Votos: ${proyectosOrdenados[cont].cantVotos}</button>
+            <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${proyectosOrdenados[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
           </div>
           <div class="estrellas rank__article-div-div-div">
             <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
@@ -427,8 +461,6 @@ function verDescripcionDelProyecto(e) {
 
 // LLamada al json y ejecucion de las funciones.
 
-let dataProyectosGlobal = []
-
 async function cargarProyectos() {
   const response = await fetch("./Js/json/proyectos.json")
   const dataProyectos = await response.json()
@@ -440,5 +472,18 @@ async function cargarProyectos() {
 } cargarProyectos()
 
 
+let ordenarCat = document.getElementById('OrdenarPorCategoria')
+let ordenarVot = document.getElementById('OrdenarPorVoto')
+let ordenarEst = document.getElementById('OrdenarPorEstrella')
 
+ordenarVot.addEventListener('click', () => {
+  mostrarRanking(dataProyectosGlobal, 0)
+})
 
+ordenarCat.addEventListener('click', () => {
+  mostrarRanking(dataProyectosGlobal, 1)
+})
+
+ordenarEst.addEventListener('click', () => {
+  mostrarRanking(dataProyectosGlobal, 2)
+})

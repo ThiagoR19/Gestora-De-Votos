@@ -7,16 +7,20 @@
   box-sizing: border-box;
 }
 
-#Header a img {
+#Header a img, #HeaderNoLogin a img {
   height: 100px;
 }
 
-#Header {
+#Header,#HeaderNoLogin {
   color: white;
   background-color: #062F4F;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#HeaderNoLogin {
+  display: none;
 }
 
 .header__div {

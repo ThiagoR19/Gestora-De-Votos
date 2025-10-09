@@ -188,7 +188,12 @@
 
   <main id="Ranking">
     <article class="rank__article">
-      <button class="rank__article-button">Categorías <i class="fa-solid fa-chevron-down"></i></button>
+      <button id="btn-Categorias" class="rank__article-button">Ordenar por <i class="fa-solid fa-chevron-down"></i></button>
+      <div class="dropdown-content" id="menuCategorias">
+        <div id="OrdenarPorVoto">Votos</div>
+        <div id="OrdenarPorEstrella">Estrellas</div>
+        <div id="OrdenarPorCategoria">Categoria</div>
+      </div>
       <div id="rank__article-div"></div>
     </article>
     <article class="rank__article slider-container">
