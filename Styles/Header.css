@@ -71,6 +71,11 @@
 .header__div:last-child {
   display: none;
 }
+.ver-mas {
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}
 
 @media (max-width: 900px) {
   

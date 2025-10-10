@@ -84,8 +84,12 @@ HeaderGestionar.forEach(element => {
 
 HeaderLogin.forEach(element => {
   element.addEventListener('click', ()=> {
+    if (element.textContent === "Registrarse"){
+      container.classList.add("active");
+    }
     mostrarMain('Login', mains)
     fullscreenMenuGeneral.classList.toggle('active')
+    
   })
 });
 
@@ -197,6 +201,37 @@ function mostrarMain(mainAMostrar, mains) {
 }
 
 // Funciones que muestran dinamicamente del JSON
+function aplicarVerMasAuto() {
+  console.log ("aplicarVerMasAuto");
+  document.querySelectorAll("[data-max]").forEach(el => {
+    const max = parseInt(el.dataset.max);
+    const clickCode = el.dataset.onclick || el.dataset.click;
+    if (clickCode) {
+       aplicarVerMas(el, max, (elemento, texto) => {
+       eval(clickCode); // ⚠️ cuidado, eval ejecuta código directamente
+        });
+      }
+  });
+}
+function aplicarVerMas(elemento, maxLongitud, callback) {
+  console.log ("aplicarVerMas");
+  if (!elemento) return;
+
+  const texto = elemento.textContent.trim();
+
+  if (texto.length > maxLongitud) {
+    const textoCorto = texto.slice(0, maxLongitud) + "... ";
+    const verMas = document.createElement("span");
+    verMas.textContent = "Ver más";
+    verMas.classList.add("ver-mas");
+
+    verMas.addEventListener("click", () => callback());
+
+    elemento.textContent = textoCorto;
+    elemento.appendChild(verMas);
+    console.log ("aplicarVerMas - hecho");
+  }
+}
 
 function mostrarTopDelMain(dataProyectos) {
   let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0, 3);
@@ -212,7 +247,7 @@ function mostrarTopDelMain(dataProyectos) {
         </div>
         <div class="tops__article-divcard">
           <div>
-            <p class="tops__article-divcard-div-text">
+            <p class="tops__article-divcard-div-text" data-max="200" data-onclick="mostrarMain('DetalleProyecto', mains);verDescripcionDelProyecto(${Top3[0].id})">
               ${Top3[0].descripcion}
             </p>
           </div>
@@ -270,6 +305,7 @@ function mostrarTopDelMain(dataProyectos) {
           <button class="btn-overlay" onClick="mostrarMain('ListaNormal', mains)">Ver más</button>
         </div>
       </article>`
+  aplicarVerMasAuto();
 }
 
 function mostrarListaProyectos(dataProyectos) {
@@ -301,6 +337,7 @@ function mostrarListaProyectos(dataProyectos) {
       </div>
     </article>`)
   });
+  aplicarVerMasAuto();
 }
 
 function mostrarListaProyectosAdmin(dataProyectos) {
@@ -381,7 +418,7 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
           <div id="container" class="rank__article-div-div-div">
             <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
           </div>
-          <p class="rank__article-div-div-p">${proyectosOrdenados[cont].descripcion}</p>
+          <p class="rank__article-div-div-p" data-max="100" data-onclick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${proyectosOrdenados[cont].id})">${proyectosOrdenados[cont].descripcion}</p>
         </div>
         <div class="rank__article-div-div">
           <div class="rank__article-div-div-div">
