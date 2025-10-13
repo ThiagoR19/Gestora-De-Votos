@@ -32,7 +32,7 @@ const buttonListaHome = document.getElementById('buttonListaHome')
 
 // Agregandole funcionalidad a cada boton del header
 
-aRanking.addEventListener('click', () => mostrarMain('Estadisticas', mains))
+aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
 aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
 aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 aHome.addEventListener('click', () => mostrarMain('Home', mains))
