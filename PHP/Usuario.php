@@ -9,7 +9,10 @@ class Usuario {
     private static $usuarios = __DIR__ . '/../JSON/Usuarios.json';
 
     public static function validacion($data){
-
+        $success = false;
+        $message = "";
+        $faltantes= null;
+        $pasa = true;
         $campos = ['nombre', 'apellido', 'email', 'password', 'confirmPassword'];
         $camposFaltantes = [];
 
@@ -23,43 +26,47 @@ class Usuario {
 
         // Si faltan campos, enviarlos al JS
         if (!empty($camposFaltantes)) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Faltan datos obligatorios",
-                "faltantes" => $camposFaltantes
-            ]);
-            return false;
+            $success = false;
+            $message = "Faltan datos obligatorios";
+            $faltantes= $camposFaltantes;
             
         }
         // Validar que la contraseña y confirmación coincidan
         else if ($data['password'] !== $data['confirmPassword']) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Las contraseñas no coinciden"
-            ]);
-            
-            return false;
+            $success = false;
+            $message = "las contraseñas no coinsiden";
         }
         else{
             $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
             foreach ($usuariosArray as $usuario) {
                 if ($usuario['email'] == $data['email']) {
-                    echo json_encode([
-                        "success" => false,
-                        "message" => "El email ya está registrado"
-                    ]);
-                    return false;
+                    $success = false;
+                    $message = "Email ya resgistrado";
+                    $pasa = false;
                 }
             }
-            // Si todo está bien, enviamos éxit
-            echo json_encode([
-                "success" => true,
-                "message" => "Usuario registrado con éxito",
-                "datos" => $data
-            ]);
-            return true;
+            if ($pasa){
+                // Si todo está bien, enviamos éxit
+            $success = true;
+            $message = "Usuario registrado con exito"; 
+            }
+            
         }
-        
+        $todo = [
+            "success" => $success,
+            "message" => $message,
+            "datos" => $data,
+            "faltantes" => $faltantes
+        ];
+        return $todo;
+    }
+    public function mensaje($suceso,$mensaje,$datos,$faltantes){
+        echo json_encode([
+            "success" => $suceso,
+            "message" => $mensaje,
+            "datos" => $datos,
+            "faltantes" => $faltantes
+        ]);
     }
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
        
@@ -100,6 +107,9 @@ class Usuario {
         file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
     }
     public static function logueo($email, $password) {
+        $suceso = false;
+        $mensaje = "";
+        $datos = null;
         $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
         foreach ($usuariosArray as $usuario) {
             if ($usuario['email'] == $email && $usuario['password'] == $password) {
@@ -110,19 +120,19 @@ class Usuario {
                     'email' => $usuario['email'],
                     'tipo' => $usuario['tipo']
                 ];
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Inicio de sesión exitoso",
-                    "datos" => $datos
-                ]);
-                exit;
+                $suceso = true;
+                $mensaje = "Inicio de sesion exitoso";
             }
         }
+        if (!$suceso){
+            $suceso = false;
+            $mensaje = "Credenciales inválidas";
+        }
         echo json_encode([
-            "success" => false,
-            "message" => "Credenciales inválidas"
+            "success" => $suceso,
+            "message" => $mensaje,
+            "datos" => $datos
         ]);
-        exit;
     }
     // Getters
     public function getNombre() { return $this->nombre; }

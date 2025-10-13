@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./Styles/Footer.css">
   <link rel="stylesheet" href="./Styles/Header.css">
   <link id="styles" rel="stylesheet" href="./Styles/Home.css">
@@ -15,13 +14,14 @@
   <script defer src="./Js/Login.js"></script>
   <script defer src="./Js/Main.js"></script>
   <script defer src="./Js/LoginFacebook.js"></script>
-  <script defer src="./Js/SistemaDeVerificacionDeDuplicadosDeCuenta.js"></script>
+  <script defer src="./Js/Desplegable.js"></script>
+  <!-- <script defer src="./Js/Header.js"></script> -->
   <title>Expo Tecnica</title>
 </head>
 
 <body>
 
-  <!-- <header>
+  <header id="HeaderNoLogin">
     <div class="header__div">
       <a href="#"><img src="./Imagenes/logo.png" alt="Imagen del Colegio Técnico Provincial Olga B. De Arko"></a>
       <p>Colegio Técnico Provincial Olga B. De Arko</p>
@@ -34,9 +34,19 @@
       <a href="#">Registrarse</a>
     </div>
     <div class="header__div">
-      <i id="menu" class="fa-solid fa-bars"></i>
+      <i id="menuNoLogin" class="fa-solid fa-bars"></i>
+      <!-- <div id="fullscreenMenuGeneral">
+        <ul>
+          <li class="HeaderHome"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
+          <li class="HeaderProyectos"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
+          <li class="HeaderRanking"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
+          <li class="HeaderMiCuenta"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
+          <li class="HeaderEstadistica"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
+          <li class="HeaderGestionar"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
+        </ul>
+      </div> -->
     </div>
-  </header> -->
+  </header>
   <header id="Header">
     <div class="header__div">
       <a href="#"><img src="./Imagenes/logo.png" alt="Imagen del Colegio Técnico Provincial Olga B. De Arko"></a>
@@ -50,18 +60,18 @@
     </div>
     <div class="header__div">
       <i id="menu" class="fa-solid fa-bars"></i>
+      <div id="fullscreenMenuGeneral">
+          <ul>
+            <li class="HeaderHome"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
+            <li class="HeaderProyectos"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
+            <li class="HeaderRanking"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
+            <li class="HeaderMiCuenta"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
+            <li class="HeaderEstadistica"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
+            <li class="HeaderGestionar"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
+          </ul>
+        </div>
     </div>
   </header>
-
-  <!-- <div class="mobile-menu">
-    <button class="close-menu"> &times;</button>
-    <div class="header__div">
-      <a id="aHome" href="#">Inicio</a>
-      <a id="aListaNormal" href="#">Proyectos</a>
-      <a id="aRanking" href="#">Ranking</a>
-      <img src="./Imagenes/User.png" alt="Imagen de usuario con la sesion iniciada.">
-    </div>
-  </div> -->
 
   <main id="Login" class="main body">
     <div class="container" id="container">
@@ -100,7 +110,7 @@
             <i class="fa-solid fa-unlock"></i>
             <input type="text" placeholder="Confirmar contraseña..." id="confirmPassword">
           </div>
-          <button id="buttonRegister">Registrarse</button>
+          <button id="buttonRegister" type="button">Registrarse</button>
           <div id="o">
             <span>————————————————————</span>
             <span>o</span>
@@ -150,8 +160,7 @@
         <div class="toggle">
           <div class="toggle-panel toggle-left">
             <div>
-              <a href="">Volver sitio web</a>
-              <i class="fa-solid fa-door-open"></i>
+              <a href="">Volver sitio web <i class="fa-solid fa-door-open"></i></a>
             </div>
             <div>
               <img src="./Imagenes/logo.png" alt="">
@@ -187,7 +196,12 @@
 
   <main id="Ranking">
     <article class="rank__article">
-      <button class="rank__article-button">Categorías <i class="fa-solid fa-chevron-down"></i></button>
+      <button id="btn-Categorias" class="rank__article-button">Ordenar por <i class="fa-solid fa-chevron-down"></i></button>
+      <div class="dropdown-content" id="menuCategorias">
+        <div id="OrdenarPorVoto">Votos</div>
+        <div id="OrdenarPorEstrella">Estrellas</div>
+        <div id="OrdenarPorCategoria">Categoria</div>
+      </div>
       <div id="rank__article-div"></div>
     </article>
     <article class="rank__article slider-container">
@@ -209,59 +223,6 @@
   </main>
 
   <main id="DetalleProyecto">
-    <article class="proyecto-esp__article">
-      <div class="proyecto-esp__article-div">
-        <img id="Proyectos__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
-        <div id="Proyectos__article-div-imgs">
-          <img src="./Imagenes/FotoEjemplo.png" alt="">
-          <img src="./Imagenes/FotoEjemplo.png" alt="">
-          <img src="./Imagenes/FotoEjemplo.png" alt="">
-        </div>
-      </div>
-      <div class="proyecto-esp__article-div">
-        <div class="proyecto-esp__article-div-div">
-          <h1 class="proyecto-esp__article-div-div-h1">Titulo</h1>
-          <p class="proyecto-esp__article-div-div-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit.
-          </p>
-          <button class="proyecto-esp__article-div-div-button">VOTAR</button>
-        </div>
-        <div class="proyecto-esp__article-div-div">
-          <div class="proyecto-esp__article-div-div-div">
-            <div class="proyecto-esp__article-div-div-div-div">
-              <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoria</h2>
-              <p class="proyecto-esp__article-div-div-div-div-p">Robótica</p>
-            </div>
-            <div class="proyecto-esp__article-div-div-div-div">
-              <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
-              <p class="proyecto-esp__article-div-div-div-div-p">2to 1ra</p>
-            </div>
-          </div>
-          <div class="proyecto-esp__article-div-div-div">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-          </div>
-        </div>
-      </div>
-    </article>
-    <aside>
-      <div class="aside__div">
-        <h2 class="aside__div-h2">Estudiantes</h2>
-        <p class="aside__div-p">Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1
-          - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 -
-          Estudiante 1 - Estudiante 1</p>
-      </div>
-      <div class="aside__div">
-        <h2 class="aside__div-h2">Profesores</h2>
-        <p class="aside__div-p">Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1 - Estudiante 1</p>
-      </div>
-    </aside>
   </main>
 
   <main id="ListaNormal">
@@ -338,22 +299,48 @@
 
   <main id="Home">
 
-    <section id="section">
-      <img class="Home__img" src="./Imagenes/FotoEjemplo.png" alt="">
-      <article id="section__article">
-        <div class="section__article-img"></div>
-        <div class="section__article-div">
-          <div class="section__article-div-div">
-            <h1 class="section__article-div-div-h1">¡Bienvenidos a la Expo Técnica!</h1>
-            <p class="section__article-div-div-p">Te invitamos a ser parte de este espacio donde la creatividad, la
-              innovación y el talento de nuestros estudiantes se hacen protagonistas. Aquí podrás recorrer los proyectos
-              de cada especialidad, apoyar con tu voto a tus favoritos y descubrir cómo la educación técnica transforma
-              ideas en grandes logros.</p>
-            <button class="section__article-div-div-button" id="buttonListaHome">Ver Proyectos</button>
-          </div>
+    <section id="Hero">
+      <article class="Hero__article">
+        <!-- <header id="HeaderHome">
+          <a id="headerInicioHome" href="#">Inicio</a>
+          <a id="headerProyectosHome" href="#">Proyectos</a>
+          <a id="headerRankingHome" href="#">Ranking</a>
+          <img id="UserIconHome" src="./Imagenes/UsuarioHome.png" alt="">
+        </header> -->
+        <header id="HeaderHomeS">
+          <a class="HeaderHome">Inicio</a>
+          <a class="HeaderProyectos">Proyectos</a>
+          <a class="HeaderRanking">Ranking</a>
+          <a class="HeaderLogin">Iniciar Sesion</a>
+          <a class="HeaderLogin">Registrarse</a>
+        </header>
+        <div class="Hero__article-div">
+          <h1 class="Hero__article-div-h1">¡Bienvenidos a la Expo Técnica!</h1>
+          <p class="Hero__article-div-p">Te invitamos a ser parte de este espacio donde la creatividad, la innovación y el talento de nuestros estudiantes se hacen protagonistas. Aquí podrás recorrer los proyectos de cada especialidad, apoyar con tu voto a tus favoritos y descubrir cómo la educación técnica transforma ideas en grandes logros.</p>
+          <button id="VerProyectosHome" class="Hero__article-div-button">Ver Proyectos</button>
         </div>
       </article>
-      <div class="section__div"></div>
+      <article class="Hero__article" id="Hero__article">
+        <i id="menuIcon" class="fa-solid fa-bars"></i>
+        <div id="fullscreenMenu">
+          <ul>
+            <li class="HeaderHome"><i class="fa-solid fa-house iDesplegable"></i><a href="#">Inicio</a></li>
+            <li class="HeaderProyectos"><i class="fa-solid fa-gear iDesplegable"></i><a href="#">Proyectos</a></li>
+            <li class="HeaderRanking"><i class="fa-solid fa-medal iDesplegable"></i><a href="#">Ranking</a></li>
+            <li class="HeaderMiCuenta"><i class="fa-solid fa-user iDesplegable"></i><a href="#">Mi Cuenta</a></li>
+            <li class="HeaderEstadistica"><i class="fa-solid fa-signal iDesplegable"></i><a href="#">Estadisticas</a></li>
+            <li class="HeaderGestionar"><i class="fa-solid fa-users-gear iDesplegable"></i><a href="#">Gestionar Cuentas</a></li>
+          </ul>
+        </div>
+        <img class="CTPOBA" src="./Imagenes/CTPOBA.png" alt="">
+        <img class="LogoColegio" src="./Imagenes/Logo-colegio0.png" alt="">
+      </article>
+      <img class="CTPI luz" src="./Imagenes/LuzHome.png" alt="">
+      <img class="CTPI grua" src="./Imagenes/GruaHome.png" alt="">
+      <img class="CTPI compu" src="./Imagenes/CompuHome.png" alt="">
+      <img class="CTPI tuerca" src="./Imagenes/TuercaHome.png" alt="">
+      <img class="CTPI grafico" src="./Imagenes/GraficoHome.png" alt="">
+      <div class="black_div"></div>
     </section>
 
     <section id="tops">
@@ -474,6 +461,196 @@
       </article>
     </section>
   </main>
+  
+  <main id="MiCuenta">
+
+    <section>
+      <h1 class="section__h1">Mi cuenta</h1>
+      <article class="article">
+        <div class="article__div">
+          <h3 class="article__div-h3">Foto de perfil</h3>
+          <img class="article__div-img" src="./Imagenes/Usuario.png" alt="">
+          <button class="article__div-button">Cambiar Foto</button>
+        </div>
+        <div class="article__div">
+          <div class="article__div-div">
+            <div class="article__div-div-div" class="input-container input-container1">
+              <i class="article__div-div-div-i fa-solid fa-user"></i>
+              <input class="article__div-div-div-input" type="text" placeholder="Ingresar nombre...">
+            </div>
+            <div class="article__div-div-div">
+              <i class="article__div-div-div-i fa-solid fa-users"></i>
+              <input class="article__div-div-div-input" type="text" placeholder="Ingresar apellido...">
+            </div>
+          </div>
+          <div class="article__div-div">
+            <i class="article__div-div-i fa-solid fa-lock"></i>
+            <input class="article__div-div-input" type="text" placeholder="Ingresar contraseña...">
+          </div>
+          <div class="article__div-div">
+            <i class="article__div-div-i fa-solid fa-unlock"></i>
+            <input class="article__div-div-input" type="text" placeholder="Confirmar contraseña...">
+          </div>
+          <div class="article__div-div">
+            <button class="article__div-div-button">Borrar cuenta</button>
+            <button class="article__div-div-button">Guardar datos</button>
+          </div>
+          <div class="article__div-div">
+            <button class="article__div-button2">Cerrar sesion</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <main id="Gestionar" class="main">
+    <h1 class="main__title">Coordinadores</h1>
+
+    <form class="form">
+      <div class="form__group">
+        <input type="email" class="form__input" placeholder="Ingresar Gmail..." required>
+        <button type="submit" class="form__button">+ Agregar coordinador</button>
+      </div>
+    </form>
+
+    <section class="coordinadores">
+      <div class="coordinador">
+        <div class="coordinador__info">
+          <div class="coordinador__avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="coordinador__detalle">
+            <div class="coordinador__datos">
+              <span class="coordinador__nombre">Nombre Apellido</span>
+              <span class="coordinador__email">usuario@gmail.com</span>
+            </div>
+            <span class="coordinador__especialidad">Especialidad</span>
+          </div>
+        </div>
+        <div class="coordinador__acciones">
+          <button class="btn btn--delete"><i class="fa-regular fa-trash-can"></i></button>
+          <button class="btn btn--edit"><i class="fa-solid fa-pen"></i></button>
+        </div>
+      </div>
+
+      <div class="coordinador">
+        <div class="coordinador__info">
+          <div class="coordinador__avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="coordinador__detalle">
+            <div class="coordinador__datos">
+              <span class="coordinador__nombre">Nombre Apellido</span>
+              <span class="coordinador__email">usuario@gmail.com</span>
+            </div>
+            <span class="coordinador__especialidad">Especialidad</span>
+          </div>
+        </div>
+        <div class="coordinador__acciones">
+          <button class="btn btn--delete"><i class="fa-regular fa-trash-can"></i></button>
+          <button class="btn btn--edit"><i class="fa-solid fa-pen"></i></button>
+        </div>
+      </div>
+
+      <div class="coordinador">
+        <div class="coordinador__info">
+          <div class="coordinador__avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="coordinador__detalle">
+            <div class="coordinador__datos">
+              <span class="coordinador__nombre">Nombre Apellido</span>
+              <span class="coordinador__email">usuario@gmail.com</span>
+            </div>
+            <span class="coordinador__especialidad">Especialidad</span>
+          </div>
+        </div>
+        <div class="coordinador__acciones">
+          <button class="btn btn--delete"><i class="fa-regular fa-trash-can"></i></button>
+          <button class="btn btn--edit"><i class="fa-solid fa-pen"></i></button>
+        </div>
+      </div>
+
+      <div class="coordinador">
+        <div class="coordinador__info">
+          <div class="coordinador__avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="coordinador__detalle">
+            <div class="coordinador__datos">
+              <span class="coordinador__nombre">Nombre Apellido</span>
+              <span class="coordinador__email">usuario@gmail.com</span>
+            </div>
+            <span class="coordinador__especialidad">Especialidad</span>
+          </div>
+        </div>
+        <div class="coordinador__acciones">
+          <button class="btn btn--delete"><i class="fa-regular fa-trash-can"></i></button>
+          <button class="btn btn--edit"><i class="fa-solid fa-pen"></i></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <main id="Resultados">
+    <section id="Resultados">
+      <article class="section__article">
+        <div class="section__article-div">
+            <h3 class="section__article-div-h3">Resultados</h3>
+        </div>
+        <div class="section__article-div-container">
+          <div class="section__article-div">
+            <div class="section__article-div-div">
+              <p class="section__article-div-div-p">
+                <span class="section__article-div-div-p-span">2023</span>
+                <span class="section__article-div-div-p-span-linea"></span>
+                <span class="section__article-div-div-p-span">Sin registrar</span>
+              </p>
+              <img src="./Imagenes/Foto1.png" alt="Brazo robótico" class="section__article-div-div-img">
+              <p class="section__article-div-div-p">Votos: Sin registrar</p>
+            </div>
+          </div>
+          <div class="section__article-div">
+              <div class="section__article-div-div">
+                  <p class="section__article-div-div-p">
+                    <span class="section__article-div-div-p-span">2024</span>
+                    <span class="section__article-div-div-p-span-linea"></span>
+                    <span class="section__article-div-div-p-span">Sin registrar</span>
+                  </p>
+                  <img src="./Imagenes/Foto1.png" alt="Brazo robótico" class="section__article-div-div-img">
+                  <p class="section__article-div-div-p">Votos: Sin registrar</p>
+              </div>
+          </div>
+          <div class="section__article-div">
+            <div class="section__article-div-div">
+              <p class="section__article-div-div-p">
+                <span class="section__article-div-div-p-span">2025</span>
+                <span class="section__article-div-div-p-span-linea"></span>
+                <span class="section__article-div-div-p-span">Brazo robotico</span>
+              </p>
+              <img src="./Imagenes/Foto1.png" alt="Brazo robótico" class="section__article-div-div-img">
+              <p class="section__article-div-div-p">Votos: 400</p>
+            </div>
+          </div>
+          <div class="section__article-div">
+            <div class="section__article-div-div">
+              <p class="section__article-div-div-p">
+                <span class="section__article-div-div-p-span">2026</span>
+                <span class="section__article-div-div-p-span-linea"></span>
+                <span class="section__article-div-div-p-span">Proximamente</span>
+              </p>
+              <img src="./Imagenes/Foto1.png" alt="Brazo robótico" class="section__article-div-div-img">
+              <p class="section__article-div-div-p">Votos: Proximamente</p>
+            </div>
+          </div>
+          <div class="section__article-div">
+            <div class="section__article-div-div">
+              <p class="section__article-div-div-p">
+                <span class="section__article-div-div-p-span">2027</span>
+                <span class="section__article-div-div-p-span-linea"></span>
+                <span class="section__article-div-div-p-span">Proximamente</span>
+              </p>
+              <img src="./Imagenes/Foto1.png" alt="Brazo robótico" class="section__article-div-div-img">
+              <p class="section__article-div-div-p">Proximamente</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <footer id="Footer">
     <img class="footer__img" src="./Imagenes/logo.png" alt="">
@@ -486,11 +663,11 @@
         <h3 class="footer__div-div-h3">Expo Técnica 2025</h3>
         <div id="footer__div-div-div">
           <div class="footer__div-div-div-div">
-            <a id="aHomeFooter" href="#">Inicio | </a>
+            <a id="aHomeFooter" href="./Terminos/Terminos.html">Terminos de Uso | </a>
             <a id="aListaNormalFooter" href="#">Ver Proyectos</a>
           </div>
           <div class="footer__div-div-div-div">
-            <a href="#">Resultados | </a>
+            <a id="footerResultados" href="#">Resultados | </a>
             <a id="aReporte" href="#">Ayuda</a>
           </div>
         </div>

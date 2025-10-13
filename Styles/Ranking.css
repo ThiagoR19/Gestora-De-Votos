@@ -63,6 +63,8 @@
   border-radius: 8px;
   cursor: pointer;
   margin-top: 160px;
+  display: flex;
+  align-items: center;
 }
 
 .rank__article-div {
@@ -189,6 +191,11 @@
   transition: transform .3s;
 }
 
+.fa-chevron-down {
+  margin-top: 3px;
+  margin-left: 5px;
+}
+
 @keyframes fromLeft {
   from { transform: translateX(-100px); opacity: 0; }
   to   { transform: translateX(0); opacity: 1; }
@@ -204,7 +211,12 @@
   to   { transform: translateY(0); opacity: 1; }
 }
 
-@media (max-width: 900px) {
+@keyframes fromTop {
+  from { transform: translateY(0px); opacity: 0; }
+  to   { transform: translateY(50px); opacity: 1; }
+}
+
+@media (max-width:900px) {
   #rank__article-div,#rank__article-div2 {
     display: none;
   }
@@ -215,6 +227,7 @@
 
   .rank__article:first-child {
     height: 10vh;
+    width: auto;
   }
 
   .rank__article:last-child {
@@ -232,10 +245,29 @@
     margin: 5px 0;
   }
 
+  .rank__article-div-div-div:first-child {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
   #votosYVer {
     flex-direction: column;
     justify-content: center;
   }
+
+  .grupoDeProyectos {
+    padding: 10px !important;
+  }
+
+  .rank__article-div-div-div-h2:last-child {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+
+  .rank__article-button {
+    margin-top: 50px;
+  }
+
 }
 
 .none {
@@ -257,6 +289,7 @@
 .tarjeta {
   flex-shrink: 0;
   align-self: center;
+  width: 100%;
 }
 
 .grupoDeProyectos {
@@ -266,3 +299,32 @@
   padding: 40px 0 0 80px;
   margin: 20px 0;
 }
+
+.dropdown-content {
+  top: 67%;
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dropdown-content div {
+  color: #062F4F;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content div:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
+}
+
+

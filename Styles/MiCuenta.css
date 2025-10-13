@@ -1,0 +1,221 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#MiCuenta {
+  background-image: url(../Imagenes/FondoManchado.png);
+  display: flex;
+  padding: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 50px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 0 10px rgb(212, 212, 212);
+  border-radius: 8px;
+}
+
+article {
+  display: flex;
+  height: 90%;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%; 
+}
+
+h1 {
+  align-self: flex-start;
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.article__div-img {
+  margin: 20px 0;
+  width: 80%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.article__div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+
+
+.article__div-div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article__div-div {
+  display: flex;
+  margin: 10px 20px;
+  align-items: center;
+  width: 80%;
+}
+
+.article__div-div-div-input {
+  font-size: 25px;
+  width: 100%;
+  padding: 15px 20px 15px 35px;
+  border-radius: 8px;
+  border: 2px solid rgb(136, 136, 136);
+  box-shadow: 0 0 10px rgb(214, 214, 214);
+}
+
+.article__div-div-div {
+  align-items: center;
+  display: flex;
+  width: 50%;
+}
+
+.article__div-div-div:first-child {
+  padding: 0 5px 0 0;
+}
+
+.article__div-div-div:last-child {
+  padding: 0 0 0 5px;
+}
+.article__div-div-div-i {
+  position: absolute;
+  margin-left: 12px;
+}
+
+.article__div-div-i {
+  position: absolute;
+  margin-left: 12px;
+}
+
+.article__div-div-input {
+  font-size: 25px;
+  width: 100%;
+  padding: 15px 20px 15px 40px;
+  border-radius: 8px;
+  border: 2px solid rgb(136, 136, 136);
+  box-shadow: 0 0 10px rgb(214, 214, 214);
+}
+
+.article__div-div-button {
+  width: 50%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 25px;
+}
+
+
+
+.article__div-div-button:first-child {
+  border: 2px solid red;
+  background-color: transparent;
+  color: red;
+  
+  margin: 0 5px 0 0;
+}
+
+.article__div-div-button:last-child {
+  border: 2px solid rgb(47, 47, 47);
+  background-color: rgb(47, 47, 47);
+  color: rgb(255, 255, 255);
+  font-size: 25px;
+  margin: 0 0 0 5px;
+}
+
+.article__div-button {
+  padding: 15px 20px;
+  font-size: 25px;
+  border: none;
+}
+
+.article__div-button2 {
+  width: 100%;
+  background-color: #062F4F;
+  color: white;
+  border: 2px solid #062F4F;
+  font-size: 25px;
+  padding: 13px;
+  border-radius: 8px;
+}
+
+@media (max-width:1400px) {
+  .article__div-button,
+  .article__div-button2,
+  .article__div-div-button:last-child,
+  .article__div-div-button,
+  .article__div-div-input,
+  .article__div-div-div-input {
+    font-size: 20px;
+  }
+}
+
+@media (max-width:900px) {
+  #MiCuenta {
+    height: auto;
+    padding: 15px;
+  }
+
+  .article__div-img {
+    width: 50%;
+  }
+
+  article {
+    flex-direction: column;
+  }
+
+  section {
+    padding: 15px 10px;
+  }
+
+  .article__div:first-child {
+    margin: 20px 0;
+  }
+  
+  .article__div-button,
+  .article__div-button2,
+  .article__div-div-button:last-child,
+  .article__div-div-button,
+  .article__div-div-input,
+  .article__div-div-div-input {
+    font-size: 15px;
+  }
+
+  h1 {
+    margin: 0 20px;
+  }
+  
+  .article__div-div {
+    margin: 5px;
+    width: 90%;
+  }
+
+  .article__div-div:first-child {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .article__div-div-div {
+    width: 90%;
+    padding: 0 !important;
+    margin: 5px;
+  }
+}

@@ -1,7 +1,7 @@
 var pasaEmail = false
 var motivo = ""
 
-const localizacion = "PHP/Index.php"
+const localizacion = "/PP-votos/PHP/Index.php"
 const usuario = ["usuario", "coordinador","admin"];
 
 const container = document.getElementById("container");
@@ -23,9 +23,10 @@ email.addEventListener("input", verificarCorreo);
 emailRe.addEventListener("input", verificarCorreo);
 
 
-buttonInicio.addEventListener("click", async () => {
-  // try {
-    const response = await fetch(`${localizacion}`, {
+buttonInicio.addEventListener("click", async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch(localizacion, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -36,24 +37,25 @@ buttonInicio.addEventListener("click", async () => {
             password: passwordlog.value
         })
     });
+    
+    console.log("Status:", response.status);
 
-    // Verificar si la respuesta HTTP es correcta
-    if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
-    }
-
-    // Intentar parsear el JSON
     const data = await response.json();
 
+    // Intentar parsear el JSON
+    console.log (data)
     // Validar la respuesta del backend
     if (data.success) {
       alert("✅ Bien: " + data.message);
-      mostrarHeaderPorUsuario(data.datos.tipo)
+      Yalogueado (data.datos.id, data.datos.tipo);
     } else {
         alert("❌ Mal: " + data.message);
     }
-
-
+  }
+  catch (error) {
+      console.error("❌ Eror en fetch:", error);
+      alert("❌ Error: " + (error.message || error));
+    }
 });
 
 buttonRegister.addEventListener("click", async () => {
@@ -63,7 +65,7 @@ buttonRegister.addEventListener("click", async () => {
   if (pasaEmail==true) {
     console.log ("el correo ha sido verificado")
     try {
-      const response = await fetch(`${localizacion}`, {
+      const response = await fetch(localizacion, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -77,24 +79,29 @@ buttonRegister.addEventListener("click", async () => {
           confirmPassword: confirmPassword.value
         })
       });
+      console.log("Status:", response.status);
 
       const data = await response.json();
+
       console.log(data);
+
       if (!data.success) {
         if (data.faltantes) {
           alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
         } else {
+          console.log("el error anda aca")
           alert(data.message);
         }
       } 
       else {
         creacion(email.value);
-        console.log("Usuario registrado con éxito");
+        Yalogueado (data.datos.id, data.datos.tipo);
+        alert("✅ Bien: " + data.message);
       }
     } 
     catch (error) {
-      console.error("Error:", error);
-      alert("Hubo un error en la solicitud");
+      console.error("❌ Eror en fetch:", error);
+      alert("❌ Error: " + (error.message || error));
     }
   }
   else{
@@ -104,6 +111,10 @@ buttonRegister.addEventListener("click", async () => {
         break;
       case "El correo no es válido":
         alert("❌ Mal: " + motivo);
+        break;
+
+      default:
+        alert("❌ Mal: Ha ocurrido un error inesperado");
         break;
     }
   }
@@ -159,20 +170,6 @@ function creacion(email){
     }
 }
 
-
-function mostrarHeaderPorUsuario(tipo) {
-  if (tipo == 1){
-    console.log ("hola soy usuario")
-  }
-  else if (tipo == 2){
-    console.log ("hola soy coordinador")
-  }
-  else if (tipo == 3){
-    console.log ("hola soy admin")
-  }
-}
-
-
 function verificarCorreo() {
   
   let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -195,4 +192,12 @@ function verificarCorreo() {
     email.classList.remove("invalid");
     pasaEmail = true
   }
+}
+function Yalogueado(id, tipo){
+  info = {
+    id: id,
+    tipo: tipo
+  }
+  localStorage.setItem("usuario", JSON.stringify(info));
+  window.location.href = "index.html";
 }
