@@ -135,6 +135,9 @@
 .proyecto-esp__article-div-div-div:last-child {
   display: flex;
 }
+.img_blanco_negro {
+  filter: grayscale(100%);
+}
 
 .proyecto-esp__article-div-div-div-div {
   display: flex;

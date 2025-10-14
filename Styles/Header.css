@@ -186,3 +186,6 @@
     margin: 0;
   }
 }
+.img_blanco_negro {
+  filter: grayscale(100%);
+}

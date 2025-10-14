@@ -1,3 +1,4 @@
+
 // LLamando a todos los mains
 
 const mainHome = document.getElementById('Home')
@@ -200,9 +201,8 @@ function mostrarMain(mainAMostrar, mains) {
   })
 }
 
-// Funciones que muestran dinamicamente del JSON
+// herramienta de textos 
 function aplicarVerMasAuto() {
-  console.log ("aplicarVerMasAuto");
   document.querySelectorAll("[data-max]").forEach(el => {
     const max = parseInt(el.dataset.max);
     const clickCode = el.dataset.onclick || el.dataset.click;
@@ -214,7 +214,6 @@ function aplicarVerMasAuto() {
   });
 }
 function aplicarVerMas(elemento, maxLongitud, callback) {
-  console.log ("aplicarVerMas");
   if (!elemento) return;
 
   const texto = elemento.textContent.trim();
@@ -229,9 +228,10 @@ function aplicarVerMas(elemento, maxLongitud, callback) {
 
     elemento.textContent = textoCorto;
     elemento.appendChild(verMas);
-    console.log ("aplicarVerMas - hecho");
   }
 }
+
+// Funciones que muestran dinamicamente del JSON
 
 function mostrarTopDelMain(dataProyectos) {
   let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0, 3);
@@ -452,7 +452,7 @@ function verDescripcionDelProyecto(e) {
       proyecto = element
     }
   });
-
+  let estrellas = EstablecerEstrellas(proyecto.cantEstrellas,proyecto.cantCalificacionesEstrellas)
   let article = document.createElement('ARTICLE')
   let aside = document.createElement('ASIDE')
 
@@ -486,16 +486,16 @@ function verDescripcionDelProyecto(e) {
             </div>
           </div>
           <div class="proyecto-esp__article-div-div-div">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[0]}" id="estrella1">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[1]}" id="estrella2">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[2]}" id="estrella3">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[3]}" id="estrella4">
+            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[4]}" id="estrella5">
           </div>
         </div>
       </div>
     </article>`
-
+    instanciarEstrellas()
   let estudiantes = proyecto.estudiantes;
   let p1 = document.createElement('p');
   p1.classList.add('aside__div-p');
