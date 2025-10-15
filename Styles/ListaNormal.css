@@ -107,6 +107,10 @@
     width: 90%;
   }
 
+  .ListaNormal__article-div h2, .ListaNormal__article-div-div-p {
+    text-align: center;
+  }
+
   .ListaNormal__article-div:first-child {
     width: 100%;
   }
