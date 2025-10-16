@@ -186,3 +186,38 @@
     margin: 0;
   }
 }
+.img_blanco_negro img{
+  filter: grayscale(100%);
+}
+.media_estrella {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+}
+
+.media_estrella img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Pseudo-elemento con la parte derecha en B/N */
+.media_estrella::after {
+    content: '';
+    position: absolute;
+    scale: 1.;
+    top: 0px;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background-image: url("../Imagenes/Estrellas.png");
+    background-size: 200%;
+    background-position: 100% 0px;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+    z-index: 2;
+    pointer-events: none;
+}

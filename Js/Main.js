@@ -309,9 +309,9 @@ function mostrarTopDelMain(dataProyectos) {
 }
 
 function mostrarListaProyectos(dataProyectos) {
-
+  
   dataProyectos.forEach((e) => {
-
+    let estrellas = EstablecerEstrellas(e.cantEstrellas,e.cantCalificacionesEstrellas)
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
       <div class="ListaNormal__article-div">
@@ -320,12 +320,22 @@ function mostrarListaProyectos(dataProyectos) {
       <div class="ListaNormal__article-div">
         <div class="ListaNormal__article-div-div">
           <h2>${e.nombre}</h2>
-          <div>
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          <div style="display:flex;">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>
         <div class="ListaNormal__article-div-div">
@@ -343,7 +353,7 @@ function mostrarListaProyectos(dataProyectos) {
 function mostrarListaProyectosAdmin(dataProyectos) {
 
   dataProyectos.forEach((e) => {
-
+    let estrellas = EstablecerEstrellas(e.cantEstrellas,e.cantCalificacionesEstrellas)
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
       <div class="ListaAdmin__article-div">
@@ -352,12 +362,22 @@ function mostrarListaProyectosAdmin(dataProyectos) {
       <div class="ListaAdmin__article-div">
         <div class="ListaAdmin__article-div-div">
           <h2>${e.nombre}</h2>
-          <div>
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          <div style="display:flex;">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>
         <div class="ListaAdmin__article-div-div">
@@ -396,13 +416,13 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
   for (let i = 0; i < cantidadDeGruposDe3; i++) {
     let grupoDeProyectos = document.createElement('DIV')
     grupoDeProyectos.classList.add('grupoDeProyectos')
-
+    
     for (let j = 0; j < 3; j++) {
 
       if (cont === dataProyectos.length) {
         break
       }
-
+      let estrellas = EstablecerEstrellas(proyectosOrdenados[cont].cantEstrellas,proyectosOrdenados[cont].cantCalificacionesEstrellas)
       let tarjeta = document.createElement('DIV')
       tarjeta.classList.add('tarjeta')
 
@@ -425,12 +445,22 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
             <button class="rank__article-div-div-div-button">Votos: ${proyectosOrdenados[cont].cantVotos}</button>
             <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${proyectosOrdenados[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
           </div>
-          <div class="estrellas rank__article-div-div-div">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+          <div class="estrellas rank__article-div-div-div" style="display:flex;">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>`
 
@@ -486,16 +516,25 @@ function verDescripcionDelProyecto(e) {
             </div>
           </div>
           <div class="proyecto-esp__article-div-div-div">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[0]}" id="estrella1">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[1]}" id="estrella2">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[2]}" id="estrella3">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[3]}" id="estrella4">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella" class="${estrellas[4]}" id="estrella5">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>
       </div>
     </article>`
-    instanciarEstrellas()
   let estudiantes = proyecto.estudiantes;
   let p1 = document.createElement('p');
   p1.classList.add('aside__div-p');
@@ -518,6 +557,8 @@ function verDescripcionDelProyecto(e) {
 
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)
+  instanciarEstrellas()
+  verificarCalificacion(proyecto.id)
 }
 
 // LLamada al json y ejecucion de las funciones.

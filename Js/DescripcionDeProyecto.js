@@ -14,7 +14,7 @@ function EstablecerEstrellas(CantEstrellas,CantReseñas){
         else{
            
             if (estrellasMedia!=0){
-                estrellas[i]="img_mitad"
+                estrellas[i]="media_estrella"
                 estrellasMedia = 0
             }
             else{
