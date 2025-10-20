@@ -16,21 +16,25 @@ const mainResultados = document.getElementById('Resultados')
 
 const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
-const Header = document.getElementById('Header')
+const Header = document.getElementById('HeaderGA')
 const Footer = document.getElementById('Footer')
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
 
 // LLamando a todos los botones del header
 
-const aRanking = document.getElementById('aRanking')
-const aListaNormal = document.getElementById('aListaNormal')
 const aListaNormalFooter = document.getElementById('aListaNormalFooter')
-const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 const footerResultados = document.getElementById('footerResultados')
 const VerProyectosHome = document.getElementById('VerProyectosHome')
+
+// Agregandole funcionalidad a cada boton del header
+aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
+aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
+footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
+VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 
 
 const HeaderHome = document.querySelectorAll('.HeaderHome')
@@ -43,43 +47,199 @@ const HeaderLogin = document.querySelectorAll('.HeaderLogin')
 
 HeaderHome.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('Home', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderProyectos.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('ListaNormal', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderRanking.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('Ranking', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderMiCuenta.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('MiCuenta', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderEstadistica.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+
     mostrarMain('Estadisticas', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderGestionar.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('Gestionar', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
@@ -89,8 +249,7 @@ HeaderLogin.forEach(element => {
       container.classList.add("active");
     }
     mostrarMain('Login', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
-    
+    MenuGS.classList.toggle('active')
   })
 });
 
@@ -100,20 +259,8 @@ HeaderLogin.forEach(element => {
 
 const buttonListaHome = document.getElementById('buttonListaHome')
 
-// Agregandole funcionalidad a cada boton del header
-
-aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
-aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
-aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-aHome.addEventListener('click', () => mostrarMain('Home', mains))
-aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
-aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
-footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
-VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-
-
-const UsuarioLogin = document.getElementById('UsuarioLogin')
-UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
+// const UsuarioLogin = document.getElementById('UsuarioLogin')
+// UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
 
 let dataProyectosGlobal = []
 
