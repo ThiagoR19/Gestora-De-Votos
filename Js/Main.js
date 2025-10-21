@@ -113,7 +113,6 @@ HeaderProyectos.forEach(element => {
 });
 
 HeaderProyectosA.forEach(element => {
-  console.log('hola')
   element.addEventListener('click', ()=> {
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
@@ -438,7 +437,7 @@ function mostrarTopDelMain(dataProyectos) {
         </div>
         <div class="tops__article-divcard">
           <div>
-            <p class="tops__article-divcard-div-text">
+            <p class="tops__article-divcard-div-text"data-max="200" data-onclick="mostrarMain('DetalleProyecto', mains);verDescripcionDelProyecto(${Top3[1].id})">
               ${Top3[1].descripcion}
             </p>
           </div>
@@ -460,7 +459,7 @@ function mostrarTopDelMain(dataProyectos) {
           </div>
           <div class="tops__article-divcard">
             <div>
-              <p class="tops__article-divcard-div-text">
+              <p class="tops__article-divcard-div-text" data-max="200" data-onclick="mostrarMain('DetalleProyecto', mains);verDescripcionDelProyecto(${Top3[2].id})">
                 ${Top3[2].descripcion}
               </p>
             </div>
@@ -690,19 +689,19 @@ function verDescripcionDelProyecto(e) {
             </div>
           </div>
           <div class="proyecto-esp__article-div-div-div">
-            <div class="${estrellas[0]}">
+            <div class="img_blanco_negro" id="estrella1" value="1">
               <img src="./Imagenes/Estrellas.png" alt="Estrellas">
             </div>
-            <div class="${estrellas[1]}">
+            <div class="img_blanco_negro" id="estrella2" value="2">
               <img src="./Imagenes/Estrellas.png" alt="Estrellas">
             </div>
-            <div class="${estrellas[2]}">
+            <div class="img_blanco_negro" id="estrella3" value="3">
               <img src="./Imagenes/Estrellas.png" alt="Estrellas">
             </div>
-            <div class="${estrellas[3]}">
+            <div class="img_blanco_negro" id="estrella4" value="4">
               <img src="./Imagenes/Estrellas.png" alt="Estrellas">
             </div>
-            <div class="${estrellas[4]}">
+            <div class="img_blanco_negro" id="estrella5" value="5">
               <img src="./Imagenes/Estrellas.png" alt="Estrellas">
             </div>
           </div>
@@ -732,7 +731,7 @@ function verDescripcionDelProyecto(e) {
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)
   instanciarEstrellas()
-  verificarCalificacion(proyecto.id)
+  console.log("saludos cordiales")
 }
 
 // LLamada al json y ejecucion de las funciones.

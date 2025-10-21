@@ -1,10 +1,6 @@
 function EstablecerEstrellas(CantEstrellas,CantReseñas){
-    console.log(CantEstrellas)
-    console.log(CantReseñas)
     let estrellasCompletas = Math.floor(CantEstrellas / CantReseñas);
     let estrellasMedia = (CantEstrellas / CantReseñas) - estrellasCompletas >= 0.5 ? 1 : 0;
-    console.log(estrellasCompletas)
-    console.log(estrellasMedia)
     let estrellas =["","","","",""]
     for(let i=0; i<5; i++){
         if ((estrellasCompletas-1)>=0){
@@ -22,9 +18,9 @@ function EstablecerEstrellas(CantEstrellas,CantReseñas){
             }
         }
     }
-    console.log(estrellas)
     return estrellas
 }
+
 function instanciarEstrellas() {
   const ids = ['estrella1','estrella2','estrella3','estrella4','estrella5'];
 
@@ -38,14 +34,65 @@ function instanciarEstrellas() {
 
   // Añadimos el listener de forma segura
   todasEstrellas.forEach(estrella => {
-    // Si tu recoloreado necesita el event:
-    estrella.addEventListener('mousemove', (e) => recoloreado(e, estrella));
-    console.log("hola")
-    // Si recoloreado no necesita parámetros, podés usar:
-    // estrella.addEventListener('mousemove', recoloreado);
+    estrella._onOver = (e) => reColoreado(e, estrella);
+    estrella._onLeave = (e) => quitadoReColoreado(e, estrella);
+    estrella._onclick = (e) => calificado(e, estrella)
+
+    estrella.addEventListener('mouseover', estrella._onOver);
+    estrella.addEventListener('mouseleave', estrella._onLeave);
+    estrella.addEventListener('click', (e) => calificado(e, estrella,todasEstrellas));
+    console.log("holaaaaaaaaaaaa")
   });
 }
 
-function recoloreado(e,estrella){
-    console.log("hola")
+function reColoreado(e,estrella){
+    let pos = estrella.getAttribute('value')
+    for(let i=pos; i>=1; i--){
+        if ((i-1)>=0){
+            document.getElementById(`estrella${i}`).classList.remove("img_blanco_negro")
+        }
+        pos-=1
+    }
+}
+function quitadoReColoreado(e,estrella){
+    let pos = estrella.getAttribute('value')
+    for(let i=pos; i>=1; i--){
+        if ((i-1)>=0){
+            document.getElementById(`estrella${i}`).classList.add("img_blanco_negro")
+        }
+        pos-=1
+    }
+}
+function calificado(e, estrella, todasEstrellas) {
+  // 1️⃣ Mostrar valor por consola
+  const valor = estrella.getAttribute('value');
+  console.log("Calificación:", valor);
+
+  // 2️⃣ Desactivar TODOS los listeners (no solo de la estrella clickeada)
+  todasEstrellas.forEach(est => {
+    if (est._onOver) {
+      est.removeEventListener('mouseover', est._onOver);
+      est._onOver = null;
+    }
+    if (est._onLeave) {
+      est.removeEventListener('mouseleave', est._onLeave);
+      est._onLeave = null;
+    }
+    if (est._onClick) {
+      est.removeEventListener('click', est._onClick);
+      est._onClick = null;
+    }
+    // Opcional: cursor visualmente desactivado
+    est.style.cursor = "default";
+  });
+
+  // 3️⃣ Asegurar que queden iluminadas hasta la calificación seleccionada
+  for (let i = 1; i <= 5; i++) {
+    const est = document.getElementById(`estrella${i}`);
+    if (i <= valor) {
+      est.classList.remove("img_blanco_negro");
+    } else {
+      est.classList.add("img_blanco_negro");
+    }
+  }
 }
