@@ -9,7 +9,7 @@
   display: none;
 }
 
-#fullscreenMenu {
+#MenuHA {
   position: fixed;
   top: 0;
   right: -100%;
@@ -24,12 +24,12 @@
 }
 
 /* Cuando está activo */
-#fullscreenMenu.active {
+#MenuHA.active {
   right: 0;
 }
 
 /* Estilos del menú */
-#fullscreenMenu ul {
+#MenuHA ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -40,7 +40,7 @@
   margin-left: 20px;
 }
 
-#fullscreenMenu li {
+#MenuHA li {
   margin: 20px 0;
   display: flex;
   align-items: center;
@@ -51,12 +51,12 @@
   transition: all .3s;
 }
 
-#fullscreenMenu li:hover {
+#MenuHA li:hover {
   background-color: #062640;
   border-left: 5px solid white;
 }
 
-#fullscreenMenu a {
+#MenuHA a {
   text-decoration: none;
   color: white;
   font-size: 30px;
@@ -76,7 +76,9 @@
   border-radius: 8px;
 }
 
-#UserIconHome {
+#IconUserHU,
+#IconUserHC,
+#IconUserHA {
   cursor: pointer;
 }
 
@@ -120,22 +122,28 @@
   text-align: center;
 }
 
-#HeaderHome, #HeaderHomeS {
-  margin: 30px 0;
+#HeaderHS, 
+#HeaderHU, 
+#HeaderHC, 
+#HeaderHA {
+  margin: 50px 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 70%;
+  width: 80%;
 }
 
-#HeaderHomeS {
+#HeaderHS {
   width: 100%;
 }
 
-#HeaderHome a, #HeaderHomeS a {
+#HeaderHS a, 
+#HeaderHU a, 
+#HeaderHC a, 
+#HeaderHA a {
   color: white;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 25px;
   margin: 0 5px;
 }
 
@@ -223,15 +231,21 @@ h1 {
   height: 85%;
 }
 
-#menuIcon {
+#IconoHS,
+#IconoHU,
+#IconoHC,
+#IconoHA {
   display: none;
 }
 
-#menuIcon.visible-forced {
+#IconoHS.visible-forced,
+#IconoHU.visible-forced,
+#IconoHC.visible-forced,
+#IconoHA.visible-forced {
   display: block !important;
   position: absolute;
   top: 10%;
-  left: 85%;
+  left: 80%;
   font-size: 50px;
   cursor: pointer;
   color: white;
@@ -258,24 +272,27 @@ button {
 
 
 @media (max-width:1100px) {
-  #HeaderHomeS a {
-    font-size: 15px;
-  }
-}
-
-@media (max-width:900px) {
-  #fullscreenMenuGeneral a,.iDesplegable {
+  #HeaderHS a, 
+  #HeaderHU a, 
+  #HeaderHC a, 
+  #HeaderHA a {
     font-size: 30px;
-  }
-
-  #fullscreenMenuGeneral li {
-    margin: 0;
   }
 }
 
 @media (max-width: 900px) {
 
-  #HeaderHome {
+  #HeaderHS, 
+  #HeaderHU, 
+  #HeaderHC, 
+  #HeaderHA {
+    margin: 90px 0 40px;
+    font-size: 25px;
+  }
+
+  #IconoUserHU,
+  #IconoUserHC,
+  #IconoUserHA {
     display: none;
   }
 
@@ -318,11 +335,18 @@ button {
     z-index: 100;
   }
 
-  #fullscreenMenu a,.iDesplegable {
+  #MenuHS a,
+  #MenuHU a,
+  #MenuHC a,
+  #MenuHA a,
+  .iDesplegable {
     font-size: 30px;
   }
 
-  #fullscreenMenu li {
+  #MenuHS li,
+  #MenuHU li,
+  #MenuHC li,
+  #MenuHA li {
     margin: 0;
   }
 
@@ -356,10 +380,12 @@ button {
   }
 
   .Hero__article-div:last-child {
-    margin: 90px 0;
+    margin: 40px 0;
   }
 
-  #menuIcon {
+  #IconoHU,
+  #IconoHC,
+  #IconoHA {
     display: block;
     position: absolute;
     top: 10%;
@@ -376,6 +402,15 @@ button {
 
   .fa-times {
     color: white !important;
+  }
+}
+
+@media (max-width:500px) {
+  #HeaderHS a, 
+  #HeaderHU a, 
+  #HeaderHC a, 
+  #HeaderHA a {
+    font-size: 20px;
   }
 }
 

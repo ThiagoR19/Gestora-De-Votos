@@ -1,78 +1,89 @@
+// Variables Generales
+
 const IconoGS = document.getElementById("IconoGS");
 const IconoGU = document.getElementById("IconoGU");
 const IconoGC = document.getElementById("IconoGC");
 const IconoGA = document.getElementById("IconoGA");
-
 const MenuGS = document.getElementById("MenuGS");
 const MenuGU = document.getElementById("MenuGU");
 const MenuGC = document.getElementById("MenuGC");
 const MenuGA = document.getElementById("MenuGA");
-
-const menuIcon = document.getElementById("menuIcon");
-const fullscreenMenu = document.getElementById("fullscreenMenu");
-
 const IconoUserGU = document.getElementById("IconoUserGU");
 const IconoUserGC = document.getElementById("IconoUserGC");
 const IconoUserGA = document.getElementById("IconoUserGA");
 
+// Variables Del Home
 
-let menuAbierto = false;
-let menuAbiertoG = false;
+const IconoHS = document.getElementById("IconoHS");
+const IconoHU = document.getElementById("IconoHU");
+const IconoHC = document.getElementById("IconoHC");
+const IconoHA = document.getElementById("IconoHA");
+const MenuHS = document.getElementById("MenuHS");
+const MenuHU = document.getElementById("MenuHU");
+const MenuHC = document.getElementById("MenuHC");
+const MenuHA = document.getElementById("MenuHA");
+const IconoUserHU = document.getElementById("IconoUserHU");
+const IconoUserHC = document.getElementById("IconoUserHC");
+const IconoUserHA = document.getElementById("IconoUserHA");
 
 // Home
 
-const mediaQuery = window.matchMedia("(max-width: 900px)");
+//HS
 
-function actualizarMenuIcon(e) {
-  if (e.matches) {
-    menuIcon.classList.remove("visible-forced");
-  } else {
-    if (!menuAbierto) {
-      menuIcon.classList.remove("visible-forced");
-    }
-  }
-}
-
-mediaQuery.addEventListener("change", actualizarMenuIcon);
-
-menuIcon.addEventListener("click", () => {
-  const esPantallaChica = mediaQuery.matches;
-  menuAbierto = !menuAbierto;
-  fullscreenMenu.classList.toggle("active", menuAbierto);
-
-  if (menuAbierto) {
-    menuIcon.classList.remove("fa-bars");
-    menuIcon.classList.add("fa-times");
-  } else {
-    if (esPantallaChica) {
-      menuIcon.classList.remove("fa-times");
-      menuIcon.classList.add("fa-bars");
-    } else {
-      menuIcon.classList.remove("visible-forced");
-      menuIcon.classList.remove("fa-times");
-      menuIcon.classList.add("fa-bars");
-    }
-  }
+IconoHS.addEventListener("click", () => {
+  MenuHS.classList.toggle("active");
+  IconoHS.classList.toggle("visible-forced");
+  IconoHS.classList.toggle("fa-times");
+  IconoHS.classList.toggle("fa-bars");
 });
 
-// UserIconHome.addEventListener("click", () => {
-//   menuAbierto = !menuAbierto;
-//   fullscreenMenu.classList.toggle("active", menuAbierto);
-//   if (menuAbierto) {
-//     menuIcon.classList.remove("fa-bars");
-//     menuIcon.classList.add("fa-times");
-//     menuIcon.classList.add("visible-forced");
-//   } else {
-//     menuIcon.classList.remove("fa-times");
-//     menuIcon.classList.add("fa-bars");
-//     menuIcon.classList.remove("visible-forced");
-//   }
-// });
+//HU
 
-actualizarMenuIcon(mediaQuery);
+IconoHU.addEventListener("click", () => {
+  MenuHU.classList.toggle("active");
+  IconoHU.classList.toggle("visible-forced");
+  IconoHU.classList.toggle("fa-times");
+  IconoHU.classList.toggle("fa-bars");
+});
 
+IconoUserHU.addEventListener("click", () => {
+  MenuHU.classList.toggle("active");
+  IconoHU.classList.toggle("fa-bars");
+  IconoHU.classList.toggle("fa-times");
+  IconoHU.classList.toggle("visible-forced");
+});
 
+//HC
 
+IconoHC.addEventListener("click", () => {
+  MenuHC.classList.toggle("active");
+  IconoHC.classList.toggle("visible-forced");
+  IconoHC.classList.toggle("fa-times");
+  IconoHC.classList.toggle("fa-bars");
+});
+
+IconoUserHC.addEventListener("click", () => {
+  MenuHC.classList.toggle("active");
+  IconoHC.classList.toggle("fa-bars");
+  IconoHC.classList.toggle("fa-times");
+  IconoHC.classList.toggle("visible-forced");
+});
+
+//HA
+
+IconoHA.addEventListener("click", () => {
+  MenuHA.classList.toggle("active");
+  IconoHA.classList.toggle("visible-forced");
+  IconoHA.classList.toggle("fa-times");
+  IconoHA.classList.toggle("fa-bars");
+});
+
+IconoUserHA.addEventListener("click", () => {
+  MenuHA.classList.toggle("active");
+  IconoHA.classList.toggle("fa-bars");
+  IconoHA.classList.toggle("fa-times");
+  IconoHA.classList.toggle("visible-forced");
+});
 
 //General
 
@@ -107,7 +118,6 @@ IconoUserGU.addEventListener("click", () => {
   IconoGU.classList.toggle("fa-bars");
   IconoGU.classList.toggle("fa-times");
 });
-
 
 // GC
 
@@ -158,15 +168,7 @@ IconoUserGA.addEventListener("click", () => {
   IconoGA.classList.toggle("fa-times");
 });
 
-
-
-
-
-
-
-
-
-
+// Comprobaciones del ancho
 
 if (window.innerWidth > 900) {
   document.querySelectorAll('.LastOne').forEach((e)=>{
