@@ -145,6 +145,7 @@
   text-decoration: none;
   font-size: 25px;
   margin: 0 5px;
+  cursor: pointer;
 }
 
 h1 {

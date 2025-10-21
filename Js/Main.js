@@ -41,6 +41,7 @@ const HeaderHome = document.querySelectorAll('.HeaderHome')
 const HeaderRanking = document.querySelectorAll('.HeaderRanking')
 const HeaderMiCuenta = document.querySelectorAll('.HeaderMiCuenta')
 const HeaderProyectos = document.querySelectorAll('.HeaderProyectos')
+const HeaderProyectosA = document.querySelectorAll('.HeaderProyectosA')
 const HeaderEstadistica = document.querySelectorAll('.HeaderEstadistica')
 const HeaderGestionar = document.querySelectorAll('.HeaderGestionar')
 const HeaderLogin = document.querySelectorAll('.HeaderLogin')
@@ -89,6 +90,36 @@ HeaderProyectos.forEach(element => {
 
     IconoGS.classList.add("fa-bars");
     IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
+  })
+});
+
+HeaderProyectosA.forEach(element => {
+  console.log('hola')
+  element.addEventListener('click', ()=> {
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
+    mostrarMain('ListaAdmin', mains)
 
     IconoGU.classList.add("fa-bars");
     IconoGU.classList.remove("fa-times");
@@ -179,15 +210,11 @@ HeaderMiCuenta.forEach(element => {
 
 HeaderEstadistica.forEach(element => {
   element.addEventListener('click', ()=> {
-    MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
 
     mostrarMain('Estadisticas', mains)
-
-    IconoGS.classList.add("fa-bars");
-    IconoGS.classList.remove("fa-times");
 
     IconoGU.classList.add("fa-bars");
     IconoGU.classList.remove("fa-times");
@@ -212,15 +239,11 @@ HeaderEstadistica.forEach(element => {
 
 HeaderGestionar.forEach(element => {
   element.addEventListener('click', ()=> {
-    MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
     
     mostrarMain('Gestionar', mains)
-
-    IconoGS.classList.add("fa-bars");
-    IconoGS.classList.remove("fa-times");
 
     IconoGU.classList.add("fa-bars");
     IconoGU.classList.remove("fa-times");
@@ -532,7 +555,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
         </div>
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-          <button onClick="mostrarMain('Carga', mains)" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button onClick="mostrarMain('Carga', mains); editarProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
           <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i
               class="fa-solid fa-magnifying-glass"></i></button>
         </div>
@@ -616,6 +639,10 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
     }
     slider.appendChild(grupoDeProyectos)
   }
+}
+
+function editarProyecto (e) {
+
 }
 
 function verDescripcionDelProyecto(e) {

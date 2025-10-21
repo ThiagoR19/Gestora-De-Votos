@@ -11,9 +11,12 @@ body {
   background-image: url(Imagenes/Fondo.jpg);
 }
 
+section {
+  margin: 30px;
+}
+
 .carga-proyecto {
-  width: 100%;
-  margin: 40px auto;
+  margin: 40px 30px;
   display: flex;
   justify-content: center;
   align-items: center;
