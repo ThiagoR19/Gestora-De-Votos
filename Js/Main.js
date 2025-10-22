@@ -16,7 +16,7 @@ const mainResultados = document.getElementById('Resultados')
 
 const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
-const Header = document.getElementById('HeaderGA')
+const Header = document.getElementById('HeaderGS')
 const Footer = document.getElementById('Footer')
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos

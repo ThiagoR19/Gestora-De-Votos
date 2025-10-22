@@ -5,34 +5,35 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'Usuario.php';
+require_once 'conexion.php';
 
+$method = $_SERVER['REQUEST_METHOD'];
+$input = json_decode(file_get_contents("php://input"), true);
+$action = $_GET['action'] ?? ($input['action'] ?? null);
 
-switch ($_SERVER['REQUEST_METHOD']) {
-    case "POST":
+if (!$action) {
+    echo json_encode(["error" => "No se especificó acción"]);
+    exit;
+}
 
-        
-        $data = json_decode(file_get_contents("php://input"), true);
-
-        if (!$data) {
-            echo json_encode([
-                "success" => false,
-                "message" => "No se recibieron datos válidos"
-            ]);
-            exit;
+switch ($method) {
+    case 'GET':
+        if ($action === 'listarUsuarios') {
+            require_once 'controladores/usuarios.php';
+            listarUsuarios($pdo);
         }
-        else if (isset($data['accion']) && $data['accion'] == 'login') {
-            
-            Usuario::logueo($data['email'], $data['password']);
-        }
+        break;
 
-        else if (isset($data['accion']) && $data['accion'] == 'registrar') {
-            $TodoSobreValorado = Usuario::validacion($data);
+    case 'POST':
+        if ($action === 'login') {
+            Usuario::logueo($input['email'], $input['password']);
+        } elseif ($action === 'registrar') {
+            $TodoSobreValorado = Usuario::validacion($input);
+
             if ($TodoSobreValorado['success']) {
-                $usuario = new Usuario($data['nombre'], $data['apellido'], $data['email'], $data['password'], 1);
-                $usuario->mensaje($TodoSobreValorado['success'], $TodoSobreValorado['message'], $TodoSobreValorado['datos'], $TodoSobreValorado['faltantes']);
-                
-            }
-            else{
+                require_once 'controladores/InsertarUsuario.php';
+                insertarUsuario($pdo, $input);
+            } else {
                 echo json_encode([
                     "success" => $TodoSobreValorado['success'],
                     "message" => $TodoSobreValorado['message'],
@@ -44,10 +45,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 
     default:
-        echo json_encode([
-            "success" => false,
-            "message" => "Método no permitido"
-        ]);
+        echo json_encode(["error" => "Método no soportado"]);
         break;
 }
 ?>

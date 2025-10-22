@@ -8,58 +8,72 @@ class Usuario {
     private $id;
     private static $usuarios = __DIR__ . '/../JSON/Usuarios.json';
 
-    public static function validacion($data){
+    public static function validacion($data) {
         $success = false;
         $message = "";
-        $faltantes= null;
+        $faltantes = [];
         $pasa = true;
-        $campos = ['nombre', 'apellido', 'email', 'password', 'confirmPassword'];
-        $camposFaltantes = [];
 
-        // Revisar qué campos faltan
+        $data = array_change_key_case($data, CASE_LOWER);
+
+        // 🔄 Aceptar ambas formas (correo o email, contra o password)
+        if (isset($data['correo']) && !isset($data['email'])) {
+            $data['email'] = $data['correo'];
+        }
+        if (isset($data['contra']) && !isset($data['password'])) {
+            $data['password'] = $data['contra'];
+        }
+        if (!isset($data['confirmpassword']) && isset($data['confirmar'])) {
+            $data['confirmpassword'] = $data['confirmar'];
+        }
+
+        $campos = ['nombre', 'apellido', 'email', 'password', 'confirmpassword'];
+
+        // ✅ Revisar campos faltantes
         foreach ($campos as $campo) {
             if (!isset($data[$campo]) || trim($data[$campo]) === '') {
-                $camposFaltantes[] = $campo;
+                $faltantes[] = $campo;
             }
         }
 
-
-        // Si faltan campos, enviarlos al JS
-        if (!empty($camposFaltantes)) {
+        if (!empty($faltantes)) {
             $success = false;
             $message = "Faltan datos obligatorios";
-            $faltantes= $camposFaltantes;
-            
         }
-        // Validar que la contraseña y confirmación coincidan
-        else if ($data['password'] !== $data['confirmPassword']) {
+
+        elseif ($data['password'] !== $data['confirmpassword']) {
             $success = false;
-            $message = "las contraseñas no coinsiden";
+            $message = "Las contraseñas no coinciden";
         }
-        else{
-            $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
+        else {
+            // 📂 Leer usuarios existentes (si usás un JSON)
+            $usuariosArray = file_exists(self::$usuarios)
+                ? json_decode(file_get_contents(self::$usuarios), true)
+                : [];
+
             foreach ($usuariosArray as $usuario) {
                 if ($usuario['email'] == $data['email']) {
                     $success = false;
-                    $message = "Email ya resgistrado";
+                    $message = "Email ya registrado";
                     $pasa = false;
+                    break;
                 }
             }
-            if ($pasa){
-                // Si todo está bien, enviamos éxit
-            $success = true;
-            $message = "Usuario registrado con exito"; 
+
+            if ($pasa) {
+                $success = true;
+                $message = "Usuario registrado con éxito";
             }
-            
         }
-        $todo = [
+
+        return [
             "success" => $success,
             "message" => $message,
             "datos" => $data,
             "faltantes" => $faltantes
         ];
-        return $todo;
     }
+
     public function mensaje($suceso,$mensaje,$datos,$faltantes){
         echo json_encode([
             "success" => $suceso,
@@ -68,6 +82,7 @@ class Usuario {
             "faltantes" => $faltantes
         ]);
     }
+
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
        
         $this->nombre = $nombre;
@@ -106,6 +121,7 @@ class Usuario {
         $usuariosArray[] = $this->toArray();
         file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
     }
+    
     public static function logueo($email, $password) {
         $suceso = false;
         $mensaje = "";

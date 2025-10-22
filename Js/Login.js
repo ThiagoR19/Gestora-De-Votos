@@ -43,7 +43,7 @@ buttonInicio.addEventListener("click", async (event) => {
     const data = await response.json();
 
     // Intentar parsear el JSON
-    console.log (data)
+    console.log(data)
     // Validar la respuesta del backend
     if (data.success) {
       alert("✅ Bien: " + data.message);
@@ -64,47 +64,40 @@ buttonRegister.addEventListener("click", async () => {
 
   if (pasaEmail==true) {
     console.log ("el correo ha sido verificado")
-    try {
-      const response = await fetch(localizacion, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          accion: "registrar",
-          nombre: nombre.value,
-          apellido: apellido.value,
-          email: email.value,
-          password: password.value,
-          confirmPassword: confirmPassword.value
-        })
-      });
-      console.log("Status:", response.status);
-
-      const data = await response.json();
-
-      console.log(data);
-
-      if (!data.success) {
-        if (data.faltantes) {
-          alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
+    fetch(localizacion, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'registrar',
+        nombre: nombre.value,
+        apellido: apellido.value,
+        email: email.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value
+      })
+    })
+      .then(response => response.json())
+      .then(data => { 
+        console.log(data);
+        if (data.status === "ok") {
+          alert("Usuario insertado correctamente");
+          creacion(email.value);
+          Yalogueado(data.datos?.id, data.datos?.tipo);
+          alert("✅ Bien: " + data.message);
         } else {
-          console.log("el error anda aca")
-          alert(data.message);
+          if (data.faltantes) {
+            alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
+          } else {
+            console.log("el error anda aca");
+            alert(data.message);
+          }
         }
-      } 
-      else {
-        creacion(email.value);
-        Yalogueado (data.datos.id, data.datos.tipo);
-        alert("✅ Bien: " + data.message);
-      }
-    } 
-    catch (error) {
-      console.error("❌ Eror en fetch:", error);
-      alert("❌ Error: " + (error.message || error));
-    }
-  }
-  else{
+      })
+      .catch(error => {
+        console.error("❌ Error en fetch:", error);
+      });
+      
+  } else {
     switch (motivo) {
       case "Ya estabas registrado con otra cuenta":
         alert("❌ Mal: " + motivo);
@@ -112,7 +105,6 @@ buttonRegister.addEventListener("click", async () => {
       case "El correo no es válido":
         alert("❌ Mal: " + motivo);
         break;
-
       default:
         alert("❌ Mal: Ha ocurrido un error inesperado");
         break;
@@ -154,6 +146,7 @@ function verificacionRegistro(email){
     return true;
   }
 }
+
 function creacion(email){
     
     const clave = "RegistroAnterior";
