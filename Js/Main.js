@@ -1,3 +1,4 @@
+
 // LLamando a todos los mains
 
 const mainHome = document.getElementById('Home')
@@ -15,70 +16,252 @@ const mainResultados = document.getElementById('Resultados')
 
 const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
-const Header = document.getElementById('Header')
+const Header = document.getElementById('HeaderGS')
 const Footer = document.getElementById('Footer')
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
 
 // LLamando a todos los botones del header
 
-const aRanking = document.getElementById('aRanking')
-const aListaNormal = document.getElementById('aListaNormal')
 const aListaNormalFooter = document.getElementById('aListaNormalFooter')
-const aHome = document.getElementById('aHome')
 const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 const footerResultados = document.getElementById('footerResultados')
 const VerProyectosHome = document.getElementById('VerProyectosHome')
+
+// Agregandole funcionalidad a cada boton del header
+aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
+aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
+aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
+footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
+VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 
 
 const HeaderHome = document.querySelectorAll('.HeaderHome')
 const HeaderRanking = document.querySelectorAll('.HeaderRanking')
 const HeaderMiCuenta = document.querySelectorAll('.HeaderMiCuenta')
 const HeaderProyectos = document.querySelectorAll('.HeaderProyectos')
+const HeaderProyectosA = document.querySelectorAll('.HeaderProyectosA')
 const HeaderEstadistica = document.querySelectorAll('.HeaderEstadistica')
 const HeaderGestionar = document.querySelectorAll('.HeaderGestionar')
 const HeaderLogin = document.querySelectorAll('.HeaderLogin')
 
 HeaderHome.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('Home', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderProyectos.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('ListaNormal', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
+  })
+});
+
+HeaderProyectosA.forEach(element => {
+  element.addEventListener('click', ()=> {
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
+    mostrarMain('ListaAdmin', mains)
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderRanking.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('Ranking', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderMiCuenta.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('MiCuenta', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderEstadistica.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+
     mostrarMain('Estadisticas', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
 HeaderGestionar.forEach(element => {
   element.addEventListener('click', ()=> {
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+    
     mostrarMain('Gestionar', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e)=>{
+        e.classList.remove('none')
+      })
+    }
   })
 });
 
@@ -88,8 +271,7 @@ HeaderLogin.forEach(element => {
       container.classList.add("active");
     }
     mostrarMain('Login', mains)
-    fullscreenMenuGeneral.classList.toggle('active')
-    
+    MenuGS.classList.toggle('active')
   })
 });
 
@@ -99,20 +281,8 @@ HeaderLogin.forEach(element => {
 
 const buttonListaHome = document.getElementById('buttonListaHome')
 
-// Agregandole funcionalidad a cada boton del header
-
-aRanking.addEventListener('click', () => mostrarMain('Ranking', mains))
-aListaNormal.addEventListener('click', () => mostrarMain('ListaAdmin', mains))
-aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-aHome.addEventListener('click', () => mostrarMain('Home', mains))
-aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
-aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
-footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
-VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-
-
-const UsuarioLogin = document.getElementById('UsuarioLogin')
-UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
+// const UsuarioLogin = document.getElementById('UsuarioLogin')
+// UsuarioLogin.addEventListener('click', () => mostrarMain('Login', mains))
 
 let dataProyectosGlobal = []
 
@@ -200,9 +370,8 @@ function mostrarMain(mainAMostrar, mains) {
   })
 }
 
-// Funciones que muestran dinamicamente del JSON
+// herramienta de textos 
 function aplicarVerMasAuto() {
-  console.log ("aplicarVerMasAuto");
   document.querySelectorAll("[data-max]").forEach(el => {
     const max = parseInt(el.dataset.max);
     const clickCode = el.dataset.onclick || el.dataset.click;
@@ -214,7 +383,6 @@ function aplicarVerMasAuto() {
   });
 }
 function aplicarVerMas(elemento, maxLongitud, callback) {
-  console.log ("aplicarVerMas");
   if (!elemento) return;
 
   const texto = elemento.textContent.trim();
@@ -229,9 +397,10 @@ function aplicarVerMas(elemento, maxLongitud, callback) {
 
     elemento.textContent = textoCorto;
     elemento.appendChild(verMas);
-    console.log ("aplicarVerMas - hecho");
   }
 }
+
+// Funciones que muestran dinamicamente del JSON
 
 function mostrarTopDelMain(dataProyectos) {
   let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0, 3);
@@ -268,7 +437,7 @@ function mostrarTopDelMain(dataProyectos) {
         </div>
         <div class="tops__article-divcard">
           <div>
-            <p class="tops__article-divcard-div-text">
+            <p class="tops__article-divcard-div-text"data-max="200" data-onclick="mostrarMain('DetalleProyecto', mains);verDescripcionDelProyecto(${Top3[1].id})">
               ${Top3[1].descripcion}
             </p>
           </div>
@@ -290,7 +459,7 @@ function mostrarTopDelMain(dataProyectos) {
           </div>
           <div class="tops__article-divcard">
             <div>
-              <p class="tops__article-divcard-div-text">
+              <p class="tops__article-divcard-div-text" data-max="200" data-onclick="mostrarMain('DetalleProyecto', mains);verDescripcionDelProyecto(${Top3[2].id})">
                 ${Top3[2].descripcion}
               </p>
             </div>
@@ -309,9 +478,9 @@ function mostrarTopDelMain(dataProyectos) {
 }
 
 function mostrarListaProyectos(dataProyectos) {
-
+  
   dataProyectos.forEach((e) => {
-
+    let estrellas = EstablecerEstrellas(e.cantEstrellas,e.cantCalificacionesEstrellas)
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
       <div class="ListaNormal__article-div">
@@ -320,12 +489,22 @@ function mostrarListaProyectos(dataProyectos) {
       <div class="ListaNormal__article-div">
         <div class="ListaNormal__article-div-div">
           <h2>${e.nombre}</h2>
-          <div>
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          <div style="display:flex;">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>
         <div class="ListaNormal__article-div-div">
@@ -343,7 +522,7 @@ function mostrarListaProyectos(dataProyectos) {
 function mostrarListaProyectosAdmin(dataProyectos) {
 
   dataProyectos.forEach((e) => {
-
+    let estrellas = EstablecerEstrellas(e.cantEstrellas,e.cantCalificacionesEstrellas)
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
       <div class="ListaAdmin__article-div">
@@ -352,12 +531,22 @@ function mostrarListaProyectosAdmin(dataProyectos) {
       <div class="ListaAdmin__article-div">
         <div class="ListaAdmin__article-div-div">
           <h2>${e.nombre}</h2>
-          <div>
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de estrella">
+          <div style="display:flex;">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>
         <div class="ListaAdmin__article-div-div">
@@ -365,7 +554,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
         </div>
         <div class="ListaAdmin__article-div-div">
           <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
-          <button onClick="mostrarMain('Carga', mains)" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
+          <button onClick="mostrarMain('Carga', mains); editarProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
           <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i
               class="fa-solid fa-magnifying-glass"></i></button>
         </div>
@@ -396,13 +585,13 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
   for (let i = 0; i < cantidadDeGruposDe3; i++) {
     let grupoDeProyectos = document.createElement('DIV')
     grupoDeProyectos.classList.add('grupoDeProyectos')
-
+    
     for (let j = 0; j < 3; j++) {
 
       if (cont === dataProyectos.length) {
         break
       }
-
+      let estrellas = EstablecerEstrellas(proyectosOrdenados[cont].cantEstrellas,proyectosOrdenados[cont].cantCalificacionesEstrellas)
       let tarjeta = document.createElement('DIV')
       tarjeta.classList.add('tarjeta')
 
@@ -425,12 +614,22 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
             <button class="rank__article-div-div-div-button">Votos: ${proyectosOrdenados[cont].cantVotos}</button>
             <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${proyectosOrdenados[cont].id})" class="rank__article-div-div-div-button">Ver Proyecto</button>
           </div>
-          <div class="estrellas rank__article-div-div-div">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de Estrella">
+          <div class="estrellas rank__article-div-div-div" style="display:flex;">
+            <div class="${estrellas[0]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[1]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[2]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[3]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="${estrellas[4]}">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>`
 
@@ -439,6 +638,10 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
     }
     slider.appendChild(grupoDeProyectos)
   }
+}
+
+function editarProyecto (e) {
+
 }
 
 function verDescripcionDelProyecto(e) {
@@ -452,7 +655,7 @@ function verDescripcionDelProyecto(e) {
       proyecto = element
     }
   });
-
+  let estrellas = EstablecerEstrellas(proyecto.cantEstrellas,proyecto.cantCalificacionesEstrellas)
   let article = document.createElement('ARTICLE')
   let aside = document.createElement('ASIDE')
 
@@ -486,16 +689,25 @@ function verDescripcionDelProyecto(e) {
             </div>
           </div>
           <div class="proyecto-esp__article-div-div-div">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
-            <img src="./Imagenes/Estrellas.png" alt="Imagen de una estrella">
+            <div class="img_blanco_negro" id="estrella1" value="1">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella2" value="2">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella3" value="3">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella4" value="4">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella5" value="5">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
           </div>
         </div>
       </div>
     </article>`
-
   let estudiantes = proyecto.estudiantes;
   let p1 = document.createElement('p');
   p1.classList.add('aside__div-p');
@@ -518,6 +730,8 @@ function verDescripcionDelProyecto(e) {
 
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)
+  instanciarEstrellas()
+  console.log("saludos cordiales")
 }
 
 // LLamada al json y ejecucion de las funciones.

@@ -249,6 +249,7 @@
     flex-direction: column;
     justify-content: space-around;
   }
+   
 
   #votosYVer {
     flex-direction: column;
@@ -256,16 +257,20 @@
   }
 
   .grupoDeProyectos {
-    padding: 10px !important;
+    padding: 25px !important;
   }
 
   .rank__article-div-div-div-h2:last-child {
     font-size: 20px;
     padding: 0 10px;
+    text-align: left;
+    width: 70%;
+    margin-left: 38px;
   }
 
   .rank__article-button {
     margin-top: 50px;
+    margin-right: 190px;
   }
 
 }

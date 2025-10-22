@@ -7,20 +7,16 @@
   box-sizing: border-box;
 }
 
-#Header a img, #HeaderNoLogin a img {
+#HeaderGA a img, #HeaderGS a img {
   height: 100px;
 }
 
-#Header,#HeaderNoLogin {
+#HeaderGA,#HeaderGS {
   color: white;
   background-color: #062F4F;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-#HeaderNoLogin {
-  display: none;
 }
 
 .header__div {
@@ -68,9 +64,6 @@
   height: 50px;
 }
 
-.header__div:last-child {
-  display: none;
-}
 .ver-mas {
   font-weight: bold;
   color: black;
@@ -101,7 +94,10 @@
   display: none !important;
 }
 
-#fullscreenMenuGeneral {
+#MenuGS,
+#MenuGU,
+#MenuGC,
+#MenuGA {
   position: fixed;
   top: 0;
   right: -100%;
@@ -116,12 +112,18 @@
 }
 
 /* Cuando está activo */
-#fullscreenMenuGeneral.active {
+#MenuGS.active,
+#MenuGU.active,
+#MenuGC.active,
+#MenuGA.active  {
   right: 0;
 }
 
 /* Estilos del menú */
-#fullscreenMenuGeneral ul {
+#MenuGS ul,
+#MenuGU ul,
+#MenuGC ul,
+#MenuGA ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -132,7 +134,10 @@
   margin-left: 20px;
 }
 
-#fullscreenMenuGeneral li {
+#MenuGS li,
+#MenuGU li,
+#MenuGC li,
+#MenuGA li {
   margin: 20px 0;
   display: flex;
   align-items: center;
@@ -143,28 +148,35 @@
   transition: all .3s;
 }
 
-#fullscreenMenuGeneral li:hover {
+#MenuGS li:hover,
+#MenuGU li:hover,
+#MenuGC li:hover,
+#MenuGA li:hover {
   background-color: #062640;
   border-left: 5px solid white;
 }
 
-#fullscreenMenuGeneral a {
+#MenuGS a,
+#MenuGU a,
+#MenuGC a,
+#MenuGA a  {
   text-decoration: none;
   color: white;
-  font-size: 50px;
+  font-size: 30px;
   transition: color 0.3s;
 }
 
-
 .iDesplegable {
   color: white;
-  font-size: 50px;
+  font-size: 30px;
   margin: 0 10px;
   padding: 0 20px;
 }
 
-
-#menu {
+#IconoGS,
+#IconoGU,
+#IconoGC,
+#IconoGA {
   font-size: 50px;
   cursor: pointer;
   color: rgb(255, 255, 255);
@@ -178,11 +190,53 @@
 
 
 @media (max-width:900px) {
-  #fullscreenMenuGeneral a,.iDesplegable {
+  #MenuGS a,
+  #MenuGU a,
+  #MenuGC a,
+  #MenuGA a,
+  .iDesplegable {
     font-size: 30px;
   }
 
-  #fullscreenMenuGeneral li {
+  #MenuGS li,
+  #MenuGU li,
+  #MenuGC li,
+  #MenuGA li {
     margin: 0;
   }
+}
+
+.img_blanco_negro img{
+  filter: grayscale(100%);
+}
+.media_estrella {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+}
+
+.media_estrella img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Pseudo-elemento con la parte derecha en B/N */
+.media_estrella::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background-image: url("../Imagenes/Estrellas.png");
+    background-size: 200%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+    z-index: 2;
+    pointer-events: none;
 }

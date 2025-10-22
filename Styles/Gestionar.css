@@ -72,12 +72,12 @@ body {
 }
 
 .coordinador {
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #ddd;
   padding-bottom: 0.7rem;
-
 }
 
 .coordinador__info {
@@ -150,6 +150,11 @@ body {
 }
 
 @media (max-width: 900px) {
+
+  #Gestionar {
+    height: 80vh;
+  }
+
   .coordinador__detalle {
     flex-direction: column;
     align-items: flex-start;
