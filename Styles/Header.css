@@ -7,11 +7,13 @@
   box-sizing: border-box;
 }
 
-#HeaderGA a img, #HeaderGS a img {
+#HeaderGA a img,
+#HeaderGS a img {
   height: 100px;
 }
 
-#HeaderGA,#HeaderGS {
+#HeaderGA,
+#HeaderGS {
   color: white;
   background-color: #062F4F;
   display: flex;
@@ -43,12 +45,12 @@
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px; 
+  bottom: -2px;
   width: 100%;
   height: 2px;
   background: white;
-  transform: scaleX(0); 
-  transform-origin: center; 
+  transform: scaleX(0);
+  transform-origin: center;
   transition: transform 0.5s;
 }
 
@@ -56,11 +58,12 @@
   transform: scaleX(1);
 }
 
-.header__div:nth-child(2) a:nth-child(2),.header__div:nth-child(2) img {
+.header__div:nth-child(2) a:nth-child(2),
+.header__div:nth-child(2) img {
   margin: 0 30px 0 20px;
 }
 
-.header__div:nth-child(2) img{
+.header__div:nth-child(2) img {
   height: 50px;
 }
 
@@ -71,8 +74,8 @@
 }
 
 @media (max-width: 900px) {
-  
-  .header__div:nth-child(2){
+
+  .header__div:nth-child(2) {
     display: none;
   }
 
@@ -115,7 +118,7 @@
 #MenuGS.active,
 #MenuGU.active,
 #MenuGC.active,
-#MenuGA.active  {
+#MenuGA.active {
   right: 0;
 }
 
@@ -159,7 +162,7 @@
 #MenuGS a,
 #MenuGU a,
 #MenuGC a,
-#MenuGA a  {
+#MenuGA a {
   text-decoration: none;
   color: white;
   font-size: 30px;
@@ -188,8 +191,17 @@
   position: relative;
 }
 
+#HeaderGS .header__div:last-child {
+  display: none;
+}
+
 
 @media (max-width:900px) {
+
+  #HeaderGS .header__div:last-child {
+    display: block;
+  }
+
   #MenuGS a,
   #MenuGU a,
   #MenuGC a,
@@ -206,37 +218,38 @@
   }
 }
 
-.img_blanco_negro img{
+.img_blanco_negro img {
   filter: grayscale(100%);
 }
+
 .media_estrella {
-    position: relative;
-    display: inline-block;
-    overflow: visible;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
 }
 
 .media_estrella img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
 }
 
 /* Pseudo-elemento con la parte derecha en B/N */
 .media_estrella::after {
-    content: '';
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    width: 50%;
-    height: 100%;
-    background-image: url("../Imagenes/Estrellas.png");
-    background-size: 200%;
-    background-position: 100% 0;
-    background-repeat: no-repeat;
-    filter: grayscale(100%);
-    z-index: 2;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background-image: url("../Imagenes/Estrellas.png");
+  background-size: 200%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  z-index: 2;
+  pointer-events: none;
 }

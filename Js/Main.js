@@ -1,4 +1,3 @@
-
 // LLamando a todos los mains
 
 const mainHome = document.getElementById('Home')
@@ -16,8 +15,8 @@ const mainResultados = document.getElementById('Resultados')
 
 const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
-const Header = document.getElementById('HeaderGS')
-const Footer = document.getElementById('Footer')
+const Header = document.getElementById('HeaderGS') // Header que este en ese momento
+const Footer = document.getElementById('Footer') // Footer que mas va a ser
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
 
@@ -30,6 +29,7 @@ const footerResultados = document.getElementById('footerResultados')
 const VerProyectosHome = document.getElementById('VerProyectosHome')
 
 // Agregandole funcionalidad a cada boton del header
+
 aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
@@ -47,12 +47,12 @@ const HeaderGestionar = document.querySelectorAll('.HeaderGestionar')
 const HeaderLogin = document.querySelectorAll('.HeaderLogin')
 
 HeaderHome.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-    
+
     mostrarMain('Home', mains)
 
     IconoGS.classList.add("fa-bars");
@@ -68,11 +68,11 @@ HeaderHome.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -80,12 +80,12 @@ HeaderHome.forEach(element => {
 });
 
 HeaderProyectos.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-    
+
     mostrarMain('ListaNormal', mains)
 
     IconoGS.classList.add("fa-bars");
@@ -101,11 +101,11 @@ HeaderProyectos.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -113,11 +113,11 @@ HeaderProyectos.forEach(element => {
 });
 
 HeaderProyectosA.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-    
+
     mostrarMain('ListaAdmin', mains)
 
     IconoGU.classList.add("fa-bars");
@@ -130,11 +130,11 @@ HeaderProyectosA.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -142,12 +142,12 @@ HeaderProyectosA.forEach(element => {
 });
 
 HeaderRanking.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-    
+
     mostrarMain('Ranking', mains)
 
     IconoGS.classList.add("fa-bars");
@@ -163,11 +163,11 @@ HeaderRanking.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -175,12 +175,12 @@ HeaderRanking.forEach(element => {
 });
 
 HeaderMiCuenta.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-    
+
     mostrarMain('MiCuenta', mains)
 
     IconoGS.classList.add("fa-bars");
@@ -196,11 +196,11 @@ HeaderMiCuenta.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -208,7 +208,7 @@ HeaderMiCuenta.forEach(element => {
 });
 
 HeaderEstadistica.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
@@ -225,11 +225,11 @@ HeaderEstadistica.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -237,11 +237,11 @@ HeaderEstadistica.forEach(element => {
 });
 
 HeaderGestionar.forEach(element => {
-  element.addEventListener('click', ()=> {
+  element.addEventListener('click', () => {
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-    
+
     mostrarMain('Gestionar', mains)
 
     IconoGU.classList.add("fa-bars");
@@ -254,11 +254,11 @@ HeaderGestionar.forEach(element => {
     IconoGA.classList.remove("fa-times");
 
     if (window.innerWidth > 900) {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.add('none')
       })
     } else {
-      document.querySelectorAll('.LastOne').forEach((e)=>{
+      document.querySelectorAll('.LastOne').forEach((e) => {
         e.classList.remove('none')
       })
     }
@@ -266,8 +266,8 @@ HeaderGestionar.forEach(element => {
 });
 
 HeaderLogin.forEach(element => {
-  element.addEventListener('click', ()=> {
-    if (element.textContent === "Registrarse"){
+  element.addEventListener('click', () => {
+    if (element.textContent === "Registrarse") {
       container.classList.add("active");
     }
     mostrarMain('Login', mains)
@@ -275,6 +275,18 @@ HeaderLogin.forEach(element => {
   })
 });
 
+
+document.querySelectorAll('.ojitos').forEach((e) => {
+  e.addEventListener('click', (event) => {
+    if (event.target.previousElementSibling.getAttribute('type') == 'text') {
+      event.target.previousElementSibling.setAttribute('type', 'password')
+    } else {
+      event.target.previousElementSibling.setAttribute('type', 'text')
+    }
+    e.classList.toggle('fa-eye')
+    e.classList.toggle('fa-eye-slash')
+  })
+})
 
 
 //Boton de VerProyectos del Home (Hero)
@@ -341,7 +353,7 @@ window.addEventListener('resize', updateSlider)
 
 for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
-} 
+}
 mains[0].classList.remove('none')
 Header.classList.add('none')
 
@@ -376,10 +388,10 @@ function aplicarVerMasAuto() {
     const max = parseInt(el.dataset.max);
     const clickCode = el.dataset.onclick || el.dataset.click;
     if (clickCode) {
-       aplicarVerMas(el, max, (elemento, texto) => {
-       eval(clickCode); // ⚠️ cuidado, eval ejecuta código directamente
-        });
-      }
+      aplicarVerMas(el, max, (elemento, texto) => {
+        eval(clickCode); // ⚠️ cuidado, eval ejecuta código directamente
+      });
+    }
   });
 }
 function aplicarVerMas(elemento, maxLongitud, callback) {
@@ -478,9 +490,9 @@ function mostrarTopDelMain(dataProyectos) {
 }
 
 function mostrarListaProyectos(dataProyectos) {
-  
+
   dataProyectos.forEach((e) => {
-    let estrellas = EstablecerEstrellas(e.cantEstrellas,e.cantCalificacionesEstrellas)
+    let estrellas = EstablecerEstrellas(e.cantEstrellas, e.cantCalificacionesEstrellas)
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
       <div class="ListaNormal__article-div">
@@ -522,7 +534,7 @@ function mostrarListaProyectos(dataProyectos) {
 function mostrarListaProyectosAdmin(dataProyectos) {
 
   dataProyectos.forEach((e) => {
-    let estrellas = EstablecerEstrellas(e.cantEstrellas,e.cantCalificacionesEstrellas)
+    let estrellas = EstablecerEstrellas(e.cantEstrellas, e.cantCalificacionesEstrellas)
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
       <div class="ListaAdmin__article-div">
@@ -585,13 +597,13 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
   for (let i = 0; i < cantidadDeGruposDe3; i++) {
     let grupoDeProyectos = document.createElement('DIV')
     grupoDeProyectos.classList.add('grupoDeProyectos')
-    
+
     for (let j = 0; j < 3; j++) {
 
       if (cont === dataProyectos.length) {
         break
       }
-      let estrellas = EstablecerEstrellas(proyectosOrdenados[cont].cantEstrellas,proyectosOrdenados[cont].cantCalificacionesEstrellas)
+      let estrellas = EstablecerEstrellas(proyectosOrdenados[cont].cantEstrellas, proyectosOrdenados[cont].cantCalificacionesEstrellas)
       let tarjeta = document.createElement('DIV')
       tarjeta.classList.add('tarjeta')
 
@@ -640,7 +652,7 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
   }
 }
 
-function editarProyecto (e) {
+function editarProyecto(e) {
 
 }
 
@@ -651,11 +663,11 @@ function verDescripcionDelProyecto(e) {
 
 
   dataProyectosGlobal.forEach(element => {
-    if(element.id === e) {
+    if (element.id === e) {
       proyecto = element
     }
   });
-  let estrellas = EstablecerEstrellas(proyecto.cantEstrellas,proyecto.cantCalificacionesEstrellas)
+  let estrellas = EstablecerEstrellas(proyecto.cantEstrellas, proyecto.cantCalificacionesEstrellas)
   let article = document.createElement('ARTICLE')
   let aside = document.createElement('ASIDE')
 
@@ -736,10 +748,21 @@ function verDescripcionDelProyecto(e) {
 
 // LLamada al json y ejecucion de las funciones.
 
+fetch(`${localizacion}?action=pedirProyectos`)
+  .then(response => response.json())
+  .then(data => {
+    dataProyectos = data.datos
+    mostrarTopDelMain(dataProyectos)
+  })
+  .catch(error => {
+    console.error("❌ Error en fetch:", error);
+  });
+
 async function cargarProyectos() {
   const response = await fetch("./Js/json/proyectos.json")
   const dataProyectos = await response.json()
   dataProyectosGlobal = dataProyectos
+  console.log(dataProyectos)
   mostrarRanking(dataProyectos)
   mostrarTopDelMain(dataProyectos)
   mostrarListaProyectos(dataProyectos)

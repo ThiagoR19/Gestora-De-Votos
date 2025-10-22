@@ -18,11 +18,10 @@ if (!$action) {
 
 switch ($method) {
     case 'GET':
-        if ($action === 'listarUsuarios') {
-            require_once 'controladores/usuarios.php';
-            listarUsuarios($pdo);
+        if($action === "pedirProyectos") {
+          require_once 'controladores/PedirProyectos.php';
+          pedirProyectos($pdo);
         }
-        break;
 
     case 'POST':
         if ($action === 'login') {
