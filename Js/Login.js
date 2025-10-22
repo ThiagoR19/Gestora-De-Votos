@@ -1,7 +1,7 @@
 var pasaEmail = false
 var motivo = ""
 
-const localizacion = "/PP-votos/PHP/Index.php"
+const localizacion = "/Gestora-De-Votos/PHP/Index.php"
 const usuario = ["usuario", "coordinador","admin"];
 
 const container = document.getElementById("container");
