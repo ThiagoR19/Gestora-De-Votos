@@ -1,9 +1,9 @@
 <?php
 
-$host = "localhost";
-$dbname = "gestora_de_votos";
-$user = "root";
-$pass = "";
+$host = "auth-db847.hstgr.io";
+$dbname = "u732148899_riffo";
+$user = "u732148899_riffo";
+$pass = "2025.Riffo";
 
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);

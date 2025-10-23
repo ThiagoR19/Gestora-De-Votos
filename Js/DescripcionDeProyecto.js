@@ -1,5 +1,3 @@
-const localizacion = "/Gestora-De-Votos/PHP/Index.php"
-
 function EstablecerEstrellas(CantEstrellas,CantReseñas){
     let estrellasCompletas = Math.floor(CantEstrellas / CantReseñas);
     let estrellasMedia = (CantEstrellas / CantReseñas) - estrellasCompletas >= 0.5 ? 1 : 0;

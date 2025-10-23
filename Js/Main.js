@@ -660,8 +660,6 @@ function verDescripcionDelProyecto(e) {
 
   mainDetalleProyecto.innerHTML = ``
 
-
-
   dataProyectosGlobal.forEach(element => {
     if (element.id === e) {
       proyecto = element
@@ -753,7 +751,12 @@ fetch(`${localizacion}?action=pedirProyectos`)
   .then(response => response.json())
   .then(data => {
     dataProyectos = data.datos
+    dataProyectosGlobal = dataProyectos
+    console.log(dataProyectos)
+    mostrarRanking(dataProyectos)
     mostrarTopDelMain(dataProyectos)
+    mostrarListaProyectos(dataProyectos)
+    mostrarListaProyectosAdmin(dataProyectos) 
   })
   .catch(error => {
     console.error("❌ Error en fetch:", error);
