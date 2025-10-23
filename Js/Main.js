@@ -762,18 +762,6 @@ fetch(`${localizacion}?action=pedirProyectos`)
     console.error("❌ Error en fetch:", error);
   });
 
-async function cargarProyectos() {
-  const response = await fetch("./Js/json/proyectos.json")
-  const dataProyectos = await response.json()
-  dataProyectosGlobal = dataProyectos
-  console.log(dataProyectos)
-  mostrarRanking(dataProyectos)
-  mostrarTopDelMain(dataProyectos)
-  mostrarListaProyectos(dataProyectos)
-  mostrarListaProyectosAdmin(dataProyectos)
-} cargarProyectos()
-
-
 let ordenarCat = document.getElementById('OrdenarPorCategoria')
 let ordenarVot = document.getElementById('OrdenarPorVoto')
 let ordenarEst = document.getElementById('OrdenarPorEstrella')
