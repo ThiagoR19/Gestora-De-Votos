@@ -26,7 +26,8 @@ switch ($method) {
     case 'POST':
         if ($action === 'login') {
             Usuario::logueo($input['email'], $input['password']);
-        } elseif ($action === 'registrar') {
+        } 
+        elseif ($action === 'registrar') {
             $TodoSobreValorado = Usuario::validacion($input);
 
             if ($TodoSobreValorado['success']) {
@@ -40,6 +41,10 @@ switch ($method) {
                     "faltantes" => $TodoSobreValorado['faltantes']
                 ]);
             }
+        }
+        elseif ($action==="calificar"){
+            require_once 'controladores/InsertarCalifico.php';
+            //insertarCalificacion($pdo,$input);
         }
         break;
 

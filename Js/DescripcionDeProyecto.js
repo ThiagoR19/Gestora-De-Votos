@@ -1,3 +1,5 @@
+const localizacion = "/Gestora-De-Votos/PHP/Index.php"
+
 function EstablecerEstrellas(CantEstrellas,CantReseñas){
     let estrellasCompletas = Math.floor(CantEstrellas / CantReseñas);
     let estrellasMedia = (CantEstrellas / CantReseñas) - estrellasCompletas >= 0.5 ? 1 : 0;
@@ -21,7 +23,7 @@ function EstablecerEstrellas(CantEstrellas,CantReseñas){
     return estrellas
 }
 
-function instanciarEstrellas() {
+function instanciarEstrellas(proyecto) {
   const ids = ['estrella1','estrella2','estrella3','estrella4','estrella5'];
 
   // map -> getElementById, filter(Boolean) elimina nulls
@@ -36,11 +38,11 @@ function instanciarEstrellas() {
   todasEstrellas.forEach(estrella => {
     estrella._onOver = (e) => reColoreado(e, estrella);
     estrella._onLeave = (e) => quitadoReColoreado(e, estrella);
-    estrella._onclick = (e) => calificado(e, estrella)
+    estrella._onClick = (e) => calificado(e, estrella, todasEstrellas,proyecto)
 
     estrella.addEventListener('mouseover', estrella._onOver);
     estrella.addEventListener('mouseleave', estrella._onLeave);
-    estrella.addEventListener('click', (e) => calificado(e, estrella,todasEstrellas));
+    estrella.addEventListener('click', estrella._onClick);
     console.log("holaaaaaaaaaaaa")
   });
 }
@@ -63,11 +65,9 @@ function quitadoReColoreado(e,estrella){
         pos-=1
     }
 }
-function calificado(e, estrella, todasEstrellas) {
+async function calificado(e, estrella, todasEstrellas, proyectoid) {
   // 1️⃣ Mostrar valor por consola
   const valor = estrella.getAttribute('value');
-  console.log("Calificación:", valor);
-
   // 2️⃣ Desactivar TODOS los listeners (no solo de la estrella clickeada)
   todasEstrellas.forEach(est => {
     if (est._onOver) {
@@ -94,5 +94,39 @@ function calificado(e, estrella, todasEstrellas) {
     } else {
       est.classList.add("img_blanco_negro");
     }
+  }
+  const audio = new Audio("Sonidos/Check.mp3"); // Ruta de tu archivo
+  if (audio) {
+    audio.currentTime = 0;
+    audio.volume = 0.7; // Opcional: volumen (0.0 a 1.0)
+    audio.play()
+  }
+  try{
+    let userData = JSON.parse(localStorage.getItem("usuario"));
+
+    let response = await fetch(localizacion, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        accion: "calificar",
+        calificacion: valor,
+        userid: userData.id,
+        proyecto:proyectoid
+      })
+    });
+    const data = await response.json()
+    if (data){
+      if (data.status="ok"){
+        console.log(data.message)
+      }
+    }
+    else{
+      console.log(data.message)
+    }
+  }
+  catch(err){
+    console.error(err)
   }
 }

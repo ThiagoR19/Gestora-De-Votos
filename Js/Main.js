@@ -716,6 +716,7 @@ function verDescripcionDelProyecto(e) {
             <div class="img_blanco_negro" id="estrella5" value="5">
               <img src="./Imagenes/Estrellas.png" alt="Estrellas">
             </div>
+            
           </div>
         </div>
       </div>
@@ -742,7 +743,7 @@ function verDescripcionDelProyecto(e) {
 
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)
-  instanciarEstrellas()
+  instanciarEstrellas(proyecto.id)
   console.log("saludos cordiales")
 }
 
