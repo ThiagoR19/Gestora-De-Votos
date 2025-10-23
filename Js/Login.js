@@ -1,7 +1,14 @@
 var pasaEmail = false
 var motivo = ""
 
-const localizacion = "/Gestora-De-Votos/PHP/Index.php"
+let localizacion;
+
+if (location.hostname === "localhost") {
+  localizacion = "/Gestora-De-Votos/PHP/Index.php";
+} else {
+  localizacion = "https://riffo.ctpoba.com/PHP/Index.php";
+}
+
 const usuario = ["usuario", "coordinador","admin"];
 
 const container = document.getElementById("container");
