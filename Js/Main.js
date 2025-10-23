@@ -722,12 +722,12 @@ function verDescripcionDelProyecto(e) {
   let estudiantes = proyecto.estudiantes;
   let p1 = document.createElement('p');
   p1.classList.add('aside__div-p');
-  p1.textContent = estudiantes.map(e => e.nombre).join(" - ");
+  p1.textContent = estudiantes.join(" - ");
 
   let profesores = proyecto.profesores;
   let p2 = document.createElement('p');
   p2.classList.add('aside__div-p');
-  p2.textContent = profesores.map(p => p.nombre).join(" - ");
+  p2.textContent = profesores.join(" - ");
 
   aside.innerHTML = `
       <div class="aside__div">

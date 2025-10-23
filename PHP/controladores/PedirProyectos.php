@@ -2,7 +2,7 @@
 
 function pedirProyectos($pdo) {
     try {
-        $sql = "SELECT p.id, p.Nombre AS nombre, p.Descripcion AS descripcion, p.anio AS años, p.divicion AS division, c.categoria AS categoriaz,
+        $sql = "SELECT p.id, p.Nombre AS nombre, p.Descripcion AS descripcion, p.anio AS años, p.divicion AS division, c.categoria AS categoria,
         
                 -- Calificaciones de estrellas
                 COUNT(ue.cantEstrellas) AS cantCalificacionesEstrellas,
