@@ -194,6 +194,9 @@ function verificarCorreo() {
   }
 }
 function Yalogueado(id, tipo){
+  console.log(tipo)
+  console.log(id)
+  alert("hola")
   info = {
     id: id,
     tipo: tipo

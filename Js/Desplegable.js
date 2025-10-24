@@ -4,10 +4,12 @@ const IconoGS = document.getElementById("IconoGS");
 const IconoGU = document.getElementById("IconoGU");
 const IconoGC = document.getElementById("IconoGC");
 const IconoGA = document.getElementById("IconoGA");
+
 const MenuGS = document.getElementById("MenuGS");
 const MenuGU = document.getElementById("MenuGU");
 const MenuGC = document.getElementById("MenuGC");
 const MenuGA = document.getElementById("MenuGA");
+
 const IconoUserGU = document.getElementById("IconoUserGU");
 const IconoUserGC = document.getElementById("IconoUserGC");
 const IconoUserGA = document.getElementById("IconoUserGA");

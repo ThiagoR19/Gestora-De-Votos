@@ -11,12 +11,19 @@ function insertarUsuario($pdo, $data) {
             ':correo' => $data['email'] ?? null,
             ':cant' => 3,
             ':contra' => $data['password'] ?? null,
-            ':nivel' => 2,
+            ':nivel' => 1,
             ':nombre' => $data['nombre'] ?? null,
             ':apellido' => $data['apellido'] ?? null
         ]);
 
-        echo json_encode(["status" => "ok", "message" => "Usuario insertado correctamente"]);
+        echo json_encode([
+            "status" => "ok",
+            "message" => "Usuario insertado correctamente",
+            "datos" => [
+                "tipo" => 1,
+                "id" => 1
+            ]
+        ]);
     } catch (PDOException $e) {
         echo json_encode(["status" => "error", "message" => $e->getMessage()]);
     }

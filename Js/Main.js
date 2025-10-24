@@ -15,7 +15,7 @@ const mainResultados = document.getElementById('Resultados')
 
 const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
-const Header = document.getElementById('HeaderGS') // Header que este en ese momento
+var Header = document.getElementById('HeaderGS') // Header que este en ese momento
 const Footer = document.getElementById('Footer') // Footer que mas va a ser
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
@@ -45,7 +45,7 @@ const HeaderProyectosA = document.querySelectorAll('.HeaderProyectosA')
 const HeaderEstadistica = document.querySelectorAll('.HeaderEstadistica')
 const HeaderGestionar = document.querySelectorAll('.HeaderGestionar')
 const HeaderLogin = document.querySelectorAll('.HeaderLogin')
-
+determinarHeader("mainHome")
 HeaderHome.forEach(element => {
   element.addEventListener('click', () => {
     MenuGS.classList.remove('active')
@@ -362,6 +362,7 @@ function mostrarMain(mainAMostrar, mains) {
   window.scrollTo(0, 0);
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
   mains.forEach(element => {
+    determinarHeader(mainAMostrar)
     if (element.id === `${mainAMostrar}`) {
       element.classList.remove('none')
     } else {
