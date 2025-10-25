@@ -100,9 +100,9 @@ buttonRegister.addEventListener("click", async () => {
           }
         }
       })
-      .catch(error => {
+      /*.catch(error => {
         console.error("❌ Error en fetch:", error);
-      });
+      });*/
       
   } else {
     switch (motivo) {
@@ -197,7 +197,7 @@ function Yalogueado(id, tipo){
   console.log(tipo)
   console.log(id)
   alert("hola")
-  info = {
+  let info = {
     id: id,
     tipo: tipo
   }

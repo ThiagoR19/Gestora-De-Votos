@@ -15,7 +15,17 @@ const mainResultados = document.getElementById('Resultados')
 
 const mains = [mainHome, mainRanking, mainDetalleProyecto, mainListaNormal, mainListaAdmin, mainLogin, mainReporte, mainCarga, mainEstadisticas, mainMiCuenta, mainGestionar, mainResultados]
 
-var Header = document.getElementById('HeaderGS') // Header que este en ese momento
+const HeaderGS = document.getElementById('HeaderGS')
+const HeaderGU = document.getElementById('HeaderGU')
+const HeaderGA = document.getElementById('HeaderGA')
+const HeaderGC = document.getElementById('HeaderGC')
+const ocultarHeadersMain = (...headers) => headers.forEach(h => h.classList.add("none"));
+const HeaderHS = document.getElementById('HeaderHS')
+const HeaderHU = document.getElementById('HeaderHU')
+const HeaderHC = document.getElementById('HeaderHC')
+const HeaderHA = document.getElementById('HeaderHA')
+
+ // Header que este en ese momento
 const Footer = document.getElementById('Footer') // Footer que mas va a ser
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
@@ -355,14 +365,14 @@ for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
 }
 mains[0].classList.remove('none')
-Header.classList.add('none')
+ocultarHeadersMain(HeaderGA,HeaderGC,HeaderGS,HeaderGU)
 
 
 function mostrarMain(mainAMostrar, mains) {
   window.scrollTo(0, 0);
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
+  determinarHeader(mainAMostrar)
   mains.forEach(element => {
-    determinarHeader(mainAMostrar)
     if (element.id === `${mainAMostrar}`) {
       element.classList.remove('none')
     } else {
@@ -370,15 +380,11 @@ function mostrarMain(mainAMostrar, mains) {
     }
 
     if (mainAMostrar === 'Login') {
-      Header.classList.add('none');
+      ocultarHeadersMain(HeaderGA,HeaderGC,HeaderGS,HeaderGU)
+      console.log("se ocultan")
       Footer.classList.add('none');
     } else {
-      Header.classList.remove('none');
       Footer.classList.remove('none');
-    }
-
-    if (mainAMostrar === 'Home') {
-      Header.classList.add('none');
     }
   })
 }
