@@ -8,11 +8,13 @@
 }
 
 #HeaderGA a img,
+#HeaderGU a img,
 #HeaderGS a img {
   height: 100px;
 }
 
 #HeaderGA,
+#HeaderGU,
 #HeaderGS {
   color: white;
   background-color: #062F4F;

@@ -16,7 +16,7 @@ function determinarHeader(main) {
   const ocultarHeaders = (...headers) => headers.forEach(h => h.classList.add("none"));
   const userStr = localStorage.getItem("usuario");
   const usuario = JSON.parse(userStr);
-  if (main === "mainHome") {
+  if (main === "Home") {
     ocultarHeaders(HeaderGS, HeaderGU, HeaderGC, HeaderGA);
 
     if (userStr) {

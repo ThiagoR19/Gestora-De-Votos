@@ -55,7 +55,7 @@ const HeaderProyectosA = document.querySelectorAll('.HeaderProyectosA')
 const HeaderEstadistica = document.querySelectorAll('.HeaderEstadistica')
 const HeaderGestionar = document.querySelectorAll('.HeaderGestionar')
 const HeaderLogin = document.querySelectorAll('.HeaderLogin')
-determinarHeader("mainHome")
+determinarHeader("Home")
 HeaderHome.forEach(element => {
   element.addEventListener('click', () => {
     MenuGS.classList.remove('active')
@@ -385,6 +385,9 @@ function mostrarMain(mainAMostrar, mains) {
       Footer.classList.add('none');
     } else {
       Footer.classList.remove('none');
+    }
+    if (mainAMostrar==="mainHome"){
+      console.log("se muestra el main")
     }
   })
 }
