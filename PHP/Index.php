@@ -25,11 +25,10 @@ switch ($method) {
 
     case 'POST':
         if ($action === 'login') {
-            Usuario::logueo($input['email'], $input['password']);
+            Usuario::logueo($input['email'], $input['password'], $pdo);
         } 
         elseif ($action === 'registrar') {
-            $TodoSobreValorado = Usuario::validacion($input);
-
+            $TodoSobreValorado = Usuario::validacion($input,$pdo);
             if ($TodoSobreValorado['success']) {
                 require_once 'controladores/InsertarUsuario.php';
                 insertarUsuario($pdo, $input);

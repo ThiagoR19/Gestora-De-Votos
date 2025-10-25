@@ -39,7 +39,7 @@ buttonInicio.addEventListener("click", async (event) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            accion: "login",
+            action: "login",
             email: emaillog.value,
             password: passwordlog.value
         })
@@ -92,7 +92,7 @@ buttonRegister.addEventListener("click", async () => {
           Yalogueado(data.datos?.id, data.datos?.tipo);
           alert("✅ Bien: " + data.message);
         } else {
-          if (data.faltantes) {
+          if (data.faltantes != []) {
             alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
           } else {
             console.log("el error anda aca");

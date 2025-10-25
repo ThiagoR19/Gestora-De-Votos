@@ -8,28 +8,24 @@ class Usuario {
     private $id;
     private static $usuarios = __DIR__ . '/../JSON/Usuarios.json';
 
-    public static function validacion($data) {
+    public static function validacion($data, $pdo) {
         $success = false;
         $message = "";
         $faltantes = [];
-        $pasa = true;
+
+        if (!is_array($data)) {
+            return [
+                "success" => false,
+                "message" => "Datos inválidos recibidos",
+                "datos" => $data,
+                "faltantes" => []
+            ];
+        }
 
         $data = array_change_key_case($data, CASE_LOWER);
 
-        // 🔄 Aceptar ambas formas (correo o email, contra o password)
-        if (isset($data['correo']) && !isset($data['email'])) {
-            $data['email'] = $data['correo'];
-        }
-        if (isset($data['contra']) && !isset($data['password'])) {
-            $data['password'] = $data['contra'];
-        }
-        if (!isset($data['confirmpassword']) && isset($data['confirmar'])) {
-            $data['confirmpassword'] = $data['confirmar'];
-        }
-
         $campos = ['nombre', 'apellido', 'email', 'password', 'confirmpassword'];
 
-        // ✅ Revisar campos faltantes
         foreach ($campos as $campo) {
             if (!isset($data[$campo]) || trim($data[$campo]) === '') {
                 $faltantes[] = $campo;
@@ -39,28 +35,28 @@ class Usuario {
         if (!empty($faltantes)) {
             $success = false;
             $message = "Faltan datos obligatorios";
-        }
-
-        elseif ($data['password'] !== $data['confirmpassword']) {
+        } 
+        elseif (trim($data['password']) !== trim($data['confirmpassword'])) {
             $success = false;
             $message = "Las contraseñas no coinciden";
-        }
+        } 
         else {
-            // 📂 Leer usuarios existentes (si usás un JSON)
-            $usuariosArray = file_exists(self::$usuarios)
-                ? json_decode(file_get_contents(self::$usuarios), true)
-                : [];
+            require_once 'controladores/PedirUsuarios.php';
+            $usuariosCorreoArray = PedirCorreos($pdo);
 
-            foreach ($usuariosArray as $usuario) {
-                if ($usuario['email'] == $data['email']) {
-                    $success = false;
-                    $message = "Email ya registrado";
-                    $pasa = false;
+            $existeCorreo = false;
+            foreach ($usuariosCorreoArray as $usuario) {
+                if (strtolower($usuario['Correo']) === strtolower($data['email'])) {
+                    $existeCorreo = true;
                     break;
                 }
             }
 
-            if ($pasa) {
+            if ($existeCorreo) {
+                $success = false;
+                $message = "Email ya registrado";
+            } 
+            else {
                 $success = true;
                 $message = "Usuario registrado con éxito";
             }
@@ -73,7 +69,6 @@ class Usuario {
             "faltantes" => $faltantes
         ];
     }
-
     public function mensaje($suceso,$mensaje,$datos,$faltantes){
         echo json_encode([
             "success" => $suceso,
@@ -122,19 +117,20 @@ class Usuario {
         file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
     }
     
-    public static function logueo($email, $password) {
+    public static function logueo($email, $password, $pdo) {
+        require_once 'controladores/PedirUsuarios.php';
+        $usuariosArray = PedirUsuario($pdo);
         $suceso = false;
         $mensaje = "";
         $datos = null;
-        $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
         foreach ($usuariosArray as $usuario) {
-            if ($usuario['email'] == $email && $usuario['password'] == $password) {
+            if ($usuario['Correo'] == $email && $usuario['contrasenia'] == $password) {
                 $datos = [
                     'id' => $usuario['id'],
-                    'nombre' => $usuario['nombre'],
-                    'apellido' => $usuario['apellido'],
-                    'email' => $usuario['email'],
-                    'tipo' => $usuario['tipo']
+                    'nombre' => $usuario['Nombre'],
+                    'apellido' => $usuario['Apellido'],
+                    'email' => $usuario['Correo'],
+                    'tipo' => $usuario['Nivel_Usuario']
                 ];
                 $suceso = true;
                 $mensaje = "Inicio de sesion exitoso";
