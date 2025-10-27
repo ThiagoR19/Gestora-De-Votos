@@ -256,6 +256,12 @@ h1 {
 }
 
 
+@media (max-width: 1350px) {
+  #HeaderHS a {
+    font-size: 20px;
+  }
+}
+
 @media (max-width: 1160px) {
   body {
     overflow-x: hidden;
@@ -274,12 +280,15 @@ button {
 }
 
 
-@media (max-width:1100px) {
-  #HeaderHS a, 
+@media (max-width:1100px) { 
   #HeaderHU a, 
   #HeaderHC a, 
   #HeaderHA a {
     font-size: 30px;
+  }
+
+  #HeaderHS a {
+    font-size: 17px;
   }
 }
 
@@ -289,13 +298,6 @@ button {
   #HeaderHU, 
   #HeaderHC, 
   #HeaderHA {
-    margin: 90px 0 40px;
-    font-size: 25px;
-  }
-
-  #IconoUserHU,
-  #IconoUserHC,
-  #IconoUserHA {
     display: none;
   }
 
@@ -330,12 +332,7 @@ button {
   }
 
   .LogoColegio {
-    position: absolute;
     top: 85%;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 15vh;
-    z-index: 100;
   }
 
   #MenuHS a,
@@ -383,7 +380,7 @@ button {
   }
 
   .Hero__article-div:last-child {
-    margin: 40px 0;
+    margin: 100px 0;
   }
 
   #IconoHU,
