@@ -9,6 +9,11 @@ function determinarHeader(main) {
   const HeaderHC = document.getElementById("HeaderHC");
   const HeaderHA = document.getElementById("HeaderHA");
 
+  const IconoHS = document.getElementById("IconoHS");
+  const IconoHU = document.getElementById("IconoHU");
+  const IconoHC = document.getElementById("IconoHC");
+  const IconoHA = document.getElementById("IconoHA");
+
   let caso = null;
 
   // Oculta todos los headers al inicio
@@ -23,19 +28,19 @@ function determinarHeader(main) {
         switch (usuario.tipo) {
             case 1:
                 caso = "HeaderHU";
-                ocultarHeaders(HeaderHS, HeaderHC, HeaderHA, HeaderGA, HeaderGU, HeaderGC, HeaderGS);
+                ocultarHeaders(HeaderHS, HeaderHC, HeaderHA, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHC, IconoHA);
                 HeaderHU.classList.remove("none")
                 break;
 
             case 2:
                 caso = "HeaderHC";
-                ocultarHeaders(HeaderHS, HeaderHU, HeaderHA , HeaderGA, HeaderGU, HeaderGC, HeaderGS);
+                ocultarHeaders(HeaderHS, HeaderHU, HeaderHA , HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHU, IconoHA);
                 HeaderHC.classList.remove("none")
                 break;
 
             case 3:
                 caso = "HeaderHA";
-                ocultarHeaders(HeaderHS, HeaderHU, HeaderHC, HeaderGA, HeaderGU, HeaderGC, HeaderGS);
+                ocultarHeaders(HeaderHS, HeaderHU, HeaderHC, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHU, IconoHC);
                 HeaderHA.classList.remove("none");
                 break;
 
@@ -47,7 +52,7 @@ function determinarHeader(main) {
         caso = "HeaderHS";
         HeaderHS.classList.remove("none")
         console.log("aca")
-        ocultarHeaders(HeaderHU, HeaderHC, HeaderHA);
+        ocultarHeaders(HeaderHU, HeaderHC, HeaderHA, IconoHU, IconoHC, IconoHA);
     }
 
     return caso;
