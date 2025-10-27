@@ -810,7 +810,10 @@ function verDescripcionDelProyecto(e) {
         })
       })
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => {
+        console.log(data)
+        alert(data)
+      });
       })
     })
   })
