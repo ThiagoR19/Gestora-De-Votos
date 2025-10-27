@@ -668,12 +668,14 @@ function editarProyecto(e) {
 
 function verDescripcionDelProyecto(e) {
 
-  const userStr = localStorage.getItem("usuario");
-  const usuario = JSON.parse(userStr);
+  let idUsuario = null
 
-  if (usuario) {
-    const idUsuario = usuario.id
+  if (localStorage.getItem("usuario")) {
+    const userStr = localStorage.getItem("usuario");
+    const usuario = JSON.parse(userStr);
+    idUsuario = usuario.id
   }
+
 
   fetch(`${localizacion}?action=verVotos`, {
     method: "POST",
