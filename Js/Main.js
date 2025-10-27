@@ -671,7 +671,9 @@ function verDescripcionDelProyecto(e) {
   const userStr = localStorage.getItem("usuario");
   const usuario = JSON.parse(userStr);
 
-  const idUsuario = usuario.id
+  if (usuario) {
+    const idUsuario = usuario.id
+  }
 
   fetch(`${localizacion}?action=verVotos`, {
     method: "POST",
