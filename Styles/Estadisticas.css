@@ -182,3 +182,15 @@ h1 {
   margin: 0 10px;
   font-size: 14px;
 }
+
+@media (max-width: 600px) {
+
+  .Estadisticas__proyecto-info {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 40px
+  }
+
+}

@@ -50,8 +50,16 @@ switch ($method) {
             votar($pdo, $input);
         }
         elseif ($action === "verVotos"){
-            require_once 'controladores/verVotos.php';
+            require_once 'controladores/VerVotos.php';
             verVotos($pdo, $input);
+        }
+        elseif ($action === "borrarCuenta"){
+            require_once 'controladores/BorrarCuenta.php';
+            borrarCuenta($pdo, $input);
+        }
+        elseif ($action === "borrarProyecto"){
+            require_once 'controladores/BorrarProyecto.php';
+            borrarProyecto($pdo, $input);
         }
         break;
 

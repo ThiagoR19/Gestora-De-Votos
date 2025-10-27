@@ -1,6 +1,4 @@
 <?php
-header("Content-Type: application/json");
-
 function verVotos($pdo, $input) {
   try {
     $data = json_decode(file_get_contents("php://input"), true);

@@ -7,15 +7,17 @@
   box-sizing: border-box;
 }
 
-#HeaderGA a img,
+#HeaderGS a img,
 #HeaderGU a img,
-#HeaderGS a img {
+#HeaderGC a img,
+#HeaderGA a img {
   height: 100px;
 }
 
-#HeaderGA,
+#HeaderGS,
+#HeaderGC,
 #HeaderGU,
-#HeaderGS {
+#HeaderGA {
   color: white;
   background-color: #062F4F;
   display: flex;
