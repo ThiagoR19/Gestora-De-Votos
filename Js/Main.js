@@ -805,7 +805,7 @@ function verDescripcionDelProyecto(e) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          idUsuario: usuario.id,
+          idUsuario: idUsuario,
           idProyecto: proyecto.id
         })
       })

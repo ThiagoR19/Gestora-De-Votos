@@ -255,3 +255,12 @@
   z-index: 2;
   pointer-events: none;
 }
+
+@media (max-width: 380px) {
+
+  .header__div p {
+    font-size: 15px;
+    padding: 10px 0;
+  }
+
+}
