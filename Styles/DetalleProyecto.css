@@ -264,3 +264,8 @@ aside {
 .none {
   display: none;
 }
+
+.votado {
+  border: 2px solid green;
+  border-radius: none;
+}

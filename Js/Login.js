@@ -49,9 +49,6 @@ buttonInicio.addEventListener("click", async (event) => {
 
     const data = await response.json();
 
-    // Intentar parsear el JSON
-    console.log(data)
-    // Validar la respuesta del backend
     if (data.success) {
       alert("✅ Bien: " + data.message);
       Yalogueado (data.datos.id, data.datos.tipo);

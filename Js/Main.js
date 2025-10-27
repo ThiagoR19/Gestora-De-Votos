@@ -668,6 +668,26 @@ function editarProyecto(e) {
 
 function verDescripcionDelProyecto(e) {
 
+  const userStr = localStorage.getItem("usuario");
+  const usuario = JSON.parse(userStr);
+
+  const idUsuario = usuario.id
+
+  fetch(`${localizacion}?action=verVotos`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ idUsuario })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      console.log("Proyectos votados:", data.proyectos);
+      let proyectosVotados = data.proyectos
+    } else {
+      console.log(data.message);
+    }
+  });
+
   mainDetalleProyecto.innerHTML = ``
 
   dataProyectosGlobal.forEach(element => {
@@ -749,10 +769,58 @@ function verDescripcionDelProyecto(e) {
           <p class="aside__div-p">${p2.textContent}</p>
         </div>`
 
+  let modaldiv = document.createElement('div')
+  modaldiv.setAttribute('id','modal')
+  modaldiv.setAttribute('class','modal')
+  modaldiv.innerHTML = `
+  <div class="modal__content">
+      <p id="modal-text">¿Desea confirmar su voto? <br> Si vota este proyecto, no podrá retirar su voto.</p>
+      <div class="modal__buttons">
+        <button onClick="if (confirmarCallback) confirmarCallback();
+      cerrarModal();" id="modal-confirm">Confirmar</button>
+        <button onClick="cerrarModal()" id="modal-cancel">Cancelar</button>
+      </div>
+    </div>`
+
+    modaldiv.addEventListener('click', ()=> {
+      if (e.target === modal) cerrarModal();
+    })
+
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)
+  mainDetalleProyecto.appendChild(modaldiv)
   instanciarEstrellas(proyecto.id)
-  console.log("saludos cordiales")
+
+  const BotonesVotar = document.querySelectorAll('.proyecto-esp__article-div-div-button')
+
+  BotonesVotar.forEach((e)=> {
+
+    e.addEventListener('click', ()=> {
+      abrirModal(()=> {
+        fetch(`${localizacion}?action=votar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idUsuario: usuario.id,
+          idProyecto: proyecto.id
+        })
+      })
+      .then(res => res.json())
+      .then(data => console.log(data));
+      })
+    })
+  })
+}
+
+let confirmarCallback = null;
+
+function abrirModal(callback) {
+  confirmarCallback = callback;
+  modal.style.display = 'flex';
+}
+
+function cerrarModal() {
+  modal.style.display = 'none';
 }
 
 // LLamada al json y ejecucion de las funciones.
@@ -786,4 +854,11 @@ ordenarCat.addEventListener('click', () => {
 
 ordenarEst.addEventListener('click', () => {
   mostrarRanking(dataProyectosGlobal, 2)
+})
+
+// Funcion para Cerrar Sesion
+
+document.querySelector('.article__div-button2').addEventListener('click', ()=> {
+  localStorage.clear()
+  window.location.reload();
 })

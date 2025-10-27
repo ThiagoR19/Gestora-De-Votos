@@ -4,44 +4,30 @@ function pedirProyectos($pdo) {
     try {
         $sql = "SELECT p.id, p.Nombre AS nombre, p.Descripcion AS descripcion, p.anio AS años, p.divicion AS division, c.categoria AS categoria,
         
-                -- Calificaciones de estrellas
-                COUNT(ue.cantEstrellas) AS cantCalificacionesEstrellas,
-                IFNULL(SUM(ue.cantEstrellas), 0) AS cantEstrellas,
+        -- número de calificaciones (filas en usuario_estrellas)
+        COUNT(DISTINCT ue.id) AS cantCalificacionesEstrellas,
 
-                -- Total de votos (usuario_votos)
-                COUNT(uv.idProyecto) AS cantVotos,
+        -- suma de estrellas (evitamos duplicados con SUM DISTINCT si fuera necesario)
+        IFNULL(SUM(DISTINCT ue.cantEstrellas), 0) AS cantEstrellas,
 
-                -- Estudiantes
-                GROUP_CONCAT(DISTINCT pa.AlumNombre SEPARATOR ', ') AS estudiantes,
+        -- total de votos (filas distintas en usuario_votos)
+        COUNT(DISTINCT uv.id) AS cantVotos,
 
-                -- Profesores
-                GROUP_CONCAT(DISTINCT pp.profNombre SEPARATOR ', ') AS profesores,
+        -- estudiantes, profesores e imágenes concatenados
+        GROUP_CONCAT(DISTINCT pa.AlumNombre SEPARATOR ', ') AS estudiantes,
+        GROUP_CONCAT(DISTINCT pp.profNombre SEPARATOR ', ') AS profesores,
+        GROUP_CONCAT(DISTINCT pi.imagen SEPARATOR ', ') AS imagenes
 
-                -- Imágenes
-                GROUP_CONCAT(DISTINCT pi.imagen SEPARATOR ', ') AS imagenes
+        FROM proyectos AS p
+        LEFT JOIN categorias AS c ON p.idCategoria = c.id
+        LEFT JOIN proyecto_alum AS pa ON pa.idProyecto = p.id
+        LEFT JOIN proyecto_profes AS pp ON pp.idProyecto = p.id
+        LEFT JOIN proyecto_imagenes AS pi ON pi.idProyecto = p.id
+        LEFT JOIN usuario_estrellas AS ue ON ue.idProyecto = p.id
+        LEFT JOIN usuario_votos AS uv ON uv.idProyecto = p.id
 
-                FROM proyectos AS p
-
-                LEFT JOIN categorias AS c 
-                ON p.idCategoria = c.id
-
-                LEFT JOIN proyecto_alum AS pa
-                ON pa.idProyecto = p.id
-
-                LEFT JOIN proyecto_profes AS pp
-                ON pp.idProyecto = p.id
-
-                LEFT JOIN proyecto_imagenes AS pi
-                ON pi.idProyecto = p.id
-
-                LEFT JOIN usuario_estrellas AS ue
-                ON ue.idProyecto = p.id
-
-                LEFT JOIN usuario_votos AS uv
-                ON uv.idProyecto = p.id
-
-                GROUP BY p.id, p.Nombre, p.Descripcion, p.anio, p.divicion, c.categoria
-                ORDER BY p.id;";
+        GROUP BY p.id, p.Nombre, p.Descripcion, p.anio, p.divicion, c.categoria
+        ORDER BY p.id;";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 

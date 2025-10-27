@@ -192,8 +192,10 @@ h1 {
 .LogoColegio {
   position: absolute;
   top: 80%;
-  height: 15vh;
-  left: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 135px;
+  width: 135px;
   z-index: 100;
 }
 

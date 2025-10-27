@@ -1,5 +1,4 @@
 function determinarHeader(main) {
-    console.log("holaaaaaaaaaaaaaaaaaaaaaaaa")
   const HeaderGS = document.getElementById("HeaderGS");
   const HeaderGU = document.getElementById("HeaderGU");
   const HeaderGC = document.getElementById("HeaderGC");

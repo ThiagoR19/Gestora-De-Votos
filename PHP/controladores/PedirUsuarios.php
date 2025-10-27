@@ -17,7 +17,7 @@ function PedirCorreos($pdo){
 }
 function PedirUsuario($pdo){
     try{
-        $sql = "SELECT id, Correo, contrasenia, Nivel_Usuario, Nombre, Apellido from usuarios";
+        $sql = "SELECT * from usuarios";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 

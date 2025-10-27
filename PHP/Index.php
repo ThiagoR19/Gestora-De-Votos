@@ -41,9 +41,17 @@ switch ($method) {
                 ]);
             }
         }
-        elseif ($action==="calificar"){
+        elseif ($action === "calificar"){
             require_once 'controladores/InsertarCalifico.php';
             //insertarCalificacion($pdo,$input);
+        }
+        elseif ($action === "votar"){
+            require_once 'controladores/Votar.php';
+            votar($pdo, $input);
+        }
+        elseif ($action === "verVotos"){
+            require_once 'controladores/verVotos.php';
+            verVotos($pdo, $input);
         }
         break;
 

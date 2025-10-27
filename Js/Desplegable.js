@@ -24,7 +24,12 @@ const MenuHS = document.getElementById("MenuHS");
 const MenuHU = document.getElementById("MenuHU");
 const MenuHC = document.getElementById("MenuHC");
 const MenuHA = document.getElementById("MenuHA");
+
 const IconoUserHU = document.getElementById("IconoUserHU");
+
+console.log(IconoUserHU)
+console.log('IconoUserHU')
+
 const IconoUserHC = document.getElementById("IconoUserHC");
 const IconoUserHA = document.getElementById("IconoUserHA");
 
@@ -49,6 +54,7 @@ IconoHU.addEventListener("click", () => {
 });
 
 IconoUserHU.addEventListener("click", () => {
+  console.log('hola')
   MenuHU.classList.toggle("active");
   IconoHU.classList.toggle("fa-bars");
   IconoHU.classList.toggle("fa-times");
