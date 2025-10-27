@@ -54,7 +54,7 @@ IconoHU.addEventListener("click", () => {
 });
 
 IconoUserHU.addEventListener("click", () => {
-  console.log('hola')
+  console.log(MenuHU)
   MenuHU.classList.toggle("active");
   IconoHU.classList.toggle("fa-bars");
   IconoHU.classList.toggle("fa-times");
