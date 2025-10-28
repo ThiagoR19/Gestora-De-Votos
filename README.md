@@ -56,13 +56,6 @@ http://localhost/Gestora-De-Votos
 
 ---
 
-## 📸 Capturas de pantalla
-
-![Pantalla de inicio](Imagenes/Home.png)
-*Vista principal con proyectos y votación.*
-
----
-
 ## 🔐 Seguridad y validaciones
 
 - Votación limitada a 3 votos por usuario.
