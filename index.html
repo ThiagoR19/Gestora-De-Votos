@@ -10,15 +10,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="stylesheet" href="./Styles/Home.css" id="styles">
+  <link rel="stylesheet" href="./Styles/Home.css?v=999" id="styles">
   <link rel="stylesheet" href="./Styles/Footer.css">
   <link rel="stylesheet" href="./Styles/Header.css">
   <link rel="stylesheet" href="./Styles/Modal.css">
-  
+
   <script defer src="./Js/Login.js"></script>
   <script defer src="./Js/Header.js"></script>
   <script defer src="./Js/Main.js"></script>
   <script defer src="./Js/LoginFacebook.js"></script>
+  <script defer src="./Js/CargarProyecto.js"></script>
   <script defer src="./Js/Desplegable.js"></script>
   <script defer src="./Js/DescripcionDeProyecto.js"></script>
 </head>
@@ -532,13 +533,13 @@
         <div class="carga-proyecto__info">
           <div class="carga-proyecto__titulo">
             <label class="carga-proyecto__label">Título del proyecto</label>
-            <input type="text" class="carga-proyecto__input"
-              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing">
+            <input type="text" id="inputTitulo" class="carga-proyecto__input"
+              placeholder="Ingrese el titulo del proyecto">
           </div>
 
           <div class="carga-proyecto__descripcion">
             <label class="carga-proyecto__label">Descripción</label>
-            <textarea class="carga-proyecto__textarea"
+            <textarea id="inputDescripcion" class="carga-proyecto__textarea"
               placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></textarea>
           </div>
 
@@ -576,12 +577,12 @@
 
         <div class="carga-proyecto-form__grupo">
           <h3 class="carga-proyecto-form__titulo">Curso</h3>
-          <input type="text" class="carga-proyecto-form__input" placeholder="Año del curso">
-          <input type="text" class="carga-proyecto-form__input" placeholder="División del curso">
+          <input type="number" class="carga-proyecto-form__input" id="inputAnio" placeholder="Año del curso">
+          <input type="number" class="carga-proyecto-form__input" id="inputDivision" placeholder="División del curso">
 
           <div class="carga-proyecto-form__select-wp">
             <h3 class="carga-proyecto-form__titulo">Categoria</h3>
-            <select class="carga-proyecto-form__select">
+            <select id="inputCategoria" class="carga-proyecto-form__select">
               <option value="">Categoria</option>
               <option value="">Programación</option>
               <option value="">Economia</option>

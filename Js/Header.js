@@ -24,40 +24,40 @@ function determinarHeader(main) {
     ocultarHeaders(HeaderGS, HeaderGU, HeaderGC, HeaderGA);
 
     if (userStr) {
-        console.log (usuario)
-        switch (usuario.tipo) {
-            case 1:
-                caso = "HeaderHU";
-                ocultarHeaders(HeaderHS, HeaderHC, HeaderHA, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHC, IconoHA);
-                HeaderHU.classList.remove("none")
-                break;
+      console.log(usuario)
+      switch (usuario.tipo) {
+        case 1:
+          caso = "HeaderHU";
+          ocultarHeaders(HeaderHS, HeaderHC, HeaderHA, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHC, IconoHA);
+          HeaderHU.classList.remove("none")
+          break;
 
-            case 2:
-                caso = "HeaderHC";
-                ocultarHeaders(HeaderHS, HeaderHU, HeaderHA , HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHU, IconoHA);
-                HeaderHC.classList.remove("none")
-                break;
+        case 2:
+          caso = "HeaderHC";
+          ocultarHeaders(HeaderHS, HeaderHU, HeaderHA, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHU, IconoHA);
+          HeaderHC.classList.remove("none")
+          break;
 
-            case 3:
-                caso = "HeaderHA";
-                ocultarHeaders(HeaderHS, HeaderHU, HeaderHC, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHU, IconoHC);
-                HeaderHA.classList.remove("none");
-                break;
+        case 3:
+          caso = "HeaderHA";
+          ocultarHeaders(HeaderHS, HeaderHU, HeaderHC, HeaderGA, HeaderGU, HeaderGC, HeaderGS, IconoHS, IconoHU, IconoHC);
+          HeaderHA.classList.remove("none");
+          break;
 
-            default:
-                alert("Tipo de usuario no encontrado");
-        }
-    } 
+        default:
+          alert("Tipo de usuario no encontrado");
+      }
+    }
     else {
-        caso = "HeaderHS";
-        HeaderHS.classList.remove("none")
-        console.log("aca")
-        ocultarHeaders(HeaderHU, HeaderHC, HeaderHA, IconoHU, IconoHC, IconoHA);
+      caso = "HeaderHS";
+      HeaderHS.classList.remove("none")
+      console.log("aca")
+      ocultarHeaders(HeaderHU, HeaderHC, HeaderHA, IconoHU, IconoHC, IconoHA);
     }
 
     return caso;
   }
-  else{
+  else {
     if (userStr) {
       switch (usuario.tipo) {
         case 1:
@@ -85,16 +85,16 @@ function determinarHeader(main) {
           alert("Tipo de usuario no encontrado");
           break;
       }
-    } 
+    }
     else {
       caso = "HeaderGS";
       HeaderGS.classList.remove("none");
       console.log("se hizo el 4")
       ocultarHeaders(HeaderGU, HeaderGC, HeaderGA);
     }
-    
+
 
   }
 
-  
+
 }
