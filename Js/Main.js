@@ -431,7 +431,7 @@ function mostrarTopDelMain(dataProyectos) {
   Tops.innerHTML = `
     <article class="tops__article">
         <div class="tops__article-divImg">
-          <img src="./Imagenes/FotoEjemplo.png" alt="" class="tops__article-divImg-img">
+          <img src="./JS/imagenes/${Top3[0].imagenes[0]}" alt="Imagen principal del proyecto" class="tops__article-divImg-img">
         </div>
         <div class="tops__article-lineas">
           <div class="tops__article-lineas-circulo">1</div>
@@ -452,7 +452,7 @@ function mostrarTopDelMain(dataProyectos) {
 
       <article class="tops__article reverse">
         <div class="tops__article-divImg">
-          <img src="./Imagenes/FotoEjemplo.png" alt="" class="tops__article-divImg-img">
+          <img src="./JS/imagenes/${Top3[1].imagenes[0]}" alt="" class="tops__article-divImg-img">
         </div>
         <div class="tops__article-lineas">
           <div class="tops__article-lineas-circulo">2</div>
@@ -474,7 +474,7 @@ function mostrarTopDelMain(dataProyectos) {
       <article class="article-wrapper">
         <article class="tops__article">
           <div class="tops__article-divImg">
-            <img src="./Imagenes/FotoEjemplo.png" alt="" class="tops__article-divImg-img">
+            <img src="./JS/imagenes/${Top3[2].imagenes[0]}" alt="" class="tops__article-divImg-img">
           </div>
           <div class="tops__article-lineas">
             <div class="tops__article-lineas-circulo">3</div>
@@ -506,7 +506,7 @@ function mostrarListaProyectos(dataProyectos) {
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
       <div class="ListaNormal__article-div">
-        <img class="ListaNormal__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+        <img class="ListaNormal__article-div-img" src="./JS/imagenes/${e.imagenes[0]}" alt="">
       </div>
       <div class="ListaNormal__article-div">
         <div class="ListaNormal__article-div-div">
@@ -548,7 +548,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
       <div class="ListaAdmin__article-div">
-        <img class="ListaAdmin__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+        <img class="ListaAdmin__article-div-img" src="./JS/imagenes/${e.imagenes[0]}" alt="">
       </div>
       <div class="ListaAdmin__article-div">
         <div class="ListaAdmin__article-div-div">
@@ -575,7 +575,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
           <p class="ListaAdmin__article-div-div-p">${e.descripcion}</p>
         </div>
         <div class="ListaAdmin__article-div-div">
-          <button class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
+          <button onClick="EliminarProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-trash"></i></button>
           <button onClick="mostrarMain('Carga', mains); editarProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i class="fa-solid fa-pencil"></i></button>
           <button onClick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${e.id})" class="ListaAdmin__article-div-div-button"><i
               class="fa-solid fa-magnifying-glass"></i></button>
@@ -583,6 +583,23 @@ function mostrarListaProyectosAdmin(dataProyectos) {
       </div>
     </article>`)
   });
+}
+
+function EliminarProyecto(id) {
+  if (confirm("¿Estás seguro que quieres eliminar este proyecto?")) {
+    fetch(`${localizacion}?action=borrarProyecto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        idProyecto: id
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      alert(data.message)
+    });
+  }
 }
 
 function mostrarRanking(dataProyectos, ordenamiento = 0) {
@@ -627,7 +644,7 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
         </div>
         <div class="rank__article-div-div">
           <div id="container" class="rank__article-div-div-div">
-            <img class="rank__article-div-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+            <img class="rank__article-div-div-img" src="./JS/imagenes/${proyectosOrdenados[cont].imagenes[0]}" alt="">
           </div>
           <p class="rank__article-div-div-p" data-max="100" data-onclick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${proyectosOrdenados[cont].id})">${proyectosOrdenados[cont].descripcion}</p>
         </div>
@@ -708,11 +725,11 @@ function verDescripcionDelProyecto(e) {
   article.innerHTML = `
     <article class="proyecto-esp__article">
       <div class="proyecto-esp__article-div">
-        <img id="Proyectos__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
+        <img id="Proyectos__article-div-img" src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
         <div id="Proyectos__article-div-imgs">
-          <img src="./Imagenes/FotoEjemplo.png" alt="">
-          <img src="./Imagenes/FotoEjemplo.png" alt="">
-          <img src="./Imagenes/FotoEjemplo.png" alt="">
+          <img src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
+          <img src="./JS/imagenes/${proyecto.imagenes[1]}" alt="">
+          <img src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
         </div>
       </div>
       <div class="proyecto-esp__article-div">
@@ -866,6 +883,44 @@ ordenarEst.addEventListener('click', () => {
 // Funcion para Cerrar Sesion
 
 document.querySelector('.article__div-button2').addEventListener('click', ()=> {
-  localStorage.clear()
-  window.location.reload();
+  if(confirm("¿Estás seguro que desea cerrar sesion?")) {
+    localStorage.clear()
+    window.location.reload();
+  }
 })
+
+//Funcion para borrar cuenta
+
+const botonBorrarCuenta = document.getElementById('BorrarCuenta')
+
+botonBorrarCuenta.addEventListener('click', ()=> {
+  borrarCuenta()
+})
+
+function borrarCuenta () {
+  let idUsuario = null
+
+  if (localStorage.getItem("usuario")) {
+    const userStr = localStorage.getItem("usuario");
+    const usuario = JSON.parse(userStr);
+    idUsuario = usuario.id
+  }
+  
+  if (idUsuario && confirm("¿Estás seguro que quieres eliminar esta cuenta?")) {
+    fetch(`${localizacion}?action=borrarCuenta`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        idUsuario: idUsuario
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success) {
+        alert(data.message)
+        localStorage.clear()
+        window.location.reload();
+      }
+    });
+  }
+}

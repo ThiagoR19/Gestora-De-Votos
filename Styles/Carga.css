@@ -469,3 +469,11 @@ aside {
   border: 2px solid green;
   border-radius: none;
 }
+
+#CargarProyecto {
+  padding: 10px 20px;
+  border: none;
+  background-color: #062F4F;
+  border-radius: 6px;
+  color: white;
+}

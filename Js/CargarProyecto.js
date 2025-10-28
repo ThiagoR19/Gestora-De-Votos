@@ -53,7 +53,6 @@ previewWrapper.innerHTML = `
 `;
 vistaPrevia.appendChild(previewWrapper);
 
-// === REFERENCIAS A LOS ELEMENTOS DE PREVIEW ===
 const previewTitulo = previewWrapper.querySelector('#previewTitulo');
 const previewDescripcion = previewWrapper.querySelector('#previewDescripcion');
 const previewCategoria = previewWrapper.querySelector('#previewCategoria');
@@ -61,7 +60,6 @@ const previewCurso = previewWrapper.querySelector('#previewCurso');
 const previewEstudiantes = previewWrapper.querySelector('#previewEstudiantes');
 const previewProfesores = previewWrapper.querySelector('#previewProfesores');
 
-// === UTILIDADES ===
 function capitalizarTexto(texto) {
   if (!texto) return '';
   return texto
@@ -72,21 +70,26 @@ function capitalizarTexto(texto) {
     .join(' ');
 }
 
-// Toma todos los inputs dentro de un contenedor y devuelve sus valores capitalizados y filtrados
 function valoresInputsDel(contenedor) {
   return [...contenedor.querySelectorAll('.carga-proyecto-form__input')]
     .map(i => capitalizarTexto(i.value.trim()))
     .filter(v => v !== '');
 }
 
-// === FUNCIONES DE ACTUALIZACIÓN ===
 function actualizarCamposBase() {
-  previewTitulo.textContent = InputTitulo && InputTitulo.value.trim() ? InputTitulo.value : 'Título del proyecto';
-  previewDescripcion.textContent = InputDescripcion && InputDescripcion.value.trim() ? InputDescripcion.value : 'Descripción breve del proyecto...';
-  previewCategoria.textContent = InputCategoria && InputCategoria.value.trim() ? InputCategoria.value : '---';
+  previewTitulo.textContent = InputTitulo && InputTitulo.value.trim() ? InputTitulo.value : 'Título';
+  previewDescripcion.textContent = InputDescripcion && InputDescripcion.value.trim() ? InputDescripcion.value : 'Descripción';
+  previewCategoria.textContent =
+  InputCategoria && InputCategoria.value.trim()
+    ? InputCategoria.options[InputCategoria.selectedIndex].text
+    : '---';
+
   const cursoTxt = `${InputAnio && InputAnio.value ? InputAnio.value : ''} ${InputDivision && InputDivision.value ? InputDivision.value : ''}`.trim();
   previewCurso.textContent = cursoTxt || '---';
 }
+
+let estudiantesArray = []
+let profesoresArray = []
 
 function actualizarListas() {
   const estudiantes = valoresInputsDel(contenedorEstudiantes);
@@ -94,6 +97,9 @@ function actualizarListas() {
 
   previewEstudiantes.textContent = estudiantes.length ? estudiantes.join(' - ') : 'Sin estudiantes';
   previewProfesores.textContent = profesores.length ? profesores.join(' - ') : 'Sin profesores';
+
+  estudiantesArray = estudiantes
+  profesoresArray = profesores
 }
 
 function actualizarVistaCompleta() {
@@ -101,69 +107,50 @@ function actualizarVistaCompleta() {
   actualizarListas();
 }
 
-// === AGREGAR EVENTOS A INPUTS EXISTENTES ===
 function attachInputsEvents(contenedor) {
   const inputs = contenedor.querySelectorAll('.carga-proyecto-form__input');
   inputs.forEach(input => {
-    // Por si acaso, removemos listeners previos antes de agregar
     input.removeEventListener('input', actualizarVistaCompleta);
     input.addEventListener('input', actualizarVistaCompleta);
   });
 }
 
-// Llamada inicial para los inputs ya presentes en HTML
 attachInputsEvents(contenedorEstudiantes);
 attachInputsEvents(contenedorProfesores);
 
-// === FUNCIONES PARA CREAR NUEVOS INPUTS DINÁMICOS ===
 function crearInputYAdjuntar(contenedor, placeholderTexto) {
   const nuevoInput = document.createElement('input');
   nuevoInput.type = 'text';
   nuevoInput.className = 'carga-proyecto-form__input';
   nuevoInput.placeholder = placeholderTexto;
 
-  // Insertar antes del botón (asumimos que el botón ya existe)
   const boton = contenedor.querySelector('.carga-proyecto-form__btn');
   contenedor.insertBefore(nuevoInput, boton);
 
-  // Agregar evento
   nuevoInput.addEventListener('input', actualizarVistaCompleta);
 
-  // Actualizar vista tras agregar
   actualizarVistaCompleta();
 
   return nuevoInput;
 }
 
-// === BOTONES PARA AGREGAR (y prevenimos submit si están en form) ===
-btnAgregarEstudiante.addEventListener('click', (e) => {
-  if (e) e.preventDefault();
+btnAgregarEstudiante.addEventListener('click', () => {
   crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante');
 });
 
-btnAgregarProfesor.addEventListener('click', (e) => {
-  if (e) e.preventDefault();
+btnAgregarProfesor.addEventListener('click', () => {
   crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor');
 });
 
-// === EVENTOS PARA CAMPOS PRINCIPALES ===
 if (InputTitulo) InputTitulo.addEventListener('input', actualizarCamposBase);
 if (InputDescripcion) InputDescripcion.addEventListener('input', actualizarCamposBase);
 if (InputCategoria) InputCategoria.addEventListener('input', actualizarCamposBase);
 if (InputAnio) InputAnio.addEventListener('input', actualizarCamposBase);
 if (InputDivision) InputDivision.addEventListener('input', actualizarCamposBase);
 
-// === LLAMADA INICIAL PARA RENDERIZAR LO QUE YA HAYA EN LOS INPUTS ===
 actualizarVistaCompleta();
 
-
 const cargarProyecto = document.getElementById('CargarProyecto')
-
-let idCategoria
-
-switch (previewCategoria.textContent) {
-  case 
-}
 
 cargarProyecto.addEventListener('click', () => {
   fetch(`${localizacion}?action=cargarProyecto`, {
@@ -172,13 +159,15 @@ cargarProyecto.addEventListener('click', () => {
     body: JSON.stringify({
       nombre: previewTitulo.textContent,
       anio: InputAnio.value,
-      descpripcion: previewDescripcion.textContent,
-      idCategoria: idCategoria,
-      division: InputDivision.value
+      descripcion: previewDescripcion.textContent,
+      idCategoria: parseInt(InputCategoria.value) || null,
+      division: InputDivision.value,
+      estudiantes: estudiantesArray,
+      profesores: profesoresArray,
     })
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    });
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+  });
 })

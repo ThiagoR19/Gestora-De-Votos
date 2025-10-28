@@ -40,16 +40,16 @@ function cargarProyecto($pdo,$input) {
     $idProyecto = $pdo->lastInsertId();
 
     if (!empty($estudiantes)) {
-        $stmtEst = $pdo->prepare("INSERT INTO proyecto_estudiantes (idProyecto, idEstudiante) VALUES (?, ?)");
-        foreach ($estudiantes as $idEstudiante) {
-            $stmtEst->execute([$idProyecto, intval($idEstudiante)]);
+        $stmtEst = $pdo->prepare("INSERT INTO proyecto_alum (idProyecto, AlumNombre) VALUES (?, ?)");
+        foreach ($estudiantes as $nombre) {
+            $stmtEst->execute([$idProyecto, $nombre]);
         }
     }
 
     if (!empty($profesores)) {
-        $stmtProf = $pdo->prepare("INSERT INTO proyecto_profesores (idProyecto, idProfesor) VALUES (?, ?)");
-        foreach ($profesores as $idProfesor) {
-            $stmtProf->execute([$idProyecto, intval($idProfesor)]);
+        $stmtProf = $pdo->prepare("INSERT INTO proyecto_profes (idProyecto, profNombre) VALUES (?, ?)");
+        foreach ($profesores as $nombreProfesor) {
+            $stmtProf->execute([$idProyecto, $nombreProfesor]);
         }
     }
 
