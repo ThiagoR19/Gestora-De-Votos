@@ -179,7 +179,7 @@
             el talento de nuestros estudiantes se hacen protagonistas. Aquí podrás recorrer los proyectos de cada
             especialidad, apoyar con tu voto a tus favoritos y descubrir cómo la educación técnica transforma ideas en
             grandes logros.</p>
-          <button id="VerProyectosHome" class="Hero__article-div-button">Ver Proyectos</button>
+          <button class="Hero__article-div-button HeaderProyectos">Ver Proyectos</button>
         </div>
       </article>
       <article class="Hero__article" id="Hero__article">
@@ -528,80 +528,6 @@
   </main>
 
   <main id="Carga">
-    <section>
-      <article class="carga-proyecto">
-        <div class="carga-proyecto__info">
-          <div class="carga-proyecto__titulo">
-            <label class="carga-proyecto__label">Título del proyecto</label>
-            <input type="text" id="inputTitulo" class="carga-proyecto__input"
-              placeholder="Ingrese el titulo del proyecto">
-          </div>
-
-          <div class="carga-proyecto__descripcion">
-            <label class="carga-proyecto__label">Descripción</label>
-            <textarea id="inputDescripcion" class="carga-proyecto__textarea"
-              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></textarea>
-          </div>
-
-          <div class="carga-proyecto__imagenes">
-            <label class="carga-proyecto__label">Agregar imágenes</label>
-            <div class="carga-proyecto__imagenes-cont">
-              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
-              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
-              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
-              <div class="carga-proyecto__img"><span class="material-symbols-outlined">image</span></div>
-            </div>
-            <label class="carga-proyecto__btn">Elegir Archivos</label>
-            <button id="CargarProyecto">Cargar Proyecto</button>
-          </div>
-        </div>
-        <div class="carga-proyecto__preview-img">
-          <img src="Imagenes/IMG_Colegio.png" alt="imagem_Colegio">
-        </div>
-      </article>
-
-      <article class="carga-proyecto-form">
-        <div class="carga-proyecto-form__grupo">
-          <h3 class="carga-proyecto-form__titulo">Estudiantes</h3>
-          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
-          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
-          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del estudiante">
-          <button class="carga-proyecto-form__btn">+ Agregar Estudiante</button>
-        </div>
-
-        <div class="carga-proyecto-form__grupo">
-          <h3 class="carga-proyecto-form__titulo">Profesores</h3>
-          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del profesor">
-          <input type="text" class="carga-proyecto-form__input" placeholder="Nombre y apellido del profesor">
-          <button class="carga-proyecto-form__btn">+ Agregar Profesor</button>
-        </div>
-
-        <div class="carga-proyecto-form__grupo">
-          <h3 class="carga-proyecto-form__titulo">Curso</h3>
-          <input type="number" class="carga-proyecto-form__input" id="inputAnio" placeholder="Año del curso">
-          <input type="number" class="carga-proyecto-form__input" id="inputDivision" placeholder="División del curso">
-
-          <div class="carga-proyecto-form__select-wp">
-            <h3 class="carga-proyecto-form__titulo">Categoria</h3>
-            <select id="inputCategoria" class="carga-proyecto-form__select">
-              <option value="">Categoria</option>
-              <option value="1">Robótica</option>
-              <option value="2">Energías Renovables</option>
-              <option value="3">Programación</option>
-              <option value="4">Economía</option>
-              <option value="5">Ciencias</option>
-              <option value="6">Construcciones</option>
-            </select>
-          </div>
-        </div>
-      </article>
-
-      <article class="carga-proyecto-preview">
-        <h3 class="carga-proyecto-preview__title">Vista previa</h3>
-        <div class="carga-proyecto-preview__listado-proyectos">
-        </div>
-      </article>
-    </section>
   </main>
 
   <main id="MiCuenta">
@@ -805,8 +731,8 @@
         <h3 class="footer__div-div-h3">Expo Técnica 2025</h3>
         <div id="footer__div-div-div">
           <div class="footer__div-div-div-div">
-            <a id="aHomeFooter" href="./Terminos/Terminos.html">Terminos de Uso | </a>
-            <a id="aListaNormalFooter" href="#">Ver Proyectos</a>
+            <a class="HeaderHome" href="./Terminos/Terminos.html">Terminos de Uso | </a>
+            <a class="HeaderProyectos" href="#">Ver Proyectos</a>
           </div>
           <div class="footer__div-div-div-div">
             <a id="footerResultados" href="#">Resultados | </a>

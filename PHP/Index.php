@@ -65,6 +65,14 @@ switch ($method) {
             require_once 'controladores/CargarProyecto.php';
             cargarProyecto($pdo, $input);
         }
+        elseif ($action === "verImagenes"){
+            require_once 'controladores/VerImagenes.php';
+            verImagenes($pdo, $input);
+        }
+        elseif ($action === "editarProyecto"){
+            require_once 'controladores/EditarProyecto.php';
+            editarProyecto($pdo, $input);
+        }
         break;
 
     default:

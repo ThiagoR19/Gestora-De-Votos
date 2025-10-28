@@ -131,7 +131,7 @@ function verificacionRegistro(email){
   const clave = "RegistroAnterior";
   const registro = localStorage.getItem(clave);
   if (registro){
-    if (registro != email) {
+    if (registro !== email) {
       // El email ya está registrado
       console.log("ya haz entrado con otra cuenta")
       if (pasaEmail){

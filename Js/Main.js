@@ -32,19 +32,13 @@ const styleTag = document.getElementById('styles') // Etiqueta que cambia los es
 
 // LLamando a todos los botones del header
 
-const aListaNormalFooter = document.getElementById('aListaNormalFooter')
-const aHomeFooter = document.getElementById('aHomeFooter')
 const aReporte = document.getElementById('aReporte')
 const footerResultados = document.getElementById('footerResultados')
-const VerProyectosHome = document.getElementById('VerProyectosHome')
 
 // Agregandole funcionalidad a cada boton del header
 
-aListaNormalFooter.addEventListener('click', () => mostrarMain('ListaNormal', mains))
-aHomeFooter.addEventListener('click', () => mostrarMain('Home', mains))
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
 footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
-VerProyectosHome.addEventListener('click', () => mostrarMain('ListaNormal', mains))
 
 
 const HeaderHome = document.querySelectorAll('.HeaderHome')
@@ -681,6 +675,406 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
 
 function editarProyecto(e) {
 
+  mainCarga.innerHTML = ''
+
+  dataProyectosGlobal.forEach(element => {
+    if (element.id === e) {
+      proyecto = element
+      idProyecto = proyecto.id
+    }
+  });
+
+  let section = document.createElement('section')
+
+  section.innerHTML = `
+  
+  <section>
+      <article class="carga-proyecto">
+        <div class="carga-proyecto__info">
+          <div class="carga-proyecto__titulo">
+            <label class="carga-proyecto__label">Titulo del Proyecto</label>
+            <input value="${proyecto.nombre}" type="text" id="inputTitulo" class="carga-proyecto__input"
+              placeholder="Ingrese el titulo del proyecto">
+          </div>
+
+          <div class="carga-proyecto__descripcion">
+            <label class="carga-proyecto__label">Descripcion del Proyecto</label>
+            <textarea id="inputDescripcion" class="carga-proyecto__textarea"
+              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></textarea>
+          </div>
+
+          <div class="carga-proyecto__imagenes">
+            <label class="carga-proyecto__label">Agregar imágenes</label>
+            <div class="carga-proyecto__imagenes-cont">
+              <input id="inputImage1" type="file" name="imagen[]" accept="image/*">
+              <input class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input class="inputImage" type="file" name="imagen[]" accept="image/*">
+            </div>
+            <button id="editarProyecto">Cargar Proyecto</button>
+          </div>
+        </div>
+        <div class="carga-proyecto__preview-img">
+          <img src="Imagenes/IMG_Colegio.png" alt="imagem_Colegio">
+        </div>
+      </article>
+
+      <article class="carga-proyecto-form">
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Estudiantes</h3>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Profesores</h3>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Curso</h3>
+          <input type="number" class="carga-proyecto-form__input" id="inputAnio" placeholder="Año del curso" value="${proyecto.años}">
+          <input type="number" class="carga-proyecto-form__input" id="inputDivision" placeholder="División del curso" value="${proyecto.division}">
+
+          <div class="carga-proyecto-form__select-wp">
+            <h3 class="carga-proyecto-form__titulo">Categoria</h3>
+            <select id="inputCategoria" class="carga-proyecto-form__select">
+              <option value="">Categoria</option>
+              <option value="1">Robótica</option>
+              <option value="2">Energías Renovables</option>
+              <option value="3">Programación</option>
+              <option value="4">Economía</option>
+              <option value="5">Ciencias</option>
+              <option value="6">Construcciones</option>
+            </select>
+          </div>
+        </div>
+      </article>
+
+      <article class="carga-proyecto-preview">
+        <h3 class="carga-proyecto-preview__title">Vista previa</h3>
+        <div class="carga-proyecto-preview__listado-proyectos">
+        </div>
+      </article>
+    </section>`
+
+
+
+  mainCarga.appendChild(section)
+
+  const InputTitulo = document.getElementById('inputTitulo');
+  const InputDescripcion = document.getElementById('inputDescripcion');
+  const InputCategoria = document.getElementById('inputCategoria');
+  const InputAnio = document.getElementById('inputAnio');
+  const InputDivision = document.getElementById('inputDivision');
+
+  InputDescripcion.value = proyecto.descripcion
+
+  const grupos = document.querySelectorAll('.carga-proyecto-form__grupo');
+  const contenedorEstudiantes = grupos[0];
+
+  proyecto.estudiantes.forEach((estudiante)=> {
+    let input = document.createElement('input')
+    input.type = 'text'
+    input.value = `${estudiante}`
+    input.classList.add('carga-proyecto-form__input')
+    contenedorEstudiantes.appendChild(input)
+  })
+
+  const contenedorProfesores = grupos[1];
+
+  proyecto.profesores.forEach((profesor)=> {
+    let input = document.createElement('input')
+    input.type = 'text'
+    input.value = `${profesor}`
+    input.classList.add('carga-proyecto-form__input')
+    contenedorProfesores.appendChild(input)
+  })
+
+  const btnAgregarEstudiante = document.createElement('button')
+  btnAgregarEstudiante.innerHTML = '+ Agregar Estudiante'
+  btnAgregarEstudiante.classList.add('carga-proyecto-form__btn')
+  contenedorEstudiantes.appendChild(btnAgregarEstudiante)
+
+  const btnAgregarProfesor = document.createElement('button')
+  btnAgregarProfesor.innerHTML = '+ Agregar Estudiante'
+  btnAgregarProfesor.classList.add('carga-proyecto-form__btn')
+  contenedorProfesores.appendChild(btnAgregarProfesor)
+
+  // Contenedor donde mostrar la vista previa (asegurate que exista en tu HTML)
+  const vistaPrevia = document.querySelector('.carga-proyecto-preview__listado-proyectos');
+
+  // === CREAMOS EL ARTICLE + ASIDE DE VISTA PREVIA ===
+  let previewWrapper = document.createElement('div');
+  previewWrapper.innerHTML = `
+    <article class="proyecto-esp__article">
+      <div class="proyecto-esp__article-div"></div>
+      <div class="proyecto-esp__article-div">
+        <div class="proyecto-esp__article-div-div">
+          <h1 id="previewTitulo" class="proyecto-esp__article-div-div-h1">Título del proyecto</h1>
+          <p id="previewDescripcion" class="proyecto-esp__article-div-div-p">Descripción breve del proyecto...</p>
+          <button class="proyecto-esp__article-div-div-button">VOTAR</button>
+        </div>
+        <div class="proyecto-esp__article-div-div">
+          <div class="proyecto-esp__article-div-div-div">
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoría</h2>
+              <p id="previewCategoria" class="proyecto-esp__article-div-div-div-div-p">---</p>
+            </div>
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
+              <p id="previewCurso" class="proyecto-esp__article-div-div-div-div-p">---</p>
+            </div>
+          </div>
+          <div class="proyecto-esp__article-div-div-div">
+            <div class="img_blanco_negro" id="estrella1" value="1">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella2" value="2">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella3" value="3">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella4" value="4">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella5" value="5">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <aside class="aside">
+      <div class="aside__div">
+        <h2 class="aside__div-h2">Estudiantes</h2>
+        <p id="previewEstudiantes" class="aside__div-p">Sin estudiantes</p>
+      </div>
+      <div class="aside__div">
+        <h2 class="aside__div-h2">Profesores</h2>
+        <p id="previewProfesores" class="aside__div-p">Sin profesores</p>
+      </div>
+    </aside>
+  `;
+  vistaPrevia.appendChild(previewWrapper);
+
+  let arrayDeImagenes = []
+
+  fetch(`${localizacion}?action=verImagenes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ idProyecto })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+    if(data.success) {
+      arrayDeImagenes = data.imagenes
+      console.log(arrayDeImagenes)
+
+      const inputs = document.querySelectorAll('.inputImage');
+      const inputGrande = document.getElementById('inputImage1');
+
+      const contenedorGrande = document.querySelector('.proyecto-esp__article-div')
+
+      //Aca tengo que terminar esto y que se guarde bien en la bd
+
+      inputGrande.addEventListener('change', (event) => {
+        const file = event.target.files[0]; 
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            reader.src = e.target.result; // muestra la imagen
+          };
+          reader.readAsDataURL(file); // convierte el archivo en URL base64
+        } else {
+          preview.src = 'img/placeholder.png'; // si se borra la imagen, vuelve al placeholder
+        }
+      });
+
+      inputs.forEach((input)=> {
+        input.addEventListener('change', (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            let contentedorImagenes = document.getElementById('Proyectos__article-div-imgs')
+            let img = document.createElement('img')
+            img.setAttribute('id','Proyectos__article-div-img')
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              img.src = e.target.result;
+              arrayDeImagenes.push(img.src)
+              console.log(arrayDeImagenes)
+            };
+            contentedorImagenes.appendChild(img)
+            reader.readAsDataURL(file);
+          } else {
+            let contentedorImagenes = document.getElementById('Proyectos__article-div-imgs')
+            contentedorImagenes.removeChild(contentedorImagenes.lastElementChild)
+            arrayDeImagenes.pop()
+            console.log(arrayDeImagenes)
+          }
+        });
+      })
+
+      let band = false
+
+      if (arrayDeImagenes.length > 1) {
+        band = true
+      }
+
+      arrayDeImagenes.forEach((imagen)=> {
+
+        let contentedorImagenes = document.querySelector('.proyecto-esp__article-div')
+
+        if(arrayDeImagenes.length <= 1) {
+          let img = document.createElement('img')
+          img.src = `./JS/imagenes/${imagen}`
+          img.setAttribute('id','Proyectos__article-div-img')
+          contentedorImagenes.appendChild(img)
+        } else {
+          if(band) {
+            band = false
+            let img = document.createElement('img')
+            img.src = `./JS/imagenes/${imagen}`
+            img.setAttribute('id','Proyectos__article-div-img')
+            contentedorImagenes.appendChild(img)
+            let div = document.createElement('div')
+            div.setAttribute('id', 'Proyectos__article-div-imgs')
+            contentedorImagenes.appendChild(div)
+          } else {
+            let div = document.getElementById('Proyectos__article-div-imgs')
+            let img = document.createElement('img')
+            img.src = `./JS/imagenes/${imagen}`
+            div.appendChild(img)
+          }
+        }
+      })
+    }
+  });
+
+
+  const previewTitulo = previewWrapper.querySelector('#previewTitulo');
+  const previewDescripcion = previewWrapper.querySelector('#previewDescripcion');
+  const previewCategoria = previewWrapper.querySelector('#previewCategoria');
+  const previewCurso = previewWrapper.querySelector('#previewCurso');
+  const previewEstudiantes = previewWrapper.querySelector('#previewEstudiantes');
+  const previewProfesores = previewWrapper.querySelector('#previewProfesores');
+
+  function capitalizarTexto(texto) {
+    if (!texto) return '';
+    return texto
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .map(p => p[0].toUpperCase() + p.slice(1))
+      .join(' ');
+  }
+
+  function valoresInputsDel(contenedor) {
+    return [...contenedor.querySelectorAll('.carga-proyecto-form__input')]
+      .map(i => capitalizarTexto(i.value.trim()))
+      .filter(v => v !== '');
+  }
+
+  function actualizarCamposBase() {
+    previewTitulo.textContent = InputTitulo && InputTitulo.value.trim() ? InputTitulo.value : 'Título';
+    previewDescripcion.textContent = InputDescripcion && InputDescripcion.value.trim() ? InputDescripcion.value : 'Descripción';
+    previewCategoria.textContent =
+    InputCategoria && InputCategoria.value.trim()
+      ? InputCategoria.options[InputCategoria.selectedIndex].text
+      : '---';
+
+    const cursoTxt = `${InputAnio && InputAnio.value ? InputAnio.value : ''} ${InputDivision && InputDivision.value ? InputDivision.value : ''}`.trim();
+    previewCurso.textContent = cursoTxt || '---';
+  }
+
+  let estudiantesArray = []
+  let profesoresArray = []
+
+  function actualizarListas() {
+    const estudiantes = valoresInputsDel(contenedorEstudiantes);
+    const profesores = valoresInputsDel(contenedorProfesores);
+
+    previewEstudiantes.textContent = estudiantes.length ? estudiantes.join(' - ') : 'Sin estudiantes';
+    previewProfesores.textContent = profesores.length ? profesores.join(' - ') : 'Sin profesores';
+
+    estudiantesArray = estudiantes
+    profesoresArray = profesores
+  }
+
+  function actualizarVistaCompleta() {
+    actualizarCamposBase();
+    actualizarListas();
+  }
+
+  function attachInputsEvents(contenedor) {
+    const inputs = contenedor.querySelectorAll('.carga-proyecto-form__input');
+    inputs.forEach(input => {
+      input.removeEventListener('input', actualizarVistaCompleta);
+      input.addEventListener('input', actualizarVistaCompleta);
+    });
+  }
+
+  attachInputsEvents(contenedorEstudiantes);
+  attachInputsEvents(contenedorProfesores);
+
+  function crearInputYAdjuntar(contenedor, placeholderTexto) {
+    const nuevoInput = document.createElement('input');
+    nuevoInput.type = 'text';
+    nuevoInput.className = 'carga-proyecto-form__input';
+    nuevoInput.placeholder = placeholderTexto;
+
+    const boton = contenedor.querySelector('.carga-proyecto-form__btn');
+    contenedor.insertBefore(nuevoInput, boton);
+
+    nuevoInput.addEventListener('input', actualizarVistaCompleta);
+
+    actualizarVistaCompleta();
+
+    return nuevoInput;
+  }
+
+  btnAgregarEstudiante.addEventListener('click', () => {
+    crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante');
+  });
+
+  btnAgregarProfesor.addEventListener('click', () => {
+    crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor');
+  });
+
+  if (InputTitulo) InputTitulo.addEventListener('input', actualizarCamposBase);
+  if (InputDescripcion) InputDescripcion.addEventListener('input', actualizarCamposBase);
+  if (InputCategoria) InputCategoria.addEventListener('input', actualizarCamposBase);
+  if (InputAnio) InputAnio.addEventListener('input', actualizarCamposBase);
+  if (InputDivision) InputDivision.addEventListener('input', actualizarCamposBase);
+
+  actualizarVistaCompleta();
+
+  const editarProyecto = document.getElementById('editarProyecto')
+
+  editarProyecto.addEventListener('click', () => {
+
+//imagenes: ,
+
+    fetch(`${localizacion}?action=editarProyecto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nombre: previewTitulo.textContent,
+        anio: InputAnio.value,
+        descripcion: previewDescripcion.textContent,
+        idCategoria: parseInt(InputCategoria.value) || null,
+        division: InputDivision.value,
+        estudiantes: estudiantesArray,
+        profesores: profesoresArray,
+        idProyecto: idProyecto, 
+        imagenes: arrayDeImagenes
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    });
+  })
+  
 }
 
 function verDescripcionDelProyecto(e) {
@@ -884,7 +1278,7 @@ ordenarEst.addEventListener('click', () => {
 
 document.querySelector('.article__div-button2').addEventListener('click', ()=> {
   if(confirm("¿Estás seguro que desea cerrar sesion?")) {
-    localStorage.clear()
+    localStorage.removeItem("usuario")
     window.location.reload();
   }
 })
@@ -918,7 +1312,7 @@ function borrarCuenta () {
     .then(data => {
       if(data.success) {
         alert(data.message)
-        localStorage.clear()
+        localStorage.removeItem("usuario")
         window.location.reload();
       }
     });
