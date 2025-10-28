@@ -61,6 +61,10 @@ switch ($method) {
             require_once 'controladores/BorrarProyecto.php';
             borrarProyecto($pdo, $input);
         }
+        elseif ($action === "cargarProyecto"){
+            require_once 'controladores/CargarProyecto.php';
+            cargarProyecto($pdo, $input);
+        }
         break;
 
     default:

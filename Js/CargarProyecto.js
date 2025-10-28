@@ -1,19 +1,23 @@
-const InputTitulo = document.getElementById('inputTitulo')
-const InputDescripcion = document.getElementById('inputDescripcion')
-const InputCategoria = document.getElementById('inputCategoria')
-const InputAnio = document.getElementById('inputAnio')
-const InputDivision = document.getElementById('inputDivision')
+// === SELECTORES PRINCIPALES ===
+const InputTitulo = document.getElementById('inputTitulo');
+const InputDescripcion = document.getElementById('inputDescripcion');
+const InputCategoria = document.getElementById('inputCategoria');
+const InputAnio = document.getElementById('inputAnio');
+const InputDivision = document.getElementById('inputDivision');
 
-const contenedorEstudiantes = document.querySelectorAll('.carga-proyecto-form__grupo')[0]
-const contenedorProfesores = document.querySelectorAll('.carga-proyecto-form__grupo')[1]
+const grupos = document.querySelectorAll('.carga-proyecto-form__grupo');
+const contenedorEstudiantes = grupos[0];
+const contenedorProfesores = grupos[1];
 
-const btnAgregarEstudiante = contenedorEstudiantes.querySelector('.carga-proyecto-form__btn')
-const btnAgregarProfesor = contenedorProfesores.querySelector('.carga-proyecto-form__btn')
+const btnAgregarEstudiante = contenedorEstudiantes.querySelector('.carga-proyecto-form__btn');
+const btnAgregarProfesor = contenedorProfesores.querySelector('.carga-proyecto-form__btn');
 
+// Contenedor donde mostrar la vista previa (asegurate que exista en tu HTML)
 const vistaPrevia = document.querySelector('.carga-proyecto-preview__listado-proyectos');
 
-let article = document.createElement('div');
-article.innerHTML = `
+// === CREAMOS EL ARTICLE + ASIDE DE VISTA PREVIA ===
+let previewWrapper = document.createElement('div');
+previewWrapper.innerHTML = `
   <article class="proyecto-esp__article">
     <div class="proyecto-esp__article-div">
       <img id="Proyectos__article-div-img" src="./Imagenes/FotoEjemplo.png" alt="">
@@ -47,15 +51,35 @@ article.innerHTML = `
     </div>
   </aside>
 `;
-vistaPrevia.appendChild(article)
+vistaPrevia.appendChild(previewWrapper);
 
-const previewTitulo = previewWrapper.querySelector('#previewTitulo')
-const previewDescripcion = previewWrapper.querySelector('#previewDescripcion')
-const previewCategoria = previewWrapper.querySelector('#previewCategoria')
-const previewCurso = previewWrapper.querySelector('#previewCurso')
-const previewEstudiantes = previewWrapper.querySelector('#previewEstudiantes')
-const previewProfesores = previewWrapper.querySelector('#previewProfesores')
+// === REFERENCIAS A LOS ELEMENTOS DE PREVIEW ===
+const previewTitulo = previewWrapper.querySelector('#previewTitulo');
+const previewDescripcion = previewWrapper.querySelector('#previewDescripcion');
+const previewCategoria = previewWrapper.querySelector('#previewCategoria');
+const previewCurso = previewWrapper.querySelector('#previewCurso');
+const previewEstudiantes = previewWrapper.querySelector('#previewEstudiantes');
+const previewProfesores = previewWrapper.querySelector('#previewProfesores');
 
+// === UTILIDADES ===
+function capitalizarTexto(texto) {
+  if (!texto) return '';
+  return texto
+    .toLowerCase()
+    .split(' ')
+    .filter(Boolean)
+    .map(p => p[0].toUpperCase() + p.slice(1))
+    .join(' ');
+}
+
+// Toma todos los inputs dentro de un contenedor y devuelve sus valores capitalizados y filtrados
+function valoresInputsDel(contenedor) {
+  return [...contenedor.querySelectorAll('.carga-proyecto-form__input')]
+    .map(i => capitalizarTexto(i.value.trim()))
+    .filter(v => v !== '');
+}
+
+// === FUNCIONES DE ACTUALIZACIÓN ===
 function actualizarCamposBase() {
   previewTitulo.textContent = InputTitulo && InputTitulo.value.trim() ? InputTitulo.value : 'Título del proyecto';
   previewDescripcion.textContent = InputDescripcion && InputDescripcion.value.trim() ? InputDescripcion.value : 'Descripción breve del proyecto...';
@@ -77,6 +101,7 @@ function actualizarVistaCompleta() {
   actualizarListas();
 }
 
+// === AGREGAR EVENTOS A INPUTS EXISTENTES ===
 function attachInputsEvents(contenedor) {
   const inputs = contenedor.querySelectorAll('.carga-proyecto-form__input');
   inputs.forEach(input => {
@@ -86,25 +111,31 @@ function attachInputsEvents(contenedor) {
   });
 }
 
+// Llamada inicial para los inputs ya presentes en HTML
 attachInputsEvents(contenedorEstudiantes);
 attachInputsEvents(contenedorProfesores);
 
+// === FUNCIONES PARA CREAR NUEVOS INPUTS DINÁMICOS ===
 function crearInputYAdjuntar(contenedor, placeholderTexto) {
   const nuevoInput = document.createElement('input');
   nuevoInput.type = 'text';
   nuevoInput.className = 'carga-proyecto-form__input';
   nuevoInput.placeholder = placeholderTexto;
 
+  // Insertar antes del botón (asumimos que el botón ya existe)
   const boton = contenedor.querySelector('.carga-proyecto-form__btn');
   contenedor.insertBefore(nuevoInput, boton);
 
+  // Agregar evento
   nuevoInput.addEventListener('input', actualizarVistaCompleta);
 
+  // Actualizar vista tras agregar
   actualizarVistaCompleta();
 
   return nuevoInput;
 }
 
+// === BOTONES PARA AGREGAR (y prevenimos submit si están en form) ===
 btnAgregarEstudiante.addEventListener('click', (e) => {
   if (e) e.preventDefault();
   crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante');
@@ -115,10 +146,39 @@ btnAgregarProfesor.addEventListener('click', (e) => {
   crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor');
 });
 
+// === EVENTOS PARA CAMPOS PRINCIPALES ===
 if (InputTitulo) InputTitulo.addEventListener('input', actualizarCamposBase);
 if (InputDescripcion) InputDescripcion.addEventListener('input', actualizarCamposBase);
 if (InputCategoria) InputCategoria.addEventListener('input', actualizarCamposBase);
 if (InputAnio) InputAnio.addEventListener('input', actualizarCamposBase);
 if (InputDivision) InputDivision.addEventListener('input', actualizarCamposBase);
 
+// === LLAMADA INICIAL PARA RENDERIZAR LO QUE YA HAYA EN LOS INPUTS ===
 actualizarVistaCompleta();
+
+
+const cargarProyecto = document.getElementById('CargarProyecto')
+
+let idCategoria
+
+switch (previewCategoria.textContent) {
+  case 
+}
+
+cargarProyecto.addEventListener('click', () => {
+  fetch(`${localizacion}?action=cargarProyecto`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nombre: previewTitulo.textContent,
+      anio: InputAnio.value,
+      descpripcion: previewDescripcion.textContent,
+      idCategoria: idCategoria,
+      division: InputDivision.value
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    });
+})
