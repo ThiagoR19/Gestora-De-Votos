@@ -72,4 +72,4 @@ http://localhost/Gestora-De-Votos
 
 ---
 
-[GitHub](https://github.com/ThiagoR19) | [LinkedIn](#)
+[GitHub](https://github.com/ThiagoR19) | [LinkedIn](https://www.linkedin.com/in/thiago-riffo-835a0223b/)
