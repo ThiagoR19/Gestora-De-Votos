@@ -58,7 +58,7 @@ http://localhost/Gestora-De-Votos
 
 ## 📸 Capturas de pantalla
 
-![Pantalla de inicio](imagenes/Home.png)
+![Pantalla de inicio](Imagenes/Home.png)
 *Vista principal con proyectos y votación.*
 
 ---
