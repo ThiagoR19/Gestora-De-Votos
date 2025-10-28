@@ -18,10 +18,10 @@ El objetivo principal es **fomentar la participación, la transparencia y la ret
 
 ## 🛠 Tecnologías utilizadas
 
-- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap
-- **Backend:** PHP
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Backend:** PHP, JavaScript
 - **Base de datos:** MySQL
-- **Librerías y herramientas:** Axios
+- **Librerías y herramientas:** PDO
 
 ---
 
