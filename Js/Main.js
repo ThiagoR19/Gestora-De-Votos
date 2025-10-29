@@ -706,10 +706,10 @@ function editarProyecto(e) {
           <div class="carga-proyecto__imagenes">
             <label class="carga-proyecto__label">Agregar imágenes</label>
             <div class="carga-proyecto__imagenes-cont">
-              <input id="inputImage1" type="file" name="imagen[]" accept="image/*">
-              <input class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage1" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage2" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage3" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage4" class="inputImage" type="file" name="imagen[]" accept="image/*">
             </div>
             <button id="editarProyecto">Cargar Proyecto</button>
           </div>
@@ -801,11 +801,17 @@ function editarProyecto(e) {
   // Contenedor donde mostrar la vista previa (asegurate que exista en tu HTML)
   const vistaPrevia = document.querySelector('.carga-proyecto-preview__listado-proyectos');
 
-  // === CREAMOS EL ARTICLE + ASIDE DE VISTA PREVIA ===
   let previewWrapper = document.createElement('div');
   previewWrapper.innerHTML = `
     <article class="proyecto-esp__article">
-      <div class="proyecto-esp__article-div"></div>
+      <div class="proyecto-esp__article-div">
+        <img id="Proyectos__article-div-img1"></img>
+        <div class="proyecto-esp__article-div-imgs">
+          <img id="Proyectos__article-div-img2"></img>
+          <img id="Proyectos__article-div-img3"></img>
+          <img id="Proyectos__article-div-img4"></img>
+        </div>
+      </div>
       <div class="proyecto-esp__article-div">
         <div class="proyecto-esp__article-div-div">
           <h1 id="previewTitulo" class="proyecto-esp__article-div-div-h1">Título del proyecto</h1>
@@ -868,85 +874,37 @@ function editarProyecto(e) {
     console.log(data)
     if(data.success) {
       arrayDeImagenes = data.imagenes
+
       console.log(arrayDeImagenes)
 
       const inputs = document.querySelectorAll('.inputImage');
-      const inputGrande = document.getElementById('inputImage1');
 
-      const contenedorGrande = document.querySelector('.proyecto-esp__article-div')
+      inputs.forEach((input) => {
+      input.addEventListener('change', (event) => {
+        const num = parseInt(input.id.replace('inputImage', '')) - 1;
+        const file = event.target.files[0];
+        const img = document.getElementById(`Proyectos__article-div-img${num + 1}`);
 
-      //Aca tengo que terminar esto y que se guarde bien en la bd
-
-      inputGrande.addEventListener('change', (event) => {
-        const file = event.target.files[0]; 
         if (file) {
           const reader = new FileReader();
           reader.onload = function(e) {
-            reader.src = e.target.result; // muestra la imagen
+            img.src = e.target.result;
+            arrayDeImagenes[num] = e.target.result;
           };
-          reader.readAsDataURL(file); // convierte el archivo en URL base64
+          reader.readAsDataURL(file);
         } else {
-          preview.src = 'img/placeholder.png'; // si se borra la imagen, vuelve al placeholder
+          img.src = '';
+          arrayDeImagenes[num] = null;
         }
+
+        console.log(arrayDeImagenes);
       });
+    });
 
-      inputs.forEach((input)=> {
-        input.addEventListener('change', (event) => {
-          const file = event.target.files[0];
-          if (file) {
-            let contentedorImagenes = document.getElementById('Proyectos__article-div-imgs')
-            let img = document.createElement('img')
-            img.setAttribute('id','Proyectos__article-div-img')
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              img.src = e.target.result;
-              arrayDeImagenes.push(img.src)
-              console.log(arrayDeImagenes)
-            };
-            contentedorImagenes.appendChild(img)
-            reader.readAsDataURL(file);
-          } else {
-            let contentedorImagenes = document.getElementById('Proyectos__article-div-imgs')
-            contentedorImagenes.removeChild(contentedorImagenes.lastElementChild)
-            arrayDeImagenes.pop()
-            console.log(arrayDeImagenes)
-          }
-        });
-      })
-
-      let band = false
-
-      if (arrayDeImagenes.length > 1) {
-        band = true
-      }
-
-      arrayDeImagenes.forEach((imagen)=> {
-
-        let contentedorImagenes = document.querySelector('.proyecto-esp__article-div')
-
-        if(arrayDeImagenes.length <= 1) {
-          let img = document.createElement('img')
-          img.src = `./JS/imagenes/${imagen}`
-          img.setAttribute('id','Proyectos__article-div-img')
-          contentedorImagenes.appendChild(img)
-        } else {
-          if(band) {
-            band = false
-            let img = document.createElement('img')
-            img.src = `./JS/imagenes/${imagen}`
-            img.setAttribute('id','Proyectos__article-div-img')
-            contentedorImagenes.appendChild(img)
-            let div = document.createElement('div')
-            div.setAttribute('id', 'Proyectos__article-div-imgs')
-            contentedorImagenes.appendChild(div)
-          } else {
-            let div = document.getElementById('Proyectos__article-div-imgs')
-            let img = document.createElement('img')
-            img.src = `./JS/imagenes/${imagen}`
-            div.appendChild(img)
-          }
-        }
-      })
+      arrayDeImagenes.forEach((imagen, i) => {
+        const img = document.getElementById(`Proyectos__article-div-img${i + 1}`);
+        if (img) img.src = `./JS/imagenes/${imagen}`;
+      });
     }
   });
 
@@ -1052,28 +1010,33 @@ function editarProyecto(e) {
 
   editarProyecto.addEventListener('click', () => {
 
-//imagenes: ,
-
-    fetch(`${localizacion}?action=editarProyecto`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nombre: previewTitulo.textContent,
-        anio: InputAnio.value,
-        descripcion: previewDescripcion.textContent,
-        idCategoria: parseInt(InputCategoria.value) || null,
-        division: InputDivision.value,
-        estudiantes: estudiantesArray,
-        profesores: profesoresArray,
-        idProyecto: idProyecto, 
-        imagenes: arrayDeImagenes
+    if(confirm('¿Seguro que desea actualiza este proyecto?')) {
+      let imagenesFinales = arrayDeImagenes.filter(Boolean);
+      fetch(`${localizacion}?action=editarProyecto`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: previewTitulo.textContent,
+          anio: InputAnio.value,
+          descripcion: previewDescripcion.textContent,
+          idCategoria: parseInt(InputCategoria.value) || null,
+          division: InputDivision.value,
+          estudiantes: estudiantesArray,
+          profesores: profesoresArray,
+          idProyecto: idProyecto, 
+          imagenes: imagenesFinales
+        })
       })
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    });
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      });
+    }
   })
+  
+}
+
+function editarCuenta(e) {
   
 }
 
@@ -1096,7 +1059,6 @@ function verDescripcionDelProyecto(e) {
   .then(res => res.json())
   .then(data => {
     if(data.success){
-      console.log("Proyectos votados:", data.proyectos);
       let proyectosVotados = data.proyectos
     } else {
       console.log(data.message);
@@ -1121,9 +1083,9 @@ function verDescripcionDelProyecto(e) {
       <div class="proyecto-esp__article-div">
         <img id="Proyectos__article-div-img" src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
         <div id="Proyectos__article-div-imgs">
-          <img src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
           <img src="./JS/imagenes/${proyecto.imagenes[1]}" alt="">
-          <img src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
+          <img src="./JS/imagenes/${proyecto.imagenes[2]}" alt="">
+          <img src="./JS/imagenes/${proyecto.imagenes[3]}" alt="">
         </div>
       </div>
       <div class="proyecto-esp__article-div">
@@ -1222,8 +1184,22 @@ function verDescripcionDelProyecto(e) {
       })
       .then(res => res.json())
       .then(data => {
+        if(data.success) {
+          mostrarTexto("¡Felicidades! Ha votado correctamente ✅😄");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
+        }
+        if(data.message === "El usuario no tiene votos disponibles") {
+          mostrarTexto("No tiene mas votos disponibles ❌");
+          const miSonido = new Audio('Sonidos/error.mp3');
+          miSonido.play();
+        } 
+        if(data.message === "") {
+          mostrarTexto("Ya ah votado este proyecto ❌");
+          const miSonido = new Audio('Sonidos/error.mp3');
+          miSonido.play();
+        }
         console.log(data)
-        alert(data.message)
       });
       })
     })
@@ -1278,6 +1254,7 @@ ordenarEst.addEventListener('click', () => {
 
 document.querySelector('.article__div-button2').addEventListener('click', ()=> {
   if(confirm("¿Estás seguro que desea cerrar sesion?")) {
+    mostrarTexto("Su cuenta se ah cerrado correctamente ✅");
     localStorage.removeItem("usuario")
     window.location.reload();
   }
@@ -1300,7 +1277,7 @@ function borrarCuenta () {
     idUsuario = usuario.id
   }
   
-  if (idUsuario && confirm("¿Estás seguro que quieres eliminar esta cuenta?")) {
+  if (idUsuario && confirm("¿Estás seguro que quieres eliminar esta cuenta, se borrará toda la participacion que haya tenido en el sitio?")) {
     fetch(`${localizacion}?action=borrarCuenta`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1311,10 +1288,27 @@ function borrarCuenta () {
     .then(res => res.json())
     .then(data => {
       if(data.success) {
+        mostrarTexto("Su cuenta se ah borrado correctamente ✅");
         alert(data.message)
         localStorage.removeItem("usuario")
         window.location.reload();
       }
     });
   }
+}
+
+//Funcion de notificacion
+
+function mostrarTexto(texto) {
+  const msg = document.createElement("div");
+  msg.className = "mensaje";
+  msg.textContent = texto;
+  document.body.appendChild(msg);
+
+  setTimeout(() => msg.classList.add("mostrar"), 100);
+
+  setTimeout(() => {
+    msg.classList.add("ocultar");
+    setTimeout(() => msg.remove(), 800);
+  }, 2100);
 }

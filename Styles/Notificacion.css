@@ -1,0 +1,24 @@
+.mensaje {
+  position: fixed;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #062F4F;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 25px;
+  opacity: 0;
+  transition: all 0.8s ease;
+  z-index: 9999;
+}
+
+.mensaje.mostrar {
+  top: 30px; 
+  opacity: 1;
+}
+
+.mensaje.ocultar {
+  opacity: 0;
+  top: -50px;
+}

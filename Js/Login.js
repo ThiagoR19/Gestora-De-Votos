@@ -50,16 +50,25 @@ buttonInicio.addEventListener("click", async (event) => {
     const data = await response.json();
 
     if (data.success) {
-      alert("✅ Bien: " + data.message);
-      Yalogueado (data.datos.id, data.datos.tipo);
+      mostrarTexto("Ha iniciado sesion correctamente ✅😄");
+      const miSonido = new Audio('Sonidos/Check.mp3');
+      miSonido.play();
+      Yalogueado(data.datos.id, data.datos.tipo);
+    } 
+    if (data.message === 'Credenciales inválidas') {
+      mostrarTexto("Correo o contraseña incorrectos ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
     } else {
-        alert("❌ Mal: " + data.message);
+      mostrarTexto("Ocurrio un error inesperado ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
+      console.log(data.message)
     }
   }
   catch (error) {
-      console.error("❌ Eror en fetch:", error);
-      alert("❌ Error: " + (error.message || error));
-    }
+    console.error("❌ Eror en fetch:", error);
+  }
 });
 
 buttonRegister.addEventListener("click", async () => {
@@ -84,33 +93,47 @@ buttonRegister.addEventListener("click", async () => {
       .then(data => { 
         console.log(data);
         if (data.status === "ok") {
-          alert("Usuario insertado correctamente");
+          mostrarTexto("Cuenta creada correctamente ✅😄");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
           creacion(email.value);
           Yalogueado(data.datos?.id, data.datos?.tipo);
-          alert("✅ Bien: " + data.message);
         } else {
-          if (data.faltantes != []) {
-            alert("Faltan los siguientes campos: " + data.faltantes.join(", "));
+          if (data.message == 'Faltan datos obligatorios') {
+            mostrarTexto("Complete todos los campos para registrarse ❌");
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
+          } 
+          if(data.message == 'Email ya registrado') {
+            mostrarTexto("Email ya registrado ❌");
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
+          } 
+          if(data.message == 'Las contraseñas no coinciden') {
+            mostrarTexto("Las contraseñas no coinciden ❌");
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
           } else {
             console.log("el error anda aca");
-            alert(data.message);
+            console.log(data.message);
           }
         }
       })
-      /*.catch(error => {
-        console.error("❌ Error en fetch:", error);
-      });*/
       
   } else {
     switch (motivo) {
       case "Ya estabas registrado con otra cuenta":
-        alert("❌ Mal: " + motivo);
+        mostrarTexto("Usted ya se ah registrado con otra cuenta ❌");
+        const miSonido = new Audio('Sonidos/error.mp3');
+        miSonido.play();
         break;
       case "El correo no es válido":
-        alert("❌ Mal: " + motivo);
+        mostrarTexto("El correo ingresado es invalido ❌");
+        const miSonido2 = new Audio('Sonidos/error.mp3');
+        miSonido2.play();
         break;
       default:
-        alert("❌ Mal: Ha ocurrido un error inesperado");
+        console.log("❌ Mal: Ha ocurrido un error inesperado");
         break;
     }
   }
@@ -193,7 +216,6 @@ function verificarCorreo() {
 function Yalogueado(id, tipo){
   console.log(tipo)
   console.log(id)
-  alert("hola")
   let info = {
     id: id,
     tipo: tipo

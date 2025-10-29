@@ -1,6 +1,5 @@
 <?php
 function insertarUsuario($pdo, $data) {
-
     file_put_contents('php://stderr', print_r($data, true));
 
     try {
@@ -16,17 +15,21 @@ function insertarUsuario($pdo, $data) {
             ':apellido' => $data['apellido'] ?? null
         ]);
 
+        $ultimoId = (int)$pdo->lastInsertId();
+        
         echo json_encode([
             "status" => "ok",
             "message" => "Usuario insertado correctamente",
             "datos" => [
                 "tipo" => 1,
-                "id" => 1
+                "id" => $ultimoId
             ]
         ]);
     } catch (PDOException $e) {
-        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
     }
 }
-
 ?>

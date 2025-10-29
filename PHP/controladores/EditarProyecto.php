@@ -27,9 +27,12 @@ function editarProyecto($pdo, $input) {
     $anio = intval($data["anio"]);
     $division = trim($data["division"]);
     $imagenesNuevas = $data["imagenes"] ?? [];
+    $estudiantes = $data["estudiantes"] ?? [];
+    $profesores = $data["profesores"] ?? [];
 
     $pdo->beginTransaction();
 
+    // 1️⃣ Actualizar los datos del proyecto
     $stmt = $pdo->prepare("
         UPDATE proyectos 
         SET Nombre = ?, Descripcion = ?, idCategoria = ?, anio = ?, divicion = ?
@@ -37,26 +40,67 @@ function editarProyecto($pdo, $input) {
     ");
     $stmt->execute([$nombre, $descripcion, $idCategoria, $anio, $division, $idProyecto]);
 
-    $stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM proyecto_imagenes WHERE idProyecto = ?");
-    $stmt->execute([$idProyecto]);
-    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-    $totalActual = intval($resultado["total"]);
-
-    $imagenesAgregadas = 0;
-
     if (!empty($imagenesNuevas)) {
-        $disponibles = 4 - $totalActual;
+        $stmtDelete = $pdo->prepare("DELETE FROM proyecto_imagenes WHERE idProyecto = ?");
+        $stmtDelete->execute([$idProyecto]);
 
-        if ($disponibles <= 0) {
-            throw new Exception("El proyecto ya tiene el máximo de 4 imágenes.");
+        $carpetaDestino = __DIR__ . "/../../Js/imagenes/";
+        if (!file_exists($carpetaDestino)) {
+            mkdir($carpetaDestino, 0777, true);
         }
 
-        $imagenesAInsertar = array_slice($imagenesNuevas, 0, $disponibles);
-        $stmtImg = $pdo->prepare("INSERT INTO proyecto_imagenes (idProyecto, imagen) VALUES (?, ?)");
+        $stmtOldImgs = $pdo->prepare("SELECT imagen FROM proyecto_imagenes WHERE idProyecto = ?");
+        $stmtOldImgs->execute([$idProyecto]);
+        $imagenesViejas = $stmtOldImgs->fetchAll(PDO::FETCH_COLUMN);
+        foreach ($imagenesViejas as $imgVieja) {
+            $rutaVieja = $carpetaDestino . $imgVieja;
+            if (file_exists($rutaVieja)) unlink($rutaVieja);
+        }
 
-        foreach ($imagenesAInsertar as $ruta) {
-            $stmtImg->execute([$idProyecto, $ruta]);
-            $imagenesAgregadas++;
+        $stmtDelete = $pdo->prepare("DELETE FROM proyecto_imagenes WHERE idProyecto = ?");
+        $stmtDelete->execute([$idProyecto]);
+
+        $stmtImg = $pdo->prepare("INSERT INTO proyecto_imagenes (idProyecto, imagen) VALUES (?, ?)");
+        foreach ($imagenesNuevas as $img) {
+            if (preg_match('/^data:image\/(\w+);base64,/', $img, $tipo)) {
+                $extension = strtolower($tipo[1]);
+                $img = substr($img, strpos($img, ',') + 1);
+                $img = base64_decode($img);
+                if ($img === false) throw new Exception("Error al decodificar imagen");
+
+                $nombreArchivo = "proyecto_{$idProyecto}_" . uniqid() . ".{$extension}";
+                $rutaArchivo = $carpetaDestino . $nombreArchivo;
+                file_put_contents($rutaArchivo, $img);
+                $stmtImg->execute([$idProyecto, $nombreArchivo]);
+            } else {
+                $stmtImg->execute([$idProyecto, basename($img)]);
+            }
+        }
+    }
+
+    if (!empty($estudiantes)) {
+        $stmtDelEst = $pdo->prepare("DELETE FROM proyecto_alum WHERE idProyecto = ?");
+        $stmtDelEst->execute([$idProyecto]);
+
+        $stmtEst = $pdo->prepare("INSERT INTO proyecto_alum (idProyecto, AlumNombre) VALUES (?, ?)");
+        foreach ($estudiantes as $nombreEst) {
+            $nombreEst = trim($nombreEst);
+            if ($nombreEst !== "") {
+                $stmtEst->execute([$idProyecto, $nombreEst]);
+            }
+        }
+    }
+    
+    if (!empty($profesores)) {
+        $stmtDelProf = $pdo->prepare("DELETE FROM proyecto_profes WHERE idProyecto = ?");
+        $stmtDelProf->execute([$idProyecto]);
+
+        $stmtProf = $pdo->prepare("INSERT INTO proyecto_profes (idProyecto, profNombre) VALUES (?, ?)");
+        foreach ($profesores as $nombreProf) {
+            $nombreProf = trim($nombreProf);
+            if ($nombreProf !== "") {
+                $stmtProf->execute([$idProyecto, $nombreProf]);
+            }
         }
     }
 
@@ -64,12 +108,10 @@ function editarProyecto($pdo, $input) {
 
     echo json_encode([
         "success" => true,
-        "message" => "Proyecto actualizado correctamente.",
-        "imagenesAgregadas" => $imagenesAgregadas,
-        "imagenesTotales" => $totalActual + $imagenesAgregadas
+        "message" => "Proyecto actualizado correctamente (datos, imágenes, estudiantes y profesores)."
     ]);
 
-} catch (Exception $e) {
+  } catch (Exception $e) {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
@@ -78,6 +120,6 @@ function editarProyecto($pdo, $input) {
         "success" => false,
         "message" => "Error al actualizar proyecto: " . $e->getMessage()
     ]);
-}
+  }
 }
 ?>

@@ -41,7 +41,6 @@ function instanciarEstrellas(proyecto) {
     estrella.addEventListener('mouseover', estrella._onOver);
     estrella.addEventListener('mouseleave', estrella._onLeave);
     estrella.addEventListener('click', estrella._onClick);
-    console.log("holaaaaaaaaaaaa")
   });
 }
 

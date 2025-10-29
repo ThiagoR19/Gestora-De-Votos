@@ -51,7 +51,6 @@ function determinarHeader(main) {
     else {
       caso = "HeaderHS";
       HeaderHS.classList.remove("none")
-      console.log("aca")
       ocultarHeaders(HeaderHU, HeaderHC, HeaderHA, IconoHU, IconoHC, IconoHA);
     }
 
