@@ -1421,7 +1421,6 @@ function editarCuenta() {
     .catch(error => {
       console.error("❌ Error en fetch:", error);
     });
-
 }
 
 function verDescripcionDelProyecto(e) {
