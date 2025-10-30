@@ -230,6 +230,11 @@ section {
   width: 45%;
 }
 
+.proyecto-esp__article-div-imgs {
+  display: flex;
+  width: 30%;
+}
+
 #Proyectos__article-div-img1 {
   max-height: 400px;
   height: 70%;
