@@ -1607,7 +1607,6 @@ fetch(`${localizacion}?action=pedirProyectos`)
   .then(data => {
     dataProyectos = data.datos
     dataProyectosGlobal = dataProyectos
-    console.log(dataProyectos)
     mostrarRanking(dataProyectos)
     mostrarTopDelMain(dataProyectos)
     mostrarListaProyectos(dataProyectos)

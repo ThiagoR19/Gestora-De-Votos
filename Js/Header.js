@@ -24,7 +24,6 @@ function determinarHeader(main) {
     ocultarHeaders(HeaderGS, HeaderGU, HeaderGC, HeaderGA);
 
     if (userStr) {
-      console.log(usuario)
       switch (usuario.tipo) {
         case 1:
           caso = "HeaderHU";
@@ -63,21 +62,18 @@ function determinarHeader(main) {
           caso = "HeaderGU";
           ocultarHeaders(HeaderGS, HeaderGC, HeaderGA);
           HeaderGU.classList.remove("none");
-          console.log("se hizo el 1")
           break;
 
         case 2:
           caso = "HeaderGC";
           ocultarHeaders(HeaderGS, HeaderGU, HeaderGA);
           HeaderGC.classList.remove("none");
-          console.log("se hizo el 2")
           break;
 
         case 3:
           caso = "HeaderGA";
           ocultarHeaders(HeaderGS, HeaderGU, HeaderGC);
           HeaderGA.classList.remove("none");
-          console.log("se hizo el 3")
           break;
 
         default:
@@ -88,12 +84,7 @@ function determinarHeader(main) {
     else {
       caso = "HeaderGS";
       HeaderGS.classList.remove("none");
-      console.log("se hizo el 4")
       ocultarHeaders(HeaderGU, HeaderGC, HeaderGA);
     }
-
-
   }
-
-
 }
