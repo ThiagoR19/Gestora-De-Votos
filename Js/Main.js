@@ -208,6 +208,7 @@ HeaderMiCuenta.forEach(element => {
         e.classList.remove('none')
       })
     }
+    editarCuenta()
   })
 });
 
@@ -425,7 +426,7 @@ function mostrarTopDelMain(dataProyectos) {
   Tops.innerHTML = `
     <article class="tops__article">
         <div class="tops__article-divImg">
-          <img src="./JS/imagenes/${Top3[0].imagenes[0]}" alt="Imagen principal del proyecto" class="tops__article-divImg-img">
+          <img src="./Js/imagenes/${Top3[0].imagenes[0]}" alt="Imagen principal del proyecto" class="tops__article-divImg-img">
         </div>
         <div class="tops__article-lineas">
           <div class="tops__article-lineas-circulo">1</div>
@@ -446,7 +447,7 @@ function mostrarTopDelMain(dataProyectos) {
 
       <article class="tops__article reverse">
         <div class="tops__article-divImg">
-          <img src="./JS/imagenes/${Top3[1].imagenes[0]}" alt="" class="tops__article-divImg-img">
+          <img src="./Js/imagenes/${Top3[1].imagenes[0]}" alt="" class="tops__article-divImg-img">
         </div>
         <div class="tops__article-lineas">
           <div class="tops__article-lineas-circulo">2</div>
@@ -468,7 +469,7 @@ function mostrarTopDelMain(dataProyectos) {
       <article class="article-wrapper">
         <article class="tops__article">
           <div class="tops__article-divImg">
-            <img src="./JS/imagenes/${Top3[2].imagenes[0]}" alt="" class="tops__article-divImg-img">
+            <img src="./Js/imagenes/${Top3[2].imagenes[0]}" alt="" class="tops__article-divImg-img">
           </div>
           <div class="tops__article-lineas">
             <div class="tops__article-lineas-circulo">3</div>
@@ -500,7 +501,7 @@ function mostrarListaProyectos(dataProyectos) {
     mainListaNormal.insertAdjacentHTML('beforeend', `
     <article class="ListaNormal__article">
       <div class="ListaNormal__article-div">
-        <img class="ListaNormal__article-div-img" src="./JS/imagenes/${e.imagenes[0]}" alt="">
+        <img class="ListaNormal__article-div-img" src="./Js/imagenes/${e.imagenes[0]}" alt="">
       </div>
       <div class="ListaNormal__article-div">
         <div class="ListaNormal__article-div-div">
@@ -537,12 +538,53 @@ function mostrarListaProyectos(dataProyectos) {
 
 function mostrarListaProyectosAdmin(dataProyectos) {
 
+  let buttonAgregar = document.createElement('button')
+  buttonAgregar.innerHTML = 'Agregar proyecto'
+  buttonAgregar.classList.add('buttonAgregar')
+  buttonAgregar.classList.add('HeaderCarga')
+
+  buttonAgregar.addEventListener('click', () => {
+    MenuGS.classList.remove('active')
+    MenuGU.classList.remove('active')
+    MenuGC.classList.remove('active')
+    MenuGA.classList.remove('active')
+
+    mostrarMain('Carga', mains)
+
+    IconoGS.classList.add("fa-bars");
+    IconoGS.classList.remove("fa-times");
+
+    IconoGU.classList.add("fa-bars");
+    IconoGU.classList.remove("fa-times");
+
+    IconoGC.classList.add("fa-bars");
+    IconoGC.classList.remove("fa-times");
+
+    IconoGA.classList.add("fa-bars");
+    IconoGA.classList.remove("fa-times");
+
+    if (window.innerWidth > 900) {
+      document.querySelectorAll('.LastOne').forEach((e) => {
+        e.classList.add('none')
+      })
+    } else {
+      document.querySelectorAll('.LastOne').forEach((e) => {
+        e.classList.remove('none')
+      })
+    }
+    crearProyecto()
+  })
+
+  mainListaAdmin.appendChild(buttonAgregar)
+
+
+
   dataProyectos.forEach((e) => {
     let estrellas = EstablecerEstrellas(e.cantEstrellas, e.cantCalificacionesEstrellas)
     mainListaAdmin.insertAdjacentHTML('beforeend', `
     <article class="ListaAdmin__article">
       <div class="ListaAdmin__article-div">
-        <img class="ListaAdmin__article-div-img" src="./JS/imagenes/${e.imagenes[0]}" alt="">
+        <img class="ListaAdmin__article-div-img" src="./Js/imagenes/${e.imagenes[0]}" alt="">
       </div>
       <div class="ListaAdmin__article-div">
         <div class="ListaAdmin__article-div-div">
@@ -579,6 +621,283 @@ function mostrarListaProyectosAdmin(dataProyectos) {
   });
 }
 
+function crearProyecto() {
+  mainCarga.innerHTML = '';
+
+  const section = document.createElement('section');
+
+  section.innerHTML = `
+  <section>
+      <article class="carga-proyecto">
+        <div class="carga-proyecto__info">
+          <div class="carga-proyecto__titulo">
+            <label class="carga-proyecto__label">Título del Proyecto</label>
+            <input type="text" id="inputTitulo" class="carga-proyecto__input"
+              placeholder="Ingrese el título del proyecto">
+          </div>
+
+          <div class="carga-proyecto__descripcion">
+            <label class="carga-proyecto__label">Descripción del Proyecto</label>
+            <textarea id="inputDescripcion" class="carga-proyecto__textarea"
+              placeholder="Ingrese una descripción detallada del proyecto."></textarea>
+          </div>
+
+          <div class="carga-proyecto__imagenes">
+            <label class="carga-proyecto__label">Agregar imágenes</label>
+            <div class="carga-proyecto__imagenes-cont">
+              <input id="inputImage1" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage2" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage3" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input id="inputImage4" class="inputImage" type="file" name="imagen[]" accept="image/*">
+            </div>
+            <button id="crearProyectoBtn">Crear Proyecto</button>
+          </div>
+        </div>
+        <div class="carga-proyecto__preview-img">
+          <img src="Imagenes/IMG_Colegio.png" alt="imagen_Colegio">
+        </div>
+      </article>
+
+      <article class="carga-proyecto-form">
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Estudiantes</h3>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Profesores</h3>
+        </div>
+
+        <div class="carga-proyecto-form__grupo">
+          <h3 class="carga-proyecto-form__titulo">Curso</h3>
+          <input type="number" class="carga-proyecto-form__input" id="inputAnio" placeholder="Año del curso">
+          <input type="number" class="carga-proyecto-form__input" id="inputDivision" placeholder="División del curso">
+
+          <div class="carga-proyecto-form__select-wp">
+            <h3 class="carga-proyecto-form__titulo">Categoría</h3>
+            <select id="inputCategoria" class="carga-proyecto-form__select">
+              <option value="">Categoría</option>
+              <option value="1">Robótica</option>
+              <option value="2">Energías Renovables</option>
+              <option value="3">Programación</option>
+              <option value="4">Economía</option>
+              <option value="5">Ciencias</option>
+              <option value="6">Construcciones</option>
+            </select>
+          </div>
+        </div>
+      </article>
+
+      <article class="carga-proyecto-preview">
+        <h3 class="carga-proyecto-preview__title">Vista previa</h3>
+        <div class="carga-proyecto-preview__listado-proyectos"></div>
+      </article>
+    </section>`;
+
+  mainCarga.appendChild(section);
+
+  const InputTitulo = document.getElementById('inputTitulo');
+  const InputDescripcion = document.getElementById('inputDescripcion');
+  const InputCategoria = document.getElementById('inputCategoria');
+  const InputAnio = document.getElementById('inputAnio');
+  const InputDivision = document.getElementById('inputDivision');
+
+  const grupos = document.querySelectorAll('.carga-proyecto-form__grupo');
+  const contenedorEstudiantes = grupos[0];
+  const contenedorProfesores = grupos[1];
+
+  const btnAgregarEstudiante = document.createElement('button');
+  btnAgregarEstudiante.innerHTML = '+ Agregar Estudiante';
+  btnAgregarEstudiante.classList.add('carga-proyecto-form__btn');
+  contenedorEstudiantes.appendChild(btnAgregarEstudiante);
+
+  const btnAgregarProfesor = document.createElement('button');
+  btnAgregarProfesor.innerHTML = '+ Agregar Profesor';
+  btnAgregarProfesor.classList.add('carga-proyecto-form__btn');
+  contenedorProfesores.appendChild(btnAgregarProfesor);
+
+  const vistaPrevia = document.querySelector('.carga-proyecto-preview__listado-proyectos');
+  const previewWrapper = document.createElement('div');
+  previewWrapper.innerHTML = `
+    <article class="proyecto-esp__article">
+      <div class="proyecto-esp__article-div">
+        <img id="Proyectos__article-div-img1"></img>
+        <div class="proyecto-esp__article-div-imgs">
+          <img id="Proyectos__article-div-img2"></img>
+          <img id="Proyectos__article-div-img3"></img>
+          <img id="Proyectos__article-div-img4"></img>
+        </div>
+      </div>
+      <div class="proyecto-esp__article-div">
+        <div class="proyecto-esp__article-div-div">
+          <h1 id="previewTitulo" class="proyecto-esp__article-div-div-h1">Título del proyecto</h1>
+          <p id="previewDescripcion" class="proyecto-esp__article-div-div-p">Descripción breve del proyecto...</p>
+          <button class="proyecto-esp__article-div-div-button">VOTAR</button>
+        </div>
+        <div class="proyecto-esp__article-div-div">
+          <div class="proyecto-esp__article-div-div-div">
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoría</h2>
+              <p id="previewCategoria" class="proyecto-esp__article-div-div-div-div-p">---</p>
+            </div>
+            <div class="proyecto-esp__article-div-div-div-div">
+              <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
+              <p id="previewCurso" class="proyecto-esp__article-div-div-div-div-p">---</p>
+            </div>
+          </div>
+          <div class="proyecto-esp__article-div-div-div">
+            <div class="img_blanco_negro" id="estrella1" value="1">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella2" value="2">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella3" value="3">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella4" value="4">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+            <div class="img_blanco_negro" id="estrella5" value="5">
+              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <aside class="aside">
+      <div class="aside__div">
+        <h2 class="aside__div-h2">Estudiantes</h2>
+        <p id="previewEstudiantes" class="aside__div-p">Sin estudiantes</p>
+      </div>
+      <div class="aside__div">
+        <h2 class="aside__div-h2">Profesores</h2>
+        <p id="previewProfesores" class="aside__div-p">Sin profesores</p>
+      </div>
+    </aside>
+  `;
+  vistaPrevia.appendChild(previewWrapper);
+
+  const previewTitulo = previewWrapper.querySelector('#previewTitulo');
+  const previewDescripcion = previewWrapper.querySelector('#previewDescripcion');
+  const previewCategoria = previewWrapper.querySelector('#previewCategoria');
+  const previewCurso = previewWrapper.querySelector('#previewCurso');
+  const previewEstudiantes = previewWrapper.querySelector('#previewEstudiantes');
+  const previewProfesores = previewWrapper.querySelector('#previewProfesores');
+
+  function capitalizarTexto(texto) {
+    return texto ? texto.trim().split(' ').map(p => p[0].toUpperCase() + p.slice(1)).join(' ') : '';
+  }
+
+  function valoresInputsDel(contenedor) {
+    return [...contenedor.querySelectorAll('.carga-proyecto-form__input')]
+      .map(i => capitalizarTexto(i.value))
+      .filter(v => v);
+  }
+
+  function actualizarVista() {
+    previewTitulo.textContent = InputTitulo.value || 'Título del proyecto';
+    previewDescripcion.textContent = InputDescripcion.value || 'Descripción breve del proyecto...';
+    previewCategoria.textContent = InputCategoria.value
+      ? InputCategoria.options[InputCategoria.selectedIndex].text
+      : '---';
+    previewCurso.textContent = `${InputAnio.value || ''} ${InputDivision.value || ''}`.trim() || '---';
+    previewEstudiantes.textContent = valoresInputsDel(contenedorEstudiantes).join(' - ') || 'Sin estudiantes';
+    previewProfesores.textContent = valoresInputsDel(contenedorProfesores).join(' - ') || 'Sin profesores';
+  }
+
+  [InputTitulo, InputDescripcion, InputCategoria, InputAnio, InputDivision].forEach(input =>
+    input?.addEventListener('input', actualizarVista)
+  );
+
+  function crearInputYAdjuntar(contenedor, placeholder) {
+    const nuevoInput = document.createElement('input');
+    nuevoInput.type = 'text';
+    nuevoInput.placeholder = placeholder;
+    nuevoInput.classList.add('carga-proyecto-form__input');
+    contenedor.insertBefore(nuevoInput, contenedor.querySelector('.carga-proyecto-form__btn'));
+    nuevoInput.addEventListener('input', actualizarVista);
+  }
+
+  btnAgregarEstudiante.addEventListener('click', () =>
+    crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante')
+  );
+
+  btnAgregarProfesor.addEventListener('click', () =>
+    crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor')
+  );
+
+  actualizarVista();
+
+  let arrayDeImagenes = [null,null,null,null]
+
+  const inputs = document.querySelectorAll('.inputImage');
+
+  inputs.forEach((input) => {
+    input.addEventListener('change', (event) => {
+      const num = parseInt(input.id.replace('inputImage', '')) - 1;
+      const file = event.target.files[0];
+      const img = document.getElementById(`Proyectos__article-div-img${num + 1}`);
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          img.src = e.target.result;
+          arrayDeImagenes[num] = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        img.src = '';
+        arrayDeImagenes[num] = null;
+      }
+
+      console.log(arrayDeImagenes);
+    });
+  });
+
+    arrayDeImagenes.forEach((imagen, i) => {
+      const img = document.getElementById(`Proyectos__article-div-img${i + 1}`);
+      if (img) img.src = `./Js/imagenes/${imagen}`;
+    });
+
+  const crearProyectoBtn = document.getElementById('crearProyectoBtn')
+
+  crearProyectoBtn.addEventListener('click', () => {
+    if (confirm('¿Seguro que desea crear un nuevo proyecto?')) {
+
+      const estudiantesArray = valoresInputsDel(contenedorEstudiantes);
+      const profesoresArray = valoresInputsDel(contenedorProfesores);
+
+      let imagenesFinales = arrayDeImagenes.filter(Boolean);
+
+      fetch(`${localizacion}?action=cargarProyecto`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: previewTitulo.textContent,
+          anio: InputAnio.value,
+          descripcion: previewDescripcion.textContent,
+          idCategoria: parseInt(InputCategoria.value) || null,
+          division: InputDivision.value,
+          estudiantes: estudiantesArray,
+          profesores: profesoresArray,
+          imagenes: imagenesFinales
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.success) {
+          mostrarTexto("Proyecto creado correctamente ✅");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
+        }
+      });
+    }
+  });
+
+}
+
+
 function EliminarProyecto(id) {
   if (confirm("¿Estás seguro que quieres eliminar este proyecto?")) {
     fetch(`${localizacion}?action=borrarProyecto`, {
@@ -591,7 +910,11 @@ function EliminarProyecto(id) {
     .then(res => res.json())
     .then(data => {
       console.log(data)
-      alert(data.message)
+      if(data.success) {
+          mostrarTexto("Proyecto eliminado correctamente ✅");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
+        }
     });
   }
 }
@@ -638,7 +961,7 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
         </div>
         <div class="rank__article-div-div">
           <div id="container" class="rank__article-div-div-div">
-            <img class="rank__article-div-div-img" src="./JS/imagenes/${proyectosOrdenados[cont].imagenes[0]}" alt="">
+            <img class="rank__article-div-div-img" src="./Js/imagenes/${proyectosOrdenados[cont].imagenes[0]}" alt="">
           </div>
           <p class="rank__article-div-div-p" data-max="100" data-onclick="mostrarMain('DetalleProyecto', mains); verDescripcionDelProyecto(${proyectosOrdenados[cont].id})">${proyectosOrdenados[cont].descripcion}</p>
         </div>
@@ -754,8 +1077,6 @@ function editarProyecto(e) {
         </div>
       </article>
     </section>`
-
-
 
   mainCarga.appendChild(section)
 
@@ -903,7 +1224,7 @@ function editarProyecto(e) {
 
       arrayDeImagenes.forEach((imagen, i) => {
         const img = document.getElementById(`Proyectos__article-div-img${i + 1}`);
-        if (img) img.src = `./JS/imagenes/${imagen}`;
+        if (img) img.src = `./Js/imagenes/${imagen}`;
       });
     }
   });
@@ -1030,14 +1351,77 @@ function editarProyecto(e) {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        if(data.success) {
+          mostrarTexto("Proyecto actualizado correctamente ✅😄");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
+        }
       });
     }
   })
   
 }
 
-function editarCuenta(e) {
-  
+function editarCuenta() {
+  if (localStorage.getItem("usuario")) {
+    const userStr = localStorage.getItem("usuario");
+    const usuario = JSON.parse(userStr);
+    idUsuario = usuario.id
+    console.log(idUsuario)
+  }
+
+  fetch(`${localizacion}?idUsuario=${idUsuario}&action=verCuenta`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      if(data.success) {
+        const nombre = document.getElementById('nombreUsuario')
+        const apellido = document.getElementById('apellidoUsuario')
+        const contrasenia = document.getElementById('contraseña')
+        const repetContra = document.getElementById('repetContra')
+        const actualizarCuenta = document.getElementById('actualizarCuenta')
+        
+        nombre.value = data.data.Nombre
+        apellido.value = data.data.Apellido
+        contrasenia.value = data.data.contrasenia
+        repetContra.value = data.data.contrasenia
+
+        actualizarCuenta.addEventListener('click', ()=> {
+          if (contrasenia.value == repetContra.value) {
+            fetch(`${localizacion}?action=actualizarCuenta`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              idUsuario: idUsuario,
+              nombre: nombre.value,
+              apellido: apellido.value,
+              contrasenia: contrasenia.value
+            })
+            })
+            .then(res => res.json())
+            .then(data => {
+              if(data.success) {
+                mostrarTexto("Datos actualizados correctamente ✅");
+                const miSonido = new Audio('Sonidos/Check.mp3');
+                miSonido.play();
+              } else {
+                mostrarTexto("Hubo un error al intentar actualizar sus datos ❌");
+                const miSonido = new Audio('Sonidos/error.mp3');
+                miSonido.play();
+              } 
+            });
+          } else {
+            mostrarTexto("Las contraseñas no coinciden ❌");
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
+          }
+        })
+      }
+    })
+    .catch(error => {
+      console.error("❌ Error en fetch:", error);
+    });
+
 }
 
 function verDescripcionDelProyecto(e) {
@@ -1081,11 +1465,11 @@ function verDescripcionDelProyecto(e) {
   article.innerHTML = `
     <article class="proyecto-esp__article">
       <div class="proyecto-esp__article-div">
-        <img id="Proyectos__article-div-img" src="./JS/imagenes/${proyecto.imagenes[0]}" alt="">
+        <img id="Proyectos__article-div-img" src="./Js/imagenes/${proyecto.imagenes[0]}" alt="">
         <div id="Proyectos__article-div-imgs">
-          <img src="./JS/imagenes/${proyecto.imagenes[1]}" alt="">
-          <img src="./JS/imagenes/${proyecto.imagenes[2]}" alt="">
-          <img src="./JS/imagenes/${proyecto.imagenes[3]}" alt="">
+          <img src="./Js/imagenes/${proyecto.imagenes[1]}" alt="">
+          <img src="./Js/imagenes/${proyecto.imagenes[2]}" alt="">
+          <img src="./Js/imagenes/${proyecto.imagenes[3]}" alt="">
         </div>
       </div>
       <div class="proyecto-esp__article-div">
@@ -1194,7 +1578,7 @@ function verDescripcionDelProyecto(e) {
           const miSonido = new Audio('Sonidos/error.mp3');
           miSonido.play();
         } 
-        if(data.message === "") {
+        if(data.message === "El usuario ya votó este proyecto") {
           mostrarTexto("Ya ah votado este proyecto ❌");
           const miSonido = new Audio('Sonidos/error.mp3');
           miSonido.play();

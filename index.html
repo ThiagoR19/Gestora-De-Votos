@@ -20,7 +20,6 @@
   <script defer src="./Js/Header.js"></script>
   <script defer src="./Js/Main.js"></script>
   <script defer src="./Js/LoginFacebook.js"></script>
-  <script defer src="./Js/CargarProyecto.js"></script>
   <script defer src="./Js/Desplegable.js"></script>
   <script defer src="./Js/DescripcionDeProyecto.js"></script>
 </head>
@@ -545,24 +544,24 @@
           <div class="article__div-div">
             <div class="article__div-div-div" class="input-container input-container1">
               <i class="article__div-div-div-i fa-solid fa-user"></i>
-              <input class="article__div-div-div-input" type="text" placeholder="Ingresar nombre...">
+              <input id="nombreUsuario" class="article__div-div-div-input" type="text" placeholder="Ingresar nombre...">
             </div>
             <div class="article__div-div-div">
               <i class="article__div-div-div-i fa-solid fa-users"></i>
-              <input class="article__div-div-div-input" type="text" placeholder="Ingresar apellido...">
+              <input id="apellidoUsuario" class="article__div-div-div-input" type="text" placeholder="Ingresar apellido...">
             </div>
           </div>
           <div class="article__div-div">
             <i class="article__div-div-i fa-solid fa-lock"></i>
-            <input class="article__div-div-input" type="text" placeholder="Ingresar contraseña...">
+            <input id="contraseña" class="article__div-div-input" type="text" placeholder="Ingresar contraseña...">
           </div>
           <div class="article__div-div">
             <i class="article__div-div-i fa-solid fa-unlock"></i>
-            <input class="article__div-div-input" type="text" placeholder="Confirmar contraseña...">
+            <input id="repetContra" class="article__div-div-input" type="text" placeholder="Confirmar contraseña...">
           </div>
           <div class="article__div-div">
             <button id="BorrarCuenta" class="article__div-div-button">Borrar cuenta</button>
-            <button class="article__div-div-button">Guardar datos</button>
+            <button id="actualizarCuenta" class="article__div-div-button">Guardar datos</button>
           </div>
           <div class="article__div-div">
             <button class="article__div-button2">Cerrar sesion</button>

@@ -32,7 +32,6 @@ function editarProyecto($pdo, $input) {
 
     $pdo->beginTransaction();
 
-    // 1️⃣ Actualizar los datos del proyecto
     $stmt = $pdo->prepare("
         UPDATE proyectos 
         SET Nombre = ?, Descripcion = ?, idCategoria = ?, anio = ?, divicion = ?

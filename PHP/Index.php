@@ -21,6 +21,9 @@ switch ($method) {
         if($action === "pedirProyectos") {
           require_once 'controladores/PedirProyectos.php';
           pedirProyectos($pdo);
+        } elseif ($action === "verCuenta"){
+            require_once 'controladores/VerCuenta.php';
+            verCuenta($pdo);
         }
 
     case 'POST':
@@ -72,6 +75,10 @@ switch ($method) {
         elseif ($action === "editarProyecto"){
             require_once 'controladores/EditarProyecto.php';
             editarProyecto($pdo, $input);
+        }
+        elseif ($action === "actualizarCuenta"){
+            require_once 'controladores/ActualizarCuenta.php';
+            actualizarCuenta($pdo, $input);
         }
         break;
 
