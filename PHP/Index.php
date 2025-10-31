@@ -46,7 +46,11 @@ switch ($method) {
         }
         elseif ($action === "calificar"){
             require_once 'controladores/InsertarCalifico.php';
-            //insertarCalificacion($pdo,$input);
+            insertarCalificacion($pdo,$input);
+        }
+        elseif ($action === "VerCalificaciones"){
+            require_once 'controladores/VerCalificaciones.php';
+            verCalificados($pdo,$input);
         }
         elseif ($action === "votar"){
             require_once 'controladores/Votar.php';

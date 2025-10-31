@@ -1447,15 +1447,35 @@ function verDescripcionDelProyecto(e) {
       console.log(data.message);
     }
   });
+  
+  fetch(`${localizacion}?action=VerCalificaciones`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ idUsuario })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      var proyectosCalificados = data.proyectos
+      
+    } else {
+      console.log(data.message);
+    }
+  });
 
   mainDetalleProyecto.innerHTML = ``
 
   dataProyectosGlobal.forEach(element => {
     if (element.id === e) {
       proyecto = element
+      proyectosCalificados.forEach(element=>{
+        if (element.idProyecto === proyecto.id){
+          
+        }
+      })
     }
   });
-  let estrellas = EstablecerEstrellas(proyecto.cantEstrellas, proyecto.cantCalificacionesEstrellas)
+  
   let article = document.createElement('ARTICLE')
   let aside = document.createElement('ASIDE')
 
