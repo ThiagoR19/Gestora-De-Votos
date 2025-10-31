@@ -13,9 +13,9 @@ function verCalificados($pdo, $input) {
         exit;
     }
 
-    $stmt = $pdo->prepare("SELECT IdProyecto, cantEstrellas FROM usuario_estrellas WHERE idUsuario = ?");
+    $stmt = $pdo->prepare("SELECT cantEstrellas, idProyecto FROM usuario_estrellas WHERE idUsuario = ?");
     $stmt->execute([$idUsuario]);
-    $proyectos = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $proyectos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         "success" => true,

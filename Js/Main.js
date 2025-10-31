@@ -1447,8 +1447,12 @@ function verDescripcionDelProyecto(e) {
       console.log(data.message);
     }
   });
-  
-  fetch(`${localizacion}?action=VerCalificaciones`, {
+
+  let proyectosCalificados
+  let PermitirEstrella = true
+  let proyecto
+  let permitir = true
+  fetch(`${localizacion}?action=verCalificaciones`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ idUsuario })
@@ -1456,25 +1460,27 @@ function verDescripcionDelProyecto(e) {
   .then(res => res.json())
   .then(data => {
     if(data.success){
-      var proyectosCalificados = data.proyectos
-      
+      proyectosCalificados = data.proyectos
+      dataProyectosGlobal.forEach(element => {
+        if (element.id === e) {
+          proyecto = element
+        }
+      });
+      proyectosCalificados.forEach(element=>{
+        if (element.idProyecto !== proyecto.id && permitir==true){
+          PermitirEstrella = true;
+        } 
+        else {
+          PermitirEstrella = false;
+          permitir = false
+        }
+      })
     } else {
       console.log(data.message);
     }
-  });
-
-  mainDetalleProyecto.innerHTML = ``
-
-  dataProyectosGlobal.forEach(element => {
-    if (element.id === e) {
-      proyecto = element
-      proyectosCalificados.forEach(element=>{
-        if (element.idProyecto === proyecto.id){
-          
-        }
-      })
-    }
-  });
+    //todo este codigo iba fuera del then pero lo puse aca por prisas
+    mainDetalleProyecto.innerHTML = ``
+  
   
   let article = document.createElement('ARTICLE')
   let aside = document.createElement('ASIDE')
@@ -1569,7 +1575,21 @@ function verDescripcionDelProyecto(e) {
   mainDetalleProyecto.appendChild(article)
   mainDetalleProyecto.appendChild(aside)
   mainDetalleProyecto.appendChild(modaldiv)
-  instanciarEstrellas(proyecto.id)
+  if (PermitirEstrella == true){
+    console.log("aca entro")
+    instanciarEstrellas(proyecto.id)
+  }
+  else{
+    proyectosCalificados.forEach(element=>{
+      if (element.idProyecto === proyecto.id){
+        console.log(element.cantEstrellas)
+        iluminarEstrellas(element.cantEstrellas)
+      }
+      else{
+        console.log("no entro")
+      }
+    })
+  }
 
   const BotonesVotar = document.querySelectorAll('.proyecto-esp__article-div-div-button')
 
@@ -1607,6 +1627,7 @@ function verDescripcionDelProyecto(e) {
       })
     })
   })
+  });
 }
 
 let confirmarCallback = null;

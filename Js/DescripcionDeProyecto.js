@@ -100,14 +100,14 @@ async function calificado(e, estrella, todasEstrellas, proyectoid) {
   }
   try{
     let userData = JSON.parse(localStorage.getItem("usuario"));
-
+    console.log (localizacion)
     let response = await fetch(localizacion, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        accion: "calificar",
+        action: "calificar",
         calificacion: valor,
         userid: userData.id,
         proyecto:proyectoid
@@ -115,7 +115,8 @@ async function calificado(e, estrella, todasEstrellas, proyectoid) {
     });
     const data = await response.json()
     if (data){
-      if (data.status="ok"){
+      if (data.status ="ok"){
+        console.log (data)
         console.log(data.message)
       }
     }
@@ -125,5 +126,16 @@ async function calificado(e, estrella, todasEstrellas, proyectoid) {
   }
   catch(err){
     console.error(err)
+  }
+}
+function iluminarEstrellas(numero) {
+  
+  numero = Math.max(1, Math.min(numero, 5));
+
+  for (let i = 1; i <= numero; i++) {
+    const estrella = document.getElementById(`estrella${i}`);
+    if (estrella) {
+      estrella.classList.remove("img_blanco_negro");
+    }
   }
 }

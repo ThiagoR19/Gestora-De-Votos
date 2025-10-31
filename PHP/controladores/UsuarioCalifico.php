@@ -7,7 +7,7 @@ function insertarCalificacion($pdo,$data){
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':calificacion' => $data['calificacion'] ?? null,
-            ':userId' => $data['userId'] ?? null,
+            ':userId' => $data['userid'] ?? null,
             ':proyecto' => $data['proyecto'] ?? null
         ]);
 

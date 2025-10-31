@@ -45,10 +45,10 @@ switch ($method) {
             }
         }
         elseif ($action === "calificar"){
-            require_once 'controladores/InsertarCalifico.php';
+            require_once 'controladores/UsuarioCalifico.php';
             insertarCalificacion($pdo,$input);
         }
-        elseif ($action === "VerCalificaciones"){
+        elseif ($action === "verCalificaciones"){
             require_once 'controladores/VerCalificaciones.php';
             verCalificados($pdo,$input);
         }
