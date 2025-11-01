@@ -89,7 +89,8 @@ class Usuario {
     }
 
     private function verificacionId() {
-        $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
+        
+        
 
         if (empty($usuariosArray)) {
             return 0;
