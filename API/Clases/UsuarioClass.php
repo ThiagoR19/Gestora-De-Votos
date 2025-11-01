@@ -1,13 +1,14 @@
 <?php
+require_once 'API/Clases/UsuarioBD.php';
 class Usuario {
-    private $nombre;
+        private $nombre;
     private $apellido;
     private $email;
     private $password;
     private $tipo; 
     private $id;
 
-    public static function validacion($data, $pdo) {
+    public static function validacion($data, $accion) {
         $success = false;
         $message = "";
         $faltantes = [];
@@ -58,25 +59,23 @@ class Usuario {
             else {
                 $success = true;
                 $message = "Usuario registrado con éxito";
+                if ($accion === "Guardar"){
+                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],1 );
+                    $nuevoUsuario->guardar();
+                }
+                else if ($accion === "Instanciar"){
+                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],1 );
+                }
             }
         }
 
-        return [
+        echo json_encode([
             "success" => $success,
             "message" => $message,
             "datos" => $data,
             "faltantes" => $faltantes
-        ];
-    }
-    public function mensaje($suceso,$mensaje,$datos,$faltantes){
-        echo json_encode([
-            "success" => $suceso,
-            "message" => $mensaje,
-            "datos" => $datos,
-            "faltantes" => $faltantes
         ]);
     }
-
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
        
         $this->nombre = $nombre;
@@ -84,41 +83,33 @@ class Usuario {
         $this->email = $email;
         $this->password = $password;
         $this->tipo = $tipo;
-        $this->id = $this->verificacionId();
-        $this->guardar();
+        
+
     }
-
-    private function verificacionId() {
-        $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
-
-        if (empty($usuariosArray)) {
-            return 0;
-        } else {
-            $ids = array_column($usuariosArray, 'id');
-            return max($ids) + 1;
-        }
+    private function PedirUsuarioId() {
+        $usuarioBD = new UsuarioBD();
+        
     }
-
-    private function toArray() {
-        return [
-            'id' => $this->id,
-            'nombre' => $this->nombre,
-            'apellido' => $this->apellido,
-            'email' => $this->email,
-            'password' => $this->password,
-            'tipo' => $this->tipo
+    private function guardar() {
+        $usuarioBD = new UsuarioBD();
+        $usuarioBD->guardarUsuario($this);
+    }
+    static public function editar($input){
+        $usuarioBD = new UsuarioBD();
+        $usuarioBD->actualizarCuenta($input);
+    }
+    private function MostrarDatosinstanciados(){
+        $datos = [
+            "Nombre" => $this->nombre,
+            "Apellido" => $this->apellido,
+            "Email" => $this->email,
+            "Password" => $this->password,
+            "Tipo" => $this->tipo
         ];
     }
-
-    public function guardar() {
-        $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
-        $usuariosArray[] = $this->toArray();
-        file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
-    }
-    
-    public static function logueo($email, $password, $pdo) {
-        require_once 'controladores/PedirUsuarios.php';
-        $usuariosArray = PedirUsuario($pdo);
+    public static function logueo($email, $password) {
+        $UsuarioBD = new UsuarioBD();
+        $usuariosArray = $UsuarioBD->PedirUsuarios();
         $suceso = false;
         $mensaje = "";
         $datos = null;
@@ -145,6 +136,9 @@ class Usuario {
             "datos" => $datos
         ]);
     }
-    // Getters
+    static public function deletear($input){
+        $usuarioBD = new UsuarioBD();
+        $usuarioBD->borrarCuenta($input);
+    }
 }
 ?>
