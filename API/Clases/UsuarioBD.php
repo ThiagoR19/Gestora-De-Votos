@@ -1,5 +1,4 @@
 <?php
-require_once "API/Conexion.php";
 require_once __DIR__ . "/../API/Conexion.php";
 
 class UsuarioBD extends ConexionBD {

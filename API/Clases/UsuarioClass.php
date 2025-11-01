@@ -1,7 +1,7 @@
 <?php
 require_once 'API/Clases/UsuarioBD.php';
 class Usuario {
-        private $nombre;
+    private $nombre;
     private $apellido;
     private $email;
     private $password;
@@ -41,8 +41,8 @@ class Usuario {
             $message = "Las contraseñas no coinciden";
         } 
         else {
-            require_once 'controladores/PedirUsuarios.php';
-            $usuariosCorreoArray = PedirCorreos($pdo);
+            $UsuarioBD = new UsuarioBD();
+            $usuariosCorreoArray = $UsuarioBD->PedirCorreos();
 
             $existeCorreo = false;
             foreach ($usuariosCorreoArray as $usuario) {
@@ -106,6 +106,7 @@ class Usuario {
             "Password" => $this->password,
             "Tipo" => $this->tipo
         ];
+        return $datos;
     }
     public static function logueo($email, $password) {
         $UsuarioBD = new UsuarioBD();
