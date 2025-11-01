@@ -111,9 +111,9 @@ class Usuario {
     }
 
     public function guardar() {
-        $usuariosArray = json_decode(file_get_contents(self::$usuarios), true) ?? [];
+        
         $usuariosArray[] = $this->toArray();
-        file_put_contents(self::$usuarios, json_encode($usuariosArray, JSON_PRETTY_PRINT));
+       
     }
     
     public static function logueo($email, $password, $pdo) {
