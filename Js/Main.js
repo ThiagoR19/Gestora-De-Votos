@@ -935,7 +935,6 @@ function crearProyecto() {
 
 }
 
-
 function EliminarProyecto(id) {
   if (confirm("¿Estás seguro que quieres eliminar este proyecto?")) {
     fetch(`${localizacion}/api/index.php/controladores/proyectos?idProyecto=${id}`, {
