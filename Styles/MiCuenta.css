@@ -46,7 +46,10 @@ h3 {
 
 .article__div-img {
   margin: 20px 0;
-  width: 80%;
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 button {
@@ -129,30 +132,63 @@ button {
   border: 2px solid red;
   background-color: transparent;
   color: red;
-  
+  transition: all .4s;
+  margin: 0 5px 0 0;
+}
+
+.article__div-div-button:first-child:hover {
+  border: 2px solid red;
+  background-color: red;
+  color: white;
+  transition: all .4s;
   margin: 0 5px 0 0;
 }
 
 .article__div-div-button:last-child {
-  border: 2px solid rgb(47, 47, 47);
-  background-color: rgb(47, 47, 47);
-  color: rgb(255, 255, 255);
+  background-color: #062F4F;
+  color: white;
+  border: 2px solid #062F4F;
   font-size: 25px;
   margin: 0 0 0 5px;
+  transition: all .4s;
+}
+.article__div-div-button:last-child:hover {
+  background-color: #034a80;
+  border: 2px solid #034a80;
 }
 
 .article__div-button {
   padding: 15px 20px;
   font-size: 25px;
   border: none;
+  background-color: #eaeaea;
+  color: rgb(0, 0, 0);
+  border: none;
+  transition: all .4s;
+}
+
+.article__div-button:hover {
+  background-color: #d6d6d6;
+}
+
+#inputDePerfil {
+  display: none;
 }
 
 .article__div-button2 {
   width: 100%;
-  background-color: #062F4F;
-  color: white;
-  border: 2px solid #062F4F;
+  border: 2px solid rgb(47, 47, 47);
+  background-color: rgb(47, 47, 47);
+  color: rgb(255, 255, 255);
   font-size: 25px;
+  padding: 13px;
+  border-radius: 8px;
+  transition: all .2s;
+}
+
+.article__div-button2:hover {
+  border: 2px solid rgb(26, 26, 26);
+  background-color: rgb(26, 26, 26);
   padding: 13px;
   border-radius: 8px;
 }
@@ -172,10 +208,6 @@ button {
   #MiCuenta {
     height: auto;
     padding: 15px;
-  }
-
-  .article__div-img {
-    width: 50%;
   }
 
   article {

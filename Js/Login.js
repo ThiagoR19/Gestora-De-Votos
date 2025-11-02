@@ -33,7 +33,7 @@ emailRe.addEventListener("input", verificarCorreo);
 buttonInicio.addEventListener("click", async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch(`${localizacion}/api/index.php/controladores/Usuarios`, {
+    const response = await fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ buttonRegister.addEventListener("click", async () => {
 
   if (pasaEmail==true) {
     console.log ("el correo ha sido verificado")
-    fetch(`${localizacion}/api/index.php/controladores/Usuarios`, {
+    fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({

@@ -11,14 +11,14 @@ switch ($method) {
         break;
     case 'POST':
         $coordinador = new Coordinadores($data["Correo"]);
-        $coordinador->validacion("envie", "guardar");
+        $coordinador->validacion( "guardar", null);
         break;
     case "PUT":
         $coordinador = new Coordinadores($data["Correo"]);
-        $coordinador->validacion("evaluar", "editar");
+        $coordinador->validacion( "editar",$data["id"]);
         break;
     case "DELETE":
-        
+        Coordinadores::deletear($data["Correo"]);
         break;
     default:
         http_response_code(405);

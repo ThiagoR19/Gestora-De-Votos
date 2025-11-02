@@ -12,6 +12,20 @@
   height: 100px;
 }
 
+#IconoUserGS,
+#IconoUserGU,
+#IconoUserGC,
+#IconoUserGA,
+#IconoUserHS,
+#IconoUserHU,
+#IconoUserHC,
+#IconoUserHA {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
 #HeaderGS,
 #HeaderGC,
 #HeaderGU,

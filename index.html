@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="stylesheet" href="./Styles/Home.css?v=999" id="styles">
+  <link rel="stylesheet" href="./Styles/Home.css" id="styles">
   <link rel="stylesheet" href="./Styles/Footer.css">
   <link rel="stylesheet" href="./Styles/Header.css">
   <link rel="stylesheet" href="./Styles/Modal.css">
@@ -505,7 +505,8 @@
         <div class="article__div">
           <h3 class="article__div-h3">Foto de perfil</h3>
           <img class="article__div-img" src="./Imagenes/Usuario.png" alt="">
-          <button class="article__div-button">Cambiar Foto</button>
+          <input id="inputDePerfil" type="file" accept="image/*" multiple>
+          <label for="inputDePerfil" id="CambiarFotoPerfil" class="article__div-button">Cambiar Foto</label>
         </div>
         <div class="article__div">
           <div class="article__div-div">

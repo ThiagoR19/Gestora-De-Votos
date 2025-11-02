@@ -353,7 +353,6 @@ let currentIndex = 0
 function updateSlider() {
   const groups = document.querySelectorAll('.grupoDeProyectos')
   if (groups.length === 0) return
-
   const groupWidth = groups[0].offsetWidth + 20
   slider.style.transform = `translateX(${-currentIndex * groupWidth}px)`
 }
@@ -652,7 +651,6 @@ function crearProyecto() {
   const section = document.createElement('section');
 
   section.innerHTML = `
-  <section>
       <article class="carga-proyecto">
         <div class="carga-proyecto__info">
           <div class="carga-proyecto__titulo">
@@ -679,7 +677,7 @@ function crearProyecto() {
           </div>
         </div>
         <div class="carga-proyecto__preview-img">
-          <img src="Imagenes/IMG_Colegio.png" alt="imagen_Colegio">
+          <img src="Imagenes/Fondo.png" alt="imagen_Colegio">
         </div>
       </article>
 
@@ -715,8 +713,7 @@ function crearProyecto() {
       <article class="carga-proyecto-preview">
         <h3 class="carga-proyecto-preview__title">Vista previa</h3>
         <div class="carga-proyecto-preview__listado-proyectos"></div>
-      </article>
-    </section>`;
+      </article>`;
 
   mainCarga.appendChild(section);
 
@@ -894,7 +891,7 @@ function crearProyecto() {
 
       let imagenesFinales = arrayDeImagenes.filter(Boolean);
 
-      fetch(`${localizacion}/api/index.php/controladores/proyectos`, {
+      fetch(`${localizacion}/api/index.php?recurso=Proyectos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -915,7 +912,7 @@ function crearProyecto() {
           mostrarTexto("Proyecto creado correctamente ✅");
           const miSonido = new Audio('Sonidos/Check.mp3');
           miSonido.play();
-          fetch(`${localizacion}/api/index.php/controladores/proyectos`)
+          fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
             .then(response => response.json())
             .then(data => {
               dataProyectos = data.datos
@@ -937,7 +934,7 @@ function crearProyecto() {
 
 function EliminarProyecto(id) {
   if (confirm("¿Estás seguro que quieres eliminar este proyecto?")) {
-    fetch(`${localizacion}/api/index.php/controladores/proyectos?idProyecto=${id}`, {
+    fetch(`${localizacion}/api/index.php?recurso=Proyectos&idProyecto=${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })
@@ -948,7 +945,7 @@ function EliminarProyecto(id) {
           mostrarTexto("Proyecto eliminado correctamente ✅");
           const miSonido = new Audio('Sonidos/Check.mp3');
           miSonido.play();
-          fetch(`${localizacion}/api/index.php/controladores/proyectos`)
+          fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
             .then(response => response.json())
             .then(data => {
               dataProyectos = data.datos
@@ -967,7 +964,6 @@ function EliminarProyecto(id) {
 }
 
 function mostrarRanking(dataProyectos, ordenamiento = 0) {
-
   slider.innerHTML = ''
 
   let proyectosOrdenados;
@@ -1035,10 +1031,10 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
             </div>
           </div>
         </div>`
-
       cont++
       grupoDeProyectos.appendChild(tarjeta)
     }
+    aplicarVerMasAuto()
     slider.appendChild(grupoDeProyectos)
   }
 }
@@ -1058,7 +1054,6 @@ function editarProyecto(e) {
 
   section.innerHTML = `
   
-  <section>
       <article class="carga-proyecto">
         <div class="carga-proyecto__info">
           <div class="carga-proyecto__titulo">
@@ -1085,7 +1080,7 @@ function editarProyecto(e) {
           </div>
         </div>
         <div class="carga-proyecto__preview-img">
-          <img src="Imagenes/IMG_Colegio.png" alt="imagem_Colegio">
+          <img src="Imagenes/Fondo.png" alt="imagem_Colegio">
         </div>
       </article>
 
@@ -1122,8 +1117,7 @@ function editarProyecto(e) {
         <h3 class="carga-proyecto-preview__title">Vista previa</h3>
         <div class="carga-proyecto-preview__listado-proyectos">
         </div>
-      </article>
-    </section>`
+      </article>`
 
   mainCarga.appendChild(section)
 
@@ -1372,7 +1366,7 @@ function editarProyecto(e) {
     if(confirm('¿Seguro que desea actualiza este proyecto?')) {
       let imagenesFinales = arrayDeImagenes.filter(Boolean);
       console.log(imagenesFinales)
-      fetch(`${localizacion}/api/index.php/controladores/proyectos`, {
+      fetch(`${localizacion}/api/index.php?recurso=Proyectos`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1393,7 +1387,7 @@ function editarProyecto(e) {
           mostrarTexto("Proyecto actualizado correctamente ✅😄");
           const miSonido = new Audio('Sonidos/Check.mp3');
           miSonido.play();
-          fetch(`${localizacion}/api/index.php/controladores/proyectos`)
+          fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
             .then(response => response.json())
             .then(data => {
               dataProyectos = data.datos
@@ -1417,15 +1411,63 @@ function editarProyecto(e) {
   
 }
 
-function editarCuenta() {
-  if (localStorage.getItem("usuario")) {
-    const userStr = localStorage.getItem("usuario");
-    const usuario = JSON.parse(userStr);
-    idUsuario = usuario.id
-    console.log(idUsuario)
-  }
+const inputDePerfil = document.getElementById("inputDePerfil");
+const imagenDePerfil = document.querySelector(".article__div-img");
+let imagenBase64 = ""; // acá guardamos la imagen real para enviar al servidor
 
-  fetch(`${localizacion}/api/index.php/controladores/Usuarios?idUsuario=${idUsuario}&action=verCuenta`)
+inputDePerfil.addEventListener("change", function(event) {
+  const archivo = event.target.files[0];
+
+  if (archivo) {
+    // Mostrar vista previa
+    const url = URL.createObjectURL(archivo);
+    imagenDePerfil.src = url;
+
+    // Convertir a base64 para enviar
+    const reader = new FileReader();
+    reader.readAsDataURL(archivo);
+    reader.onload = function() {
+      imagenBase64 = reader.result; // data:image/png;base64,...
+    };
+  } else {
+    imagenDePerfil.src = "./Imagenes/Usuario.png";
+    imagenBase64 = "";
+  }
+});
+
+if (localStorage.getItem("usuario")) {
+  const userStr = localStorage.getItem("usuario");
+  const usuario = JSON.parse(userStr);
+  idUsuario = usuario.id
+  console.log(idUsuario)
+  fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      if (data.success) {
+        let headerImagenes = [
+          document.getElementById('IconoUserGU'),
+          document.getElementById('IconoUserGC'),
+          document.getElementById('IconoUserGA'),
+          document.getElementById('IconoUserHU'),
+          document.getElementById('IconoUserHC'),
+          document.getElementById('IconoUserHA')
+        ]
+        headerImagenes.forEach((Imagen)=> {
+          Imagen.src = `./Js/imagenes/${data.data.imagen}`
+        })
+      }
+    })
+}
+
+
+function editarCuenta() {
+  if (!localStorage.getItem("usuario")) {return}
+  const userStr = localStorage.getItem("usuario");
+  const usuario = JSON.parse(userStr);
+  idUsuario = usuario.id
+
+  fetch(`${localizacion}/api/index.php?recurso=Usuarios&?idUsuario=${idUsuario}&action=verCuenta`)
     .then(response => response.json())
     .then(data => {
       console.log(data)
@@ -1435,30 +1477,55 @@ function editarCuenta() {
         const contrasenia = document.getElementById('contraseña')
         const repetContra = document.getElementById('repetContra')
         const actualizarCuenta = document.getElementById('actualizarCuenta')
+        const imagenDePerfil = document.querySelector('.article__div-img');
         
         nombre.value = data.data.Nombre
         apellido.value = data.data.Apellido
         contrasenia.value = data.data.contrasenia
         repetContra.value = data.data.contrasenia
+        if(data.data.imagen) {
+          imagenDePerfil.src = `./Js/imagenes/${data.data.imagen}`
+        }
+        
 
         actualizarCuenta.addEventListener('click', ()=> {
           if (contrasenia.value == repetContra.value) {
-            fetch(`${localizacion}/api/index.php/controladores/Usuarios`, {
+            fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
               idUsuario: idUsuario,
               nombre: nombre.value,
               apellido: apellido.value,
-              contrasenia: contrasenia.value
+              contrasenia: contrasenia.value,
+              imagen: imagenBase64
             })
             })
             .then(res => res.json())
             .then(data => {
+              console.log(data)
               if(data.success) {
                 mostrarTexto("Datos actualizados correctamente ✅");
                 const miSonido = new Audio('Sonidos/Check.mp3');
                 miSonido.play();
+                fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log(data)
+                    if (data.success) {
+                      headerImagenes = [
+                        document.getElementById('IconoUserGU'),
+                        document.getElementById('IconoUserGC'),
+                        document.getElementById('IconoUserGA'),
+                        document.getElementById('IconoUserHU'),
+                        document.getElementById('IconoUserHC'),
+                        document.getElementById('IconoUserHA')
+                      ]
+                      headerImagenes.forEach((Imagen)=> {
+                        Imagen.src = `./Js/imagenes/${data.data.imagen}`
+                      })
+                    }
+                  })
               } else {
                 mostrarTexto("Hubo un error al intentar actualizar sus datos ❌");
                 const miSonido = new Audio('Sonidos/error.mp3');
@@ -1488,7 +1555,7 @@ function verDescripcionDelProyecto(e) {
     idUsuario = usuario.id
   }
 
-  fetch(`${localizacion}/api/index.php/controladores/votos?idUsuario=${idUsuario}`, {
+  fetch(`${localizacion}/api/index.php?recurso=Votos&idUsuario=${idUsuario}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   })
@@ -1497,6 +1564,7 @@ function verDescripcionDelProyecto(e) {
     console.log(data)
     if(data.success){
       let proyectosVotados = data.proyectos
+      console.log(proyectosVotados)
     } else {
       console.log(data.message);
     }
@@ -1507,20 +1575,21 @@ function verDescripcionDelProyecto(e) {
   let proyecto
   let permitir = true
 
-  fetch(`${localizacion}/api/index.php/controladores/estrellas?idUsuario=${idUsuario}`, {
+  fetch(`${localizacion}/api/index.php?recurso=Estrellas&idUsuario=${idUsuario}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   })
   .then(res => res.json())
   .then(data => {
-    console.log(data)
+
+    dataProyectosGlobal.forEach(element => {
+      if (element.id === e) {
+        proyecto = element
+      }
+    });
+
     if(data.success){
       proyectosCalificados = data.proyectos
-      dataProyectosGlobal.forEach(element => {
-        if (element.id === e) {
-          proyecto = element
-        }
-      });
       proyectosCalificados.forEach(element=>{
         if (element.idProyecto !== proyecto.id && permitir==true){
           PermitirEstrella = true;
@@ -1530,8 +1599,6 @@ function verDescripcionDelProyecto(e) {
           permitir = false
         }
       })
-    } else {
-      console.log(data.message);
     }
     //todo este codigo iba fuera del then pero lo puse aca por prisas
     mainDetalleProyecto.innerHTML = ``
@@ -1671,7 +1738,7 @@ function verDescripcionDelProyecto(e) {
 
     e.addEventListener('click', ()=> {
       abrirModal(()=> {
-        fetch(`${localizacion}/api/index.php/controladores/votos`, {
+        fetch(`${localizacion}/api/index.php?recurso=Votos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1696,7 +1763,11 @@ function verDescripcionDelProyecto(e) {
           const miSonido = new Audio('Sonidos/error.mp3');
           miSonido.play();
         }
-        console.log(data)
+        if(data.message === "Faltan datos: idUsuario o idProyecto") {
+          mostrarTexto("Inicie sesion para votar un proyecto ❌");
+          const miSonido = new Audio('Sonidos/error.mp3');
+          miSonido.play();
+        }
       });
       })
     })
@@ -1717,7 +1788,7 @@ function cerrarModal() {
 
 // LLamada al json y ejecucion de las funciones.
 
-fetch(`${localizacion}/api/index.php/controladores/proyectos`)
+fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
   .then(response => response.json())
   .then(data => {
     console.log(data.datos)
@@ -1773,7 +1844,7 @@ function borrarCuenta () {
   }
   
   if (idUsuario && confirm("¿Estás seguro que quieres eliminar esta cuenta, se borrará toda la participacion que haya tenido en el sitio?")) {
-    fetch(`${localizacion}/api/index.php/Usuarios?idUsuario=${idUsuario}`, {
+    fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })
@@ -1820,9 +1891,6 @@ function mostrarEstadisticas(dataProyectos) {
     }
     proyectos.push(proyectoEstadistica)
   })
-
-  console.log(proyectos)
-
 
   const chart = document.getElementById("chart");
   const xAxis = document.getElementById("x-axis");
@@ -1925,3 +1993,6 @@ function mostrarEstadisticas(dataProyectos) {
   renderProyectos(proyectos);
 
 }
+
+// Cambiar foto de perfil
+

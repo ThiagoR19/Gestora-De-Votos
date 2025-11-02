@@ -92,16 +92,11 @@ async function calificado(e, estrella, todasEstrellas, proyectoid) {
       est.classList.add("img_blanco_negro");
     }
   }
-  const audio = new Audio("Sonidos/Check.mp3"); // Ruta de tu archivo
-  if (audio) {
-    audio.currentTime = 0;
-    audio.volume = 0.7; // Opcional: volumen (0.0 a 1.0)
-    audio.play()
-  }
+
   try{
     let userData = JSON.parse(localStorage.getItem("usuario"));
-    console.log (localizacion)
-    let response = await fetch(`${localizacion}/api/index.php/controladores/estrellas`, {
+    if (userData) {
+      fetch(`${localizacion}/api/index.php?recurso=Estrellas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -112,16 +107,19 @@ async function calificado(e, estrella, todasEstrellas, proyectoid) {
         userid: userData.id,
         proyecto:proyectoid
       })
-    });
-    const data = await response.json()
-    if (data){
-      if (data.status ="ok"){
-        console.log (data)
-        console.log(data.message)
-      }
-    }
-    else{
-      console.log(data.message)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'ok') {
+          mostrarTexto("Calificacion agregada correctamente ✅😄");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
+        }
+      })
+    } else {
+      mostrarTexto("Inicie sesion para calificar ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
     }
   }
   catch(err){

@@ -6,7 +6,7 @@ class Usuario {
     private $email;
     private $password;
     private $tipo; 
-    private $id;
+    private $id;    
 
     public static function validacion($data, $accion) {
         $success = false;

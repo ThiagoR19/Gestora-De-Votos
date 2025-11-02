@@ -131,13 +131,61 @@ class UsuarioBD extends ConexionBD {
             $apellido = trim($data["apellido"]);
             $contrasenia = trim($data["contrasenia"]);
 
-            $stmt = self::$pdo->prepare("UPDATE usuarios SET Nombre = ?, Apellido = ?, contrasenia = ? WHERE Id = ?");
-            $stmt->execute([$nombre, $apellido, $contrasenia, $idUsuario]);
+            $imagen = isset($data["imagen"]) && trim($data["imagen"]) !== "" ? $data["imagen"] : null;
+            $rutaFinal = null;
+
+            if ($imagen !== null) {
+                $stmtCheck = self::$pdo->prepare("SELECT imagen FROM usuarios WHERE Id = ?");
+                $stmtCheck->execute([$idUsuario]);
+                $imagenActual = $stmtCheck->fetchColumn();
+
+                $carpeta = __DIR__ . '/../../Js/imagenes/';
+
+                if ($imagenActual && file_exists($carpeta . $imagenActual)) {
+                    unlink($carpeta . $imagenActual);
+                }
+
+                if (preg_match('/^data:image\/(\w+);base64,/', $imagen, $type)) {
+                    $imagen = substr($imagen, strpos($imagen, ',') + 1);
+                    $tipo = strtolower($type[1]);
+                    $imagen = base64_decode($imagen);
+
+                    $carpeta = __DIR__ . '/../../Js/imagenes/';
+                    if (!is_dir($carpeta)) mkdir($carpeta, 0777, true);
+
+                    $nombreArchivo = "usuario_" . $idUsuario . "_" . time() . "." . $tipo;
+                    $rutaFinal = $carpeta . $nombreArchivo;
+                    file_put_contents($rutaFinal, $imagen);
+
+                    $rutaFinal = $nombreArchivo;
+                }
+            }
+
+            $sql = "UPDATE usuarios SET Nombre = :nombre, Apellido = :apellido, contrasenia = :contrasenia";
+            $params = [
+                ":nombre" => $nombre,
+                ":apellido" => $apellido,
+                ":contrasenia" => $contrasenia,
+                ":id" => $idUsuario
+            ];
+
+            if ($rutaFinal !== null) {
+                $sql .= ", imagen = :imagen";
+                $params[":imagen"] = $rutaFinal;
+            }
+
+            $sql .= " WHERE Id = :id";
+
+            $stmt = self::$pdo->prepare($sql);
+            $stmt->execute($params);
 
             if ($stmt->rowCount() > 0) {
                 echo json_encode([
                     "success" => true,
-                    "message" => "Usuario actualizado correctamente."
+                    "message" => $rutaFinal !== null
+                        ? "Usuario actualizado correctamente con imagen."
+                        : "Usuario actualizado correctamente sin cambiar imagen.",
+                    "rutaImagen" => $rutaFinal
                 ]);
             } else {
                 echo json_encode([
@@ -165,7 +213,7 @@ class UsuarioBD extends ConexionBD {
 
         $idUsuario = intval($_GET["idUsuario"]);
 
-        $stmt = self::$pdo->prepare("SELECT Nombre, Apellido, contrasenia FROM usuarios WHERE id = ?");
+        $stmt = self::$pdo->prepare("SELECT Nombre, Apellido, contrasenia, imagen FROM usuarios WHERE id = ?");
         $stmt->execute([$idUsuario]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -187,6 +235,50 @@ class UsuarioBD extends ConexionBD {
                 "message" => "Error al obtener usuario: " . $e->getMessage()
             ]);
         }
+    }
+    public function BuscarUnCorreoParaSerCoordinador($correo, $nivel){
+        try{
+            $sql = "SELECT id FROM usuarios WHERE Correo=:correo";
+            $stmt = self::$pdo->prepare($sql);
+            $stmt->execute([
+                ":correo"=>$correo
+            ]);
+
+            $usuarioId = $stmt->fetch(PDO::FETCH_ASSOC)[id];
+
+            if ($usuarioId){
+                try{
+                    $sql = "UPDATE usuarios SET Nivel_Usuario=:nivel WHERE Correo=:correo";
+                    $stmt = self::$pdo->prepare($sql);
+                    $stmt->execute([
+                        ":correo"=>$correo,
+                        ":nivel"=>$nivel
+                    ]);
+
+                    return [
+                        "success"=>true
+                    ];
+                }
+                catch(PDOException $e) {
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => $e->getMessage()
+                    ]);
+                }
+            }
+            else{
+                return [
+                    "success"=>false
+                ];
+            }
+        }
+        catch(PDOException $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+        
     }
 }
 ?>

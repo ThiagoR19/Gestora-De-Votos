@@ -102,6 +102,7 @@
   display: flex;
   min-height: 100vh;
   justify-content: center;
+  position: relative;
 }
 
 .Hero__article {
@@ -151,7 +152,8 @@
 
 
 #HeaderHS {
-  width: 100%;
+  width: 90%;
+  margin: 50px 15px 30px;
 }
 
 #HeaderHS a, 
@@ -160,7 +162,7 @@
 #HeaderHA a {
   color: white;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 23px;
   margin: 0 5px;
   cursor: pointer;
 }
@@ -212,7 +214,7 @@ h1 {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 20vh;
+  height: 20%;
   clip-path: polygon(0 58%, 100% 39%, 100% 100%, 0% 100%);
 }
 
@@ -224,7 +226,6 @@ h1 {
 #Hero__article {
   background-image: url(../Imagenes/FondoManchado.png);
   display: flex;
-  height: 90vh;
   align-items: center;
   justify-content: center;
 }
@@ -271,7 +272,8 @@ h1 {
 
 .CTPOBA {
   z-index: 100;
-  height: 80%;
+  height: 70%;
+  margin-bottom: 70px;
 }
 
 .IconoHS,
@@ -295,10 +297,31 @@ h1 {
   z-index: 250;
 }
 
+@media (max-width: 1450px) {
+  #HeaderHS a {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1160px) {
+  #HeaderHS a {
+    font-size: 14px;
+  }
+}
+
+
+
+
 
 @media (max-width: 1350px) {
   #HeaderHS a {
-    font-size: 20px;
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 1020px) {
+  #HeaderHS {
+    width: 95%;
   }
 }
 
@@ -308,10 +331,9 @@ h1 {
   }
 }
 
-
-@media (max-width: 1100px) {
-  h1 {
-    font-size: 50px;
+@media (max-width: 960px) {
+  #HeaderHS a {
+    font-size: 14px;
   }
 }
 
@@ -321,14 +343,15 @@ button {
 
 
 @media (max-width:1100px) { 
+
+  h1 {
+    font-size: 50px;
+  }
+
   #HeaderHU a, 
   #HeaderHC a, 
   #HeaderHA a {
-    font-size: 25px;
-  }
-
-  #HeaderHS a {
-    font-size: 17px;
+    font-size: 20px;
   }
 }
 
@@ -451,7 +474,7 @@ button {
   #HeaderHU a, 
   #HeaderHC a, 
   #HeaderHA a {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 

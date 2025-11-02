@@ -6,60 +6,58 @@ class Coordinadores{
     public function __construct($correo){
         $this->Correo = $correo;
     }
-    public function guardar(){
+    public function guardar($estado){
         $Coordinadores = new CoordinadoresBD();
-        $Coordinadores->guardar($this->Correo);
+        $Coordinadores->guardar($this->Correo, $estado);
     }
-    static public function editar(){
-
-    }
-    static public function deletear(){
-
+    private function editar($id){
+        $nuevoCorreo = $this->Correo;
+        $CoordinadorBD = new CoordinadorBD();
+        $CoordinadorBD->editar($this->Correo, $id);
     }
     static public function mostrarTodos(){
         $Coordinadores = new CoordinadoresBD();
         $Coordinadores->mostrarTodos("enviar");
     }
-    public function validacion($motivo, $accionar){
-        $Coordinadores = new CoordinadoresBD();
+    public function validacion($accionar,$id){
         $correo = $this->Correo;
-        $todosLosCorreos = $Coordinadores->mostrarTodos("obtener");
-
-        $suceso = true;
-        foreach ($todosLosCorreos as $CorreoBD) {
-            if (suceso){
-                if ($CorreoBD == $correo){
-                    $suceso = false;
-                }
-            }
-        }
-        if ($suceso){
-            if ($accionar =="guardar"){
-                //buscar en usuarios si existe el correo
-                
-                //si existe cambiar tipo a 2
-                // si no existe guardarlo en la tabla
-                this->guardar();
+            //consulta para buscar el usuario con ese correo
+        if ($accionar =="guardar"){
+            $CoordinadorBD = new CoordinadorBD();
+            $queOcurrio = $CoordinadorBD->buscarUsuario($correo,2);
+            if ($queOcurrio){
+                this->guardar(1);
             }
             else{
-
+                this->guardar(0);
             }
         }
         else{
-            if ($motivo =="envie"){
-                echo json_encode([
-                    "success" => false,
-                    "message" => "El coordinador que intenta guardar/editar sigue sin registrarse"
-                ]);
+            $CoordinadorBD = new CoordinadorBD();
+            $datos=$CoordinadorBD->BuscarPorId($id);
+
+            if ($datos[estado] == 1){
+                $CoordinadorBD = new CoordinadorBD();
+                $queOcurrio = $CoordinadorBD->buscarUsuario($correo,1);
+                this->editar($id);
             }
             else{
-                echo json_encode([
-                    "success" => false,
-                    "message" => ""
-                ]);
+                this->editar($id);
             }
         }
+        
+        
 
+    }
+    static public function deletear($correo){
+        $CoordinadorBD = new CoordinadorBD();
+        $datos=$CoordinadorBD->BuscarPorCorreo($correo);
+
+        if ($datos[estado] == 1){
+            $CoordinadorBD = new CoordinadorBD();
+            $queOcurrio = $CoordinadorBD->buscarUsuario($correo,1);
+        }
+        $CoordinadorBD->eliminar($datos["id"]);
     }
 }
 ?>
