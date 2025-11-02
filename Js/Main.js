@@ -1467,7 +1467,7 @@ function editarCuenta() {
   const usuario = JSON.parse(userStr);
   idUsuario = usuario.id
 
-  fetch(`${localizacion}/api/index.php?recurso=Usuarios&?idUsuario=${idUsuario}&action=verCuenta`)
+  fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
     .then(response => response.json())
     .then(data => {
       console.log(data)
