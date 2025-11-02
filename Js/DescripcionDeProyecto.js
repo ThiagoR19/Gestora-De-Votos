@@ -101,7 +101,7 @@ async function calificado(e, estrella, todasEstrellas, proyectoid) {
   try{
     let userData = JSON.parse(localStorage.getItem("usuario"));
     console.log (localizacion)
-    let response = await fetch(localizacion, {
+    let response = await fetch(`${localizacion}/api/index.php/controladores/estrellas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

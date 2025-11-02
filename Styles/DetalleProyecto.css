@@ -7,6 +7,18 @@
   font-style: normal;
 }
 
+.imagen2,
+.imagen3,
+.imagen4 {
+  transition: all .2s;
+}
+
+.imagen2:hover,
+.imagen3:hover,
+.imagen4:hover {
+  transform: scale(0.9);
+}
+
 #DetalleProyecto {
   min-height: 70vh;
   display: flex;

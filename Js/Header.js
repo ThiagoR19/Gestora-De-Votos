@@ -14,7 +14,7 @@ function determinarHeader(main) {
   const IconoHC = document.getElementById("IconoHC");
   const IconoHA = document.getElementById("IconoHA");
 
-  let caso = null;
+  let caso = null
 
   // Oculta todos los headers al inicio
   const ocultarHeaders = (...headers) => headers.forEach(h => h.classList.add("none"));

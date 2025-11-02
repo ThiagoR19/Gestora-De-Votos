@@ -1,5 +1,5 @@
 <?php
-require_once 'API/Clases/UsuarioBD.php';
+require_once __DIR__ . '/UsuarioBD.php';
 class Usuario {
     private $nombre;
     private $apellido;
@@ -62,6 +62,7 @@ class Usuario {
                 if ($accion === "Guardar"){
                     $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],1 );
                     $nuevoUsuario->guardar();
+                    exit;
                 }
                 else if ($accion === "Instanciar"){
                     $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],1 );
@@ -69,22 +70,21 @@ class Usuario {
             }
         }
 
-        echo json_encode([
-            "success" => $success,
-            "message" => $message,
-            "datos" => $data,
-            "faltantes" => $faltantes
-        ]);
+        if ($success !== true){
+            echo json_encode([
+                "success" => $success,
+                "message" => $message,
+                "datos" => $data,
+                "faltantes" => $faltantes
+            ]);
+        }
     }
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
-       
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
         $this->password = $password;
         $this->tipo = $tipo;
-        
-
     }
     private function PedirUsuarioId() {
         $usuarioBD = new UsuarioBD();
@@ -98,7 +98,7 @@ class Usuario {
         $usuarioBD = new UsuarioBD();
         $usuarioBD->actualizarCuenta($input);
     }
-    private function MostrarDatosinstanciados(){
+    public function MostrarDatosinstanciados(){
         $datos = [
             "Nombre" => $this->nombre,
             "Apellido" => $this->apellido,
@@ -140,6 +140,10 @@ class Usuario {
     static public function deletear($input){
         $usuarioBD = new UsuarioBD();
         $usuarioBD->borrarCuenta($input);
+    }
+    static public function MostrarUnaCuenta(){
+        $usuarioBD = new UsuarioBD();
+        $usuarioBD->verCuenta();
     }
 }
 ?>

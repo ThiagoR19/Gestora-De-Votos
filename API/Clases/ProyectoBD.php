@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../API/Conexion.php";
+require_once __DIR__ . '/../Conexion.php';
 
 class ProyectoBD extends ConexionBD {
     public function cargarProyecto($input) {

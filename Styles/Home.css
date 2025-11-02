@@ -149,6 +149,7 @@
   width: 80%;
 }
 
+
 #HeaderHS {
   width: 100%;
 }
@@ -162,6 +163,29 @@
   font-size: 30px;
   margin: 0 5px;
   cursor: pointer;
+}
+
+#HeaderHS a::after, 
+#HeaderHU a::after, 
+#HeaderHC a::after, 
+#HeaderHA a::after  {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s;
+}
+
+#HeaderHS a:hover::after, 
+#HeaderHU a:hover::after, 
+#HeaderHC a:hover::after, 
+#HeaderHA a:hover::after {
+  transform: scaleX(1);
 }
 
 h1 {

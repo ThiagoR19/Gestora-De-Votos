@@ -4,9 +4,9 @@ var motivo = ""
 let localizacion;
 
 if (location.hostname === "localhost") {
-  localizacion = "/Gestora-De-Votos/PHP/Index.php";
+  localizacion = "/Gestora-De-Votos";
 } else {
-  localizacion = "https://riffo.ctpoba.com/PHP/Index.php";
+  localizacion = "https://riffo.ctpoba.com";
 }
 
 const usuario = ["usuario", "coordinador","admin"];
@@ -33,13 +33,13 @@ emailRe.addEventListener("input", verificarCorreo);
 buttonInicio.addEventListener("click", async (event) => {
   event.preventDefault();
   try {
-    const response = await fetch(localizacion, {
+    const response = await fetch(`${localizacion}/api/index.php/controladores/Usuarios`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            action: "login",
+            action: "logueo",
             email: emaillog.value,
             password: passwordlog.value
         })
@@ -77,11 +77,10 @@ buttonRegister.addEventListener("click", async () => {
 
   if (pasaEmail==true) {
     console.log ("el correo ha sido verificado")
-    fetch(localizacion, {
+    fetch(`${localizacion}/api/index.php/controladores/Usuarios`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({
-        action: 'registrar',
         nombre: nombre.value,
         apellido: apellido.value,
         email: email.value,
@@ -91,7 +90,6 @@ buttonRegister.addEventListener("click", async () => {
     })
       .then(response => response.json())
       .then(data => { 
-        console.log(data);
         if (data.status === "ok") {
           mostrarTexto("Cuenta creada correctamente ✅😄");
           const miSonido = new Audio('Sonidos/Check.mp3');

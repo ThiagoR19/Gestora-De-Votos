@@ -1,0 +1,28 @@
+<?php
+$method = $_SERVER['REQUEST_METHOD'];
+$data = json_decode(file_get_contents('php://input'), true);
+require_once __DIR__ . '/../Clases/CoordinadoresClass.php';
+
+$action = $data['action'] ?? null;
+
+switch ($method) {
+    case 'GET':
+        Coordinadores::mostrarTodos();
+        break;
+    case 'POST':
+        $coordinador = new Coordinadores($data["Correo"]);
+        $coordinador->validacion("envie", "guardar");
+        break;
+    case "PUT":
+        $coordinador = new Coordinadores($data["Correo"]);
+        $coordinador->validacion("evaluar", "editar");
+        break;
+    case "DELETE":
+        
+        break;
+    default:
+        http_response_code(405);
+        echo json_encode(["success" => false, "message" => "Método no permitido"]);
+        exit;
+}
+?>

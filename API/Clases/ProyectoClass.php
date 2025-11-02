@@ -1,5 +1,7 @@
 <?php
-require_once 'API/Clases/ProyectoBD.php';
+
+require_once __DIR__ . '/ProyectoBD.php';
+
 class Proyecto{
     private $id;
     private $nombre;
