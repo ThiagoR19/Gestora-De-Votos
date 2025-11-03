@@ -31,3 +31,8 @@ function onLogin(){
     }
   });
 }
+function handleCredentialResponse(response) {
+      console.log("Token JWT de Google:", response.credential);
+      // Aquí puedes enviarlo a tu servidor PHP para verificarlo
+      // con la API de Google OAuth (token verification)
+}

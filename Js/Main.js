@@ -25,7 +25,7 @@ const HeaderHU = document.getElementById('HeaderHU')
 const HeaderHC = document.getElementById('HeaderHC')
 const HeaderHA = document.getElementById('HeaderHA')
 
- // Header que este en ese momento
+// Header que este en ese momento
 const Footer = document.getElementById('Footer') // Footer que mas va a ser
 
 const styleTag = document.getElementById('styles') // Etiqueta que cambia los estilos
@@ -381,14 +381,14 @@ for (let i = 0; i < mains.length; i++) {
   mains[i].classList.add('none')
 }
 mains[0].classList.remove('none')
-ocultarHeadersMain(HeaderGA,HeaderGC,HeaderGS,HeaderGU)
+ocultarHeadersMain(HeaderGA, HeaderGC, HeaderGS, HeaderGU)
 
 
 function mostrarMain(mainAMostrar, mains) {
   window.scrollTo(0, 0);
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
   determinarHeader(mainAMostrar)
-  
+
   mains.forEach(element => {
     if (element.id === `${mainAMostrar}`) {
       element.classList.remove('none')
@@ -397,12 +397,12 @@ function mostrarMain(mainAMostrar, mains) {
     }
 
     if (mainAMostrar === 'Login') {
-      ocultarHeadersMain(HeaderGA,HeaderGC,HeaderGS,HeaderGU)
+      ocultarHeadersMain(HeaderGA, HeaderGC, HeaderGS, HeaderGU)
       Footer.classList.add('none');
     } else {
       Footer.classList.remove('none');
     }
-    if (mainAMostrar==="mainHome"){
+    if (mainAMostrar === "mainHome") {
       console.log("se muestra el main")
     }
   })
@@ -607,8 +607,6 @@ function mostrarListaProyectosAdmin(dataProyectos) {
 
   mainListaAdmin.appendChild(buttonAgregar)
 
-
-
   dataProyectos.forEach((e) => {
     let estrellas = EstablecerEstrellas(e.cantEstrellas, e.cantCalificacionesEstrellas)
     mainListaAdmin.insertAdjacentHTML('beforeend', `
@@ -674,10 +672,7 @@ function crearProyecto() {
           <div class="carga-proyecto__imagenes">
             <label class="carga-proyecto__label">Agregar imágenes</label>
             <div class="carga-proyecto__imagenes-cont">
-              <input id="inputImage1" class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input id="inputImage2" class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input id="inputImage3" class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input id="inputImage4" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input type="file" id="imageInput" multiple accept="image/*">
             </div>
             <button id="crearProyectoBtn">Crear Proyecto</button>
           </div>
@@ -748,11 +743,12 @@ function crearProyecto() {
   previewWrapper.innerHTML = `
     <article class="proyecto-esp__article">
       <div class="proyecto-esp__article-div">
-        <img id="Proyectos__article-div-img1"></img>
-        <div class="proyecto-esp__article-div-imgs">
-          <img id="Proyectos__article-div-img2"></img>
-          <img id="Proyectos__article-div-img3"></img>
-          <img id="Proyectos__article-div-img4"></img>
+        <div class="gallery">
+          <div class="main-image-container">
+            <img id="mainImage" src="" alt="Imagen principal">
+          </div>
+          <div class="thumbnails-container" id="thumbnails">
+          </div>
         </div>
       </div>
       <div class="proyecto-esp__article-div">
@@ -805,6 +801,67 @@ function crearProyecto() {
   `;
   vistaPrevia.appendChild(previewWrapper);
 
+  const imageInput = document.getElementById("imageInput");
+  const mainImage = document.getElementById("mainImage");
+  const thumbnailsContainer = document.getElementById("thumbnails");
+
+  let images = [];
+  let currentIndex = 0;
+
+  imageInput.addEventListener("change", (e) => {
+    const files = Array.from(e.target.files);
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        images.push(event.target.result);
+        renderGallery();
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  function renderGallery() {
+    if (images.length === 0) return;
+
+    const imgSrc = images[currentIndex].startsWith('data:')
+      ? images[currentIndex]
+      : `./Js/imagenes/${images[currentIndex]}`;
+
+    mainImage.src = imgSrc;
+
+    // Limpiar miniaturas
+    thumbnailsContainer.innerHTML = "";
+
+    images.forEach((img, index) => {
+      const thumb = document.createElement('img');
+      thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
+      if (index === currentIndex) thumb.classList.add('active');
+
+      thumb.addEventListener('click', () => {
+        currentIndex = index;
+        renderGallery();
+      });
+
+      thumbnailsContainer.appendChild(thumb);
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+  });
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    renderGallery();
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    renderGallery();
+  }
+
   const previewTitulo = previewWrapper.querySelector('#previewTitulo');
   const previewDescripcion = previewWrapper.querySelector('#previewDescripcion');
   const previewCategoria = previewWrapper.querySelector('#previewCategoria');
@@ -856,46 +913,13 @@ function crearProyecto() {
 
   actualizarVista();
 
-  let arrayDeImagenes = [null,null,null,null]
-
-  const inputs = document.querySelectorAll('.inputImage');
-
-  inputs.forEach((input) => {
-    input.addEventListener('change', (event) => {
-      const num = parseInt(input.id.replace('inputImage', '')) - 1;
-      const file = event.target.files[0];
-      const img = document.getElementById(`Proyectos__article-div-img${num + 1}`);
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          img.src = e.target.result;
-          arrayDeImagenes[num] = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        img.src = '';
-        arrayDeImagenes[num] = null;
-      }
-
-      console.log(arrayDeImagenes);
-    });
-  });
-
-    arrayDeImagenes.forEach((imagen, i) => {
-      const img = document.getElementById(`Proyectos__article-div-img${i + 1}`);
-      if (img) img.src = `./Js/imagenes/${imagen}`;
-    });
-
   const crearProyectoBtn = document.getElementById('crearProyectoBtn')
 
   crearProyectoBtn.addEventListener('click', () => {
     if (confirm('¿Seguro que desea crear un nuevo proyecto?')) {
 
       const estudiantesArray = valoresInputsDel(contenedorEstudiantes);
-      const profesoresArray = valoresInputsDel(contenedorProfesores);
-
-      let imagenesFinales = arrayDeImagenes.filter(Boolean);
+      const profesoresArray = valoresInputsDel(contenedorProfesores)
 
       fetch(`${localizacion}/api/index.php?recurso=Proyectos`, {
         method: "POST",
@@ -908,31 +932,32 @@ function crearProyecto() {
           division: InputDivision.value,
           estudiantes: estudiantesArray,
           profesores: profesoresArray,
-          imagenes: imagenesFinales
+          imagenes: images
         })
       })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        if(data.success) {
-          mostrarTexto("Proyecto creado correctamente ✅");
-          const miSonido = new Audio('Sonidos/Check.mp3');
-          miSonido.play();
-          fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
-            .then(response => response.json())
-            .then(data => {
-              dataProyectos = data.datos
-              dataProyectosGlobal = dataProyectos
-              mostrarRanking(dataProyectos)
-              mostrarTopDelMain(dataProyectos)
-              mostrarListaProyectos(dataProyectos)
-              mostrarListaProyectosAdmin(dataProyectos) 
-            })
-            .catch(error => {
-              console.error("❌ Error en fetch:", error);
-            });
-        }
-      });
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          if (data.success) {
+            mostrarTexto("Proyecto creado correctamente ✅");
+            const miSonido = new Audio('Sonidos/Check.mp3');
+            miSonido.play();
+            fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
+              .then(response => response.json())
+              .then(data => {
+                dataProyectos = data.datos
+                dataProyectosGlobal = dataProyectos
+                mostrarRanking(dataProyectos)
+                mostrarTopDelMain(dataProyectos)
+                mostrarListaProyectos(dataProyectos)
+                mostrarListaProyectosAdmin(dataProyectos)
+                mostrarEstadisticas(dataProyectos)
+              })
+              .catch(error => {
+                console.error("❌ Error en fetch:", error);
+              });
+          }
+        });
     }
   });
 
@@ -944,10 +969,10 @@ function EliminarProyecto(id) {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if(data.success) {
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
           mostrarTexto("Proyecto eliminado correctamente ✅");
           const miSonido = new Audio('Sonidos/Check.mp3');
           miSonido.play();
@@ -959,13 +984,14 @@ function EliminarProyecto(id) {
               mostrarRanking(dataProyectos)
               mostrarTopDelMain(dataProyectos)
               mostrarListaProyectos(dataProyectos)
-              mostrarListaProyectosAdmin(dataProyectos) 
+              mostrarListaProyectosAdmin(dataProyectos)
+              mostrarEstadisticas(dataProyectos)
             })
             .catch(error => {
               console.error("❌ Error en fetch:", error);
             });
         }
-    });
+      });
   }
 }
 
@@ -981,7 +1007,8 @@ function mostrarRanking(dataProyectos, ordenamiento = 0) {
     proyectosOrdenados = dataProyectos.sort((a, b) => a.categoria.localeCompare(b.categoria));
   }
   if (ordenamiento == 2) {
-    proyectosOrdenados = dataProyectos.sort((a, b) => b.cantEstrellas - a.cantEstrellas);
+    const promedio = p => p.cantCalificacionesEstrellas ? p.cantEstrellas / p.cantCalificacionesEstrellas : 0;
+    proyectosOrdenados = dataProyectos.slice().sort((a, b) => promedio(b) - promedio(a));
   }
 
   let cont = 0
@@ -1077,10 +1104,7 @@ function editarProyecto(e) {
           <div class="carga-proyecto__imagenes">
             <label class="carga-proyecto__label">Agregar imágenes</label>
             <div class="carga-proyecto__imagenes-cont">
-              <input id="inputImage1" class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input id="inputImage2" class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input id="inputImage3" class="inputImage" type="file" name="imagen[]" accept="image/*">
-              <input id="inputImage4" class="inputImage" type="file" name="imagen[]" accept="image/*">
+              <input type="file" id="imageInput" multiple accept="image/*">
             </div>
             <button id="editarProyecto">Cargar Proyecto</button>
           </div>
@@ -1138,7 +1162,7 @@ function editarProyecto(e) {
   const grupos = document.querySelectorAll('.carga-proyecto-form__grupo');
   const contenedorEstudiantes = grupos[0];
 
-  proyecto.estudiantes.forEach((estudiante)=> {
+  proyecto.estudiantes.forEach((estudiante) => {
     let input = document.createElement('input')
     input.type = 'text'
     input.value = `${estudiante}`
@@ -1148,7 +1172,7 @@ function editarProyecto(e) {
 
   const contenedorProfesores = grupos[1];
 
-  proyecto.profesores.forEach((profesor)=> {
+  proyecto.profesores.forEach((profesor) => {
     let input = document.createElement('input')
     input.type = 'text'
     input.value = `${profesor}`
@@ -1173,11 +1197,12 @@ function editarProyecto(e) {
   previewWrapper.innerHTML = `
     <article class="proyecto-esp__article">
       <div class="proyecto-esp__article-div">
-        <img id="Proyectos__article-div-img1"></img>
-        <div class="proyecto-esp__article-div-imgs">
-          <img id="Proyectos__article-div-img2"></img>
-          <img id="Proyectos__article-div-img3"></img>
-          <img id="Proyectos__article-div-img4"></img>
+        <div class="gallery">
+          <div class="main-image-container">
+            <img id="mainImage" src="" alt="Imagen principal">
+          </div>
+          <div class="thumbnails-container" id="thumbnails">
+          </div>
         </div>
       </div>
       <div class="proyecto-esp__article-div">
@@ -1230,43 +1255,70 @@ function editarProyecto(e) {
   `;
   vistaPrevia.appendChild(previewWrapper);
 
-  let arrayDeImagenes = [null,null,null,null]
+  // Funcion de carrousel
 
-  dataProyectosGlobal.forEach((proyecto)=>{
-    if(proyecto.id == e) {
-      arrayDeImagenes = proyecto.imagenes
-    }
-  })
+  const imageInput = document.getElementById("imageInput");
+  const mainImage = document.getElementById("mainImage");
+  const thumbnailsContainer = document.getElementById("thumbnails");
 
-  const inputs = document.querySelectorAll('.inputImage');
+  let currentIndex = 0;
 
-  inputs.forEach((input) => {
-    input.addEventListener('change', (event) => {
-      const num = parseInt(input.id.replace('inputImage', '')) - 1;
-      console.log(num)
-      const file = event.target.files[0];
-      const img = document.getElementById(`Proyectos__article-div-img${num + 1}`);
+  let images = proyecto?.imagenes ? [...proyecto.imagenes] : [];
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          img.src = e.target.result;
-          arrayDeImagenes[num] = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        img.src = '';
-        arrayDeImagenes[num] = null;
-      }
+  renderGallery();
 
-      console.log(arrayDeImagenes);
+  imageInput.addEventListener("change", (e) => {
+    const files = Array.from(e.target.files);
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        images.push(event.target.result);
+        renderGallery();
+      };
+      reader.readAsDataURL(file);
     });
   });
 
-  arrayDeImagenes.forEach((imagen, i) => {
-    const img = document.getElementById(`Proyectos__article-div-img${i + 1}`);
-    if (img) img.src = `./Js/imagenes/${imagen}`;
+  function renderGallery() {
+    if (images.length === 0) return;
+
+    const imgSrc = images[currentIndex].startsWith('data:')
+      ? images[currentIndex]
+      : `./Js/imagenes/${images[currentIndex]}`;
+
+    mainImage.src = imgSrc;
+
+    thumbnailsContainer.innerHTML = "";
+
+    images.forEach((img, index) => {
+      const thumb = document.createElement('img');
+      thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
+      if (index === currentIndex) thumb.classList.add('active');
+
+      thumb.addEventListener('click', () => {
+        currentIndex = index;
+        renderGallery();
+      });
+
+      thumbnailsContainer.appendChild(thumb);
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
   });
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    renderGallery();
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    renderGallery();
+  }
 
   const previewTitulo = previewWrapper.querySelector('#previewTitulo');
   const previewDescripcion = previewWrapper.querySelector('#previewDescripcion');
@@ -1295,11 +1347,11 @@ function editarProyecto(e) {
     previewTitulo.textContent = InputTitulo && InputTitulo.value.trim() ? InputTitulo.value : 'Título';
     previewDescripcion.textContent = InputDescripcion && InputDescripcion.value.trim() ? InputDescripcion.value : 'Descripción';
     previewCategoria.textContent =
-    InputCategoria && InputCategoria.value.trim()
-      ? InputCategoria.options[InputCategoria.selectedIndex].text
-      : '---';
+      InputCategoria && InputCategoria.value.trim()
+        ? InputCategoria.options[InputCategoria.selectedIndex].text
+        : '---';
 
-    const cursoTxt = `${InputAnio && InputAnio.value ? InputAnio.value : ''} ${InputDivision && InputDivision.value ? InputDivision.value : ''}`.trim();
+    const cursoTxt = `${InputAnio && InputAnio.value ? InputAnio.value : ''} ${InputDivision && InputDivision.value ? InputDivision.value : ''} `.trim();
     previewCurso.textContent = cursoTxt || '---';
   }
 
@@ -1369,9 +1421,7 @@ function editarProyecto(e) {
 
   editarProyecto.addEventListener('click', () => {
 
-    if(confirm('¿Seguro que desea actualiza este proyecto?')) {
-      let imagenesFinales = arrayDeImagenes.filter(Boolean);
-      console.log(imagenesFinales)
+    if (confirm('¿Seguro que desea actualiza este proyecto?')) {
       fetch(`${localizacion}/api/index.php?recurso=Proyectos`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -1383,45 +1433,47 @@ function editarProyecto(e) {
           division: InputDivision.value,
           estudiantes: estudiantesArray,
           profesores: profesoresArray,
-          idProyecto: idProyecto, 
-          imagenes: imagenesFinales
+          idProyecto: idProyecto,
+          imagenes: images
         })
       })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success) {
-          mostrarTexto("Proyecto actualizado correctamente ✅😄");
-          const miSonido = new Audio('Sonidos/Check.mp3');
-          miSonido.play();
-          fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
-            .then(response => response.json())
-            .then(data => {
-              dataProyectos = data.datos
-              dataProyectosGlobal = dataProyectos
-              mostrarRanking(dataProyectos)
-              mostrarTopDelMain(dataProyectos)
-              mostrarListaProyectos(dataProyectos)
-              mostrarListaProyectosAdmin(dataProyectos) 
-            })
-            .catch(error => {
-              console.error("❌ Error en fetch:", error);
-            });
-        } else if (data.message == "Faltan datos obligatorios") {F
-          mostrarTexto(`Faltan datos obligatorios ❌ ( ${data.faltantes} )`);
-          const miSonido = new Audio('Sonidos/error.mp3');
-          miSonido.play();
-        }
-      });
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            mostrarTexto("Proyecto actualizado correctamente ✅😄");
+            const miSonido = new Audio('Sonidos/Check.mp3');
+            miSonido.play();
+            fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
+              .then(response => response.json())
+              .then(data => {
+                dataProyectos = data.datos
+                dataProyectosGlobal = dataProyectos
+                mostrarRanking(dataProyectos)
+                mostrarTopDelMain(dataProyectos)
+                mostrarListaProyectos(dataProyectos)
+                mostrarListaProyectosAdmin(dataProyectos)
+                mostrarEstadisticas(dataProyectos)
+              })
+              .catch(error => {
+                console.error("❌ Error en fetch:", error);
+              });
+          } else if (data.message == "Faltan datos obligatorios") {
+            F
+            mostrarTexto(`Faltan datos obligatorios ❌ (${data.faltantes} )`);
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
+          }
+        });
     }
   })
-  
+
 }
 
 const inputDePerfil = document.getElementById("inputDePerfil");
 const imagenDePerfil = document.querySelector(".article__div-img");
 let imagenBase64 = ""; // acá guardamos la imagen real para enviar al servidor
 
-inputDePerfil.addEventListener("change", function(event) {
+inputDePerfil.addEventListener("change", function (event) {
   const archivo = event.target.files[0];
 
   if (archivo) {
@@ -1432,7 +1484,7 @@ inputDePerfil.addEventListener("change", function(event) {
     // Convertir a base64 para enviar
     const reader = new FileReader();
     reader.readAsDataURL(archivo);
-    reader.onload = function() {
+    reader.onload = function () {
       imagenBase64 = reader.result; // data:image/png;base64,...
     };
   } else {
@@ -1450,7 +1502,7 @@ if (localStorage.getItem("usuario")) {
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      if (data.success) {
+      if (data.data.imagen) {
         let headerImagenes = [
           document.getElementById('IconoUserGU'),
           document.getElementById('IconoUserGC'),
@@ -1459,7 +1511,7 @@ if (localStorage.getItem("usuario")) {
           document.getElementById('IconoUserHC'),
           document.getElementById('IconoUserHA')
         ]
-        headerImagenes.forEach((Imagen)=> {
+        headerImagenes.forEach((Imagen) => {
           Imagen.src = `./Js/imagenes/${data.data.imagen}`
         })
       }
@@ -1468,7 +1520,7 @@ if (localStorage.getItem("usuario")) {
 
 
 function editarCuenta() {
-  if (!localStorage.getItem("usuario")) {return}
+  if (!localStorage.getItem("usuario")) { return }
   const userStr = localStorage.getItem("usuario");
   const usuario = JSON.parse(userStr);
   idUsuario = usuario.id
@@ -1477,67 +1529,67 @@ function editarCuenta() {
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      if(data.success) {
+      if (data.success) {
         const nombre = document.getElementById('nombreUsuario')
         const apellido = document.getElementById('apellidoUsuario')
         const contrasenia = document.getElementById('contraseña')
         const repetContra = document.getElementById('repetContra')
         const actualizarCuenta = document.getElementById('actualizarCuenta')
         const imagenDePerfil = document.querySelector('.article__div-img');
-        
+
         nombre.value = data.data.Nombre
         apellido.value = data.data.Apellido
         contrasenia.value = data.data.contrasenia
         repetContra.value = data.data.contrasenia
-        if(data.data.imagen) {
-          imagenDePerfil.src = `./Js/imagenes/${data.data.imagen}`
+        if (data.data.imagen) {
+          imagenDePerfil.src = `./Js/imagenes/${data.data.imagen} `
         }
-        
 
-        actualizarCuenta.addEventListener('click', ()=> {
+
+        actualizarCuenta.addEventListener('click', () => {
           if (contrasenia.value == repetContra.value) {
             fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-              idUsuario: idUsuario,
-              nombre: nombre.value,
-              apellido: apellido.value,
-              contrasenia: contrasenia.value,
-              imagen: imagenBase64
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                idUsuario: idUsuario,
+                nombre: nombre.value,
+                apellido: apellido.value,
+                contrasenia: contrasenia.value,
+                imagen: imagenBase64
+              })
             })
-            })
-            .then(res => res.json())
-            .then(data => {
-              console.log(data)
-              if(data.success) {
-                mostrarTexto("Datos actualizados correctamente ✅");
-                const miSonido = new Audio('Sonidos/Check.mp3');
-                miSonido.play();
-                fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
-                  .then(response => response.json())
-                  .then(data => {
-                    console.log(data)
-                    if (data.success) {
-                      headerImagenes = [
-                        document.getElementById('IconoUserGU'),
-                        document.getElementById('IconoUserGC'),
-                        document.getElementById('IconoUserGA'),
-                        document.getElementById('IconoUserHU'),
-                        document.getElementById('IconoUserHC'),
-                        document.getElementById('IconoUserHA')
-                      ]
-                      headerImagenes.forEach((Imagen)=> {
-                        Imagen.src = `./Js/imagenes/${data.data.imagen}`
-                      })
-                    }
-                  })
-              } else {
-                mostrarTexto("Hubo un error al intentar actualizar sus datos ❌");
-                const miSonido = new Audio('Sonidos/error.mp3');
-                miSonido.play();
-              } 
-            });
+              .then(res => res.json())
+              .then(data => {
+                console.log(data)
+                if (data.success) {
+                  mostrarTexto("Datos actualizados correctamente ✅");
+                  const miSonido = new Audio('Sonidos/Check.mp3');
+                  miSonido.play();
+                  fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log(data)
+                      if (data.data.imagen) {
+                        headerImagenes = [
+                          document.getElementById('IconoUserGU'),
+                          document.getElementById('IconoUserGC'),
+                          document.getElementById('IconoUserGA'),
+                          document.getElementById('IconoUserHU'),
+                          document.getElementById('IconoUserHC'),
+                          document.getElementById('IconoUserHA')
+                        ]
+                        headerImagenes.forEach((Imagen) => {
+                          Imagen.src = `./Js/imagenes/${data.data.imagen} `
+                        })
+                      }
+                    })
+                } else {
+                  mostrarTexto("Hubo un error al intentar actualizar sus datos ❌");
+                  const miSonido = new Audio('Sonidos/error.mp3');
+                  miSonido.play();
+                }
+              });
           } else {
             mostrarTexto("Las contraseñas no coinciden ❌");
             const miSonido = new Audio('Sonidos/error.mp3');
@@ -1565,16 +1617,16 @@ function verDescripcionDelProyecto(e) {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   })
-  .then(res => res.json())
-  .then(data => {
-    console.log(data)
-    if(data.success){
-      let proyectosVotados = data.proyectos
-      console.log(proyectosVotados)
-    } else {
-      console.log(data.message);
-    }
-  });
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if (data.success) {
+        let proyectosVotados = data.proyectos
+        console.log(proyectosVotados)
+      } else {
+        console.log(data.message);
+      }
+    });
 
   let proyectosCalificados
   let PermitirEstrella = true
@@ -1585,200 +1637,233 @@ function verDescripcionDelProyecto(e) {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   })
-  .then(res => res.json())
-  .then(data => {
+    .then(res => res.json())
+    .then(data => {
 
-    dataProyectosGlobal.forEach(element => {
-      if (element.id === e) {
-        proyecto = element
-      }
-    });
-
-    if(data.success){
-      proyectosCalificados = data.proyectos
-      proyectosCalificados.forEach(element=>{
-        if (element.idProyecto !== proyecto.id && permitir==true){
-          PermitirEstrella = true;
-        } 
-        else {
-          PermitirEstrella = false;
-          permitir = false
-        }
-      })
-    }
-    //todo este codigo iba fuera del then pero lo puse aca por prisas
-    mainDetalleProyecto.innerHTML = ``
-  
-  
-  let article = document.createElement('ARTICLE')
-  let aside = document.createElement('ASIDE')
-
-  article.classList.add('proyecto-esp__article')
-
-  article.innerHTML = `
-    <article class="proyecto-esp__article">
-      <div class="proyecto-esp__article-div">
-        <img class="imagen1" id="Proyectos__article-div-img" src="./Js/imagenes/${proyecto.imagenes[0]}" alt="">
-        <div id="Proyectos__article-div-imgs">
-          <img class="imagen2" src="./Js/imagenes/${proyecto.imagenes[1]}" alt="">
-          <img class="imagen3" src="./Js/imagenes/${proyecto.imagenes[2]}" alt="">
-          <img class="imagen4" src="./Js/imagenes/${proyecto.imagenes[3]}" alt="">
-        </div>
-      </div>
-      <div class="proyecto-esp__article-div">
-        <div class="proyecto-esp__article-div-div">
-          <h1 class="proyecto-esp__article-div-div-h1">${proyecto.nombre}</h1>
-          <p class="proyecto-esp__article-div-div-p">${proyecto.descripcion}</p>
-          <button class="proyecto-esp__article-div-div-button">VOTAR</button>
-        </div>
-        <div class="proyecto-esp__article-div-div">
-          <div class="proyecto-esp__article-div-div-div">
-            <div class="proyecto-esp__article-div-div-div-div">
-              <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoria</h2>
-              <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.categoria}</p>
-            </div>
-            <div class="proyecto-esp__article-div-div-div-div">
-              <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
-              <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.años}o ${proyecto.division}a</p>
-            </div>
-          </div>
-          <div class="proyecto-esp__article-div-div-div">
-            <div class="img_blanco_negro" id="estrella1" value="1">
-              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
-            </div>
-            <div class="img_blanco_negro" id="estrella2" value="2">
-              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
-            </div>
-            <div class="img_blanco_negro" id="estrella3" value="3">
-              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
-            </div>
-            <div class="img_blanco_negro" id="estrella4" value="4">
-              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
-            </div>
-            <div class="img_blanco_negro" id="estrella5" value="5">
-              <img src="./Imagenes/Estrellas.png" alt="Estrellas">
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </article>`
-  let estudiantes = proyecto.estudiantes;
-  let p1 = document.createElement('p');
-  p1.classList.add('aside__div-p');
-  p1.textContent = estudiantes.join(" - ");
-
-  let profesores = proyecto.profesores;
-  let p2 = document.createElement('p');
-  p2.classList.add('aside__div-p');
-  p2.textContent = profesores.join(" - ");
-
-  aside.innerHTML = `
-      <div class="aside__div">
-          <h2 class="aside__div-h2">Estudiantes</h2>
-          <p class="aside__div-p">${p1.textContent}</p>
-        </div>
-        <div class="aside__div">
-          <h2 class="aside__div-h2">Profesores</h2>
-          <p class="aside__div-p">${p2.textContent}</p>
-        </div>`
-
-  let modaldiv = document.createElement('div')
-  modaldiv.setAttribute('id','modal')
-  modaldiv.setAttribute('class','modal')
-  modaldiv.innerHTML = `
-  <div class="modal__content">
-      <p id="modal-text">¿Desea confirmar su voto? <br> Si vota este proyecto, no podrá retirar su voto.</p>
-      <div class="modal__buttons">
-        <button onClick="if (confirmarCallback) confirmarCallback();
-      cerrarModal();" id="modal-confirm">Confirmar</button>
-        <button onClick="cerrarModal()" id="modal-cancel">Cancelar</button>
-      </div>
-    </div>`
-
-    modaldiv.addEventListener('click', ()=> {
-      if (e.target === modal) cerrarModal();
-    })
-
-  mainDetalleProyecto.appendChild(article)
-  mainDetalleProyecto.appendChild(aside)
-  mainDetalleProyecto.appendChild(modaldiv)
-  if (PermitirEstrella == true){
-    instanciarEstrellas(proyecto.id)
-  }
-  else{
-    proyectosCalificados.forEach(element=>{
-      if (element.idProyecto === proyecto.id){
-        console.log(element.cantEstrellas)
-        iluminarEstrellas(element.cantEstrellas)
-      }
-      else{
-        console.log("no entro")
-      }
-    })
-  }
-
-  const imagenes = [
-    document.querySelector('.imagen1'),
-    document.querySelector('.imagen2'),
-    document.querySelector('.imagen3'),
-    document.querySelector('.imagen4')
-  ];
-
-  console.log(imagenes)
-
-  const primeraImagen = imagenes[0];
-
-  imagenes.forEach((img, index) => {
-    if (index === 0) return;
-
-    img.addEventListener('click', () => {
-      const temp = primeraImagen.src;
-      primeraImagen.src = img.src;
-      img.src = temp;
-    });
-});
-  const BotonesVotar = document.querySelectorAll('.proyecto-esp__article-div-div-button')
-
-  BotonesVotar.forEach((e)=> {
-
-    e.addEventListener('click', ()=> {
-      abrirModal(()=> {
-        fetch(`${localizacion}/api/index.php?recurso=Votos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          idUsuario: idUsuario,
-          idProyecto: proyecto.id
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success) {
-          mostrarTexto("¡Felicidades! Ha votado correctamente ✅😄");
-          const miSonido = new Audio('Sonidos/Check.mp3');
-          miSonido.play();
-        }
-        if(data.message === "El usuario no tiene votos disponibles") {
-          mostrarTexto("No tiene mas votos disponibles ❌");
-          const miSonido = new Audio('Sonidos/error.mp3');
-          miSonido.play();
-        } 
-        if(data.message === "El usuario ya votó este proyecto") {
-          mostrarTexto("Ya ha votado este proyecto ❌");
-          const miSonido = new Audio('Sonidos/error.mp3');
-          miSonido.play();
-        }
-        if(data.message === "Faltan datos: idUsuario o idProyecto") {
-          mostrarTexto("Inicie sesion para votar un proyecto ❌");
-          const miSonido = new Audio('Sonidos/error.mp3');
-          miSonido.play();
+      dataProyectosGlobal.forEach(element => {
+        if (element.id === e) {
+          proyecto = element
         }
       });
+
+      if (data.success) {
+        proyectosCalificados = data.proyectos
+        proyectosCalificados.forEach(element => {
+          if (element.idProyecto !== proyecto.id && permitir == true) {
+            PermitirEstrella = true;
+          }
+          else {
+            PermitirEstrella = false;
+            permitir = false
+          }
+        })
+      }
+      //todo este codigo iba fuera del then pero lo puse aca por prisas
+      mainDetalleProyecto.innerHTML = ``
+
+
+      let article = document.createElement('ARTICLE')
+      let aside = document.createElement('ASIDE')
+
+      article.classList.add('proyecto-esp__article')
+
+      article.innerHTML = `
+    <article class="proyecto-esp__article">
+      <div class="proyecto-esp__article-div">
+        <div class="gallery">
+          <div class="main-image-container">
+            <img id="mainImageV" src="" alt="Imagen principal">
+          </div>
+          <div class="thumbnails-containerV" id="thumbnailsV">
+          </div>
+        </div>
+              </div>
+              <div class="proyecto-esp__article-div">
+                <div class="proyecto-esp__article-div-div">
+                  <h1 class="proyecto-esp__article-div-div-h1">${proyecto.nombre}</h1>
+                  <p class="proyecto-esp__article-div-div-p">${proyecto.descripcion}</p>
+                  <button class="proyecto-esp__article-div-div-button">VOTAR</button>
+                </div>
+                <div class="proyecto-esp__article-div-div">
+                  <div class="proyecto-esp__article-div-div-div">
+                    <div class="proyecto-esp__article-div-div-div-div">
+                      <h2 class="proyecto-esp__article-div-div-div-div-h2">Categoria</h2>
+                      <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.categoria}</p>
+                    </div>
+                    <div class="proyecto-esp__article-div-div-div-div">
+                      <h2 class="proyecto-esp__article-div-div-div-div-h2">Curso</h2>
+                      <p class="proyecto-esp__article-div-div-div-div-p">${proyecto.años}o ${proyecto.division}a</p>
+                    </div>
+                  </div>
+                  <div class="proyecto-esp__article-div-div-div">
+                    <div class="img_blanco_negro" id="estrella1" value="1">
+                      <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+                    </div>
+                    <div class="img_blanco_negro" id="estrella2" value="2">
+                      <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+                    </div>
+                    <div class="img_blanco_negro" id="estrella3" value="3">
+                      <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+                    </div>
+                    <div class="img_blanco_negro" id="estrella4" value="4">
+                      <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+                    </div>
+                    <div class="img_blanco_negro" id="estrella5" value="5">
+                      <img src="./Imagenes/Estrellas.png" alt="Estrellas">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </article>`
+      let estudiantes = proyecto.estudiantes;
+      let p1 = document.createElement('p');
+      p1.classList.add('aside__div-p');
+      p1.textContent = estudiantes.join(" - ");
+
+      let profesores = proyecto.profesores;
+      let p2 = document.createElement('p');
+      p2.classList.add('aside__div-p');
+      p2.textContent = profesores.join(" - ");
+
+      aside.innerHTML = `
+            <div class="aside__div">
+              <h2 class="aside__div-h2">Estudiantes</h2>
+              <p class="aside__div-p">${p1.textContent}</p>
+            </div>
+            <div class="aside__div">
+              <h2 class="aside__div-h2">Profesores</h2>
+              <p class="aside__div-p">${p2.textContent}</p>
+            </div>`
+
+      let modaldiv = document.createElement('div')
+      modaldiv.setAttribute('id', 'modal')
+      modaldiv.setAttribute('class', 'modal')
+      modaldiv.innerHTML = `
+            <div class="modal__content">
+              <p id="modal-text">¿Desea confirmar su voto? <br> Si vota este proyecto, no podrá retirar su voto.</p>
+              <div class="modal__buttons">
+                <button onClick="if (confirmarCallback) confirmarCallback();
+      cerrarModal();" id="modal-confirm">Confirmar</button>
+                <button onClick="cerrarModal()" id="modal-cancel">Cancelar</button>
+              </div>
+            </div>`
+
+      modaldiv.addEventListener('click', () => {
+        if (e.target === modal) cerrarModal();
       })
-    })
-  })
-  });
+
+      mainDetalleProyecto.appendChild(article)
+      mainDetalleProyecto.appendChild(aside)
+      mainDetalleProyecto.appendChild(modaldiv)
+      if (PermitirEstrella == true) {
+        instanciarEstrellas(proyecto.id)
+      }
+      else {
+        proyectosCalificados.forEach(element => {
+          if (element.idProyecto === proyecto.id) {
+            console.log(element.cantEstrellas)
+            iluminarEstrellas(element.cantEstrellas)
+          }
+          else {
+            console.log("no entro")
+          }
+        })
+      }
+
+      const mainImageV = document.getElementById("mainImageV");
+      const thumbnailsContainerV = document.getElementById("thumbnailsV");
+
+
+      let imagesV = proyecto?.imagenes ? [...proyecto.imagenes] : [];
+
+      console.log(imagesV)
+      let currentIndexV = 0;
+
+      renderGallery();
+
+      function renderGallery() {
+        if (imagesV.length === 0) return;
+
+        const imgSrcV = imagesV[currentIndexV].startsWith('data:')
+          ? imagesV[currentIndexV]
+          : `./Js/imagenes/${imagesV[currentIndexV]}`;
+
+        mainImageV.src = imgSrcV;
+
+        thumbnailsContainerV.innerHTML = "";
+
+        imagesV.forEach((img, index) => {
+          const thumb = document.createElement('img');
+          thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
+          if (index === currentIndex) thumb.classList.add('active');
+
+          thumb.addEventListener('click', () => {
+            currentIndex = index;
+            renderGallery();
+          });
+
+          thumbnailsContainerV.appendChild(thumb);
+        });
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") nextImage();
+        if (e.key === "ArrowLeft") prevImage();
+      });
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % imagesV.length;
+        renderGallery();
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + imagesV.length) % imagesV.length;
+        renderGallery();
+      }
+
+
+      const BotonesVotar = document.querySelectorAll('.proyecto-esp__article-div-div-button')
+
+      BotonesVotar.forEach((e) => {
+
+        e.addEventListener('click', () => {
+          abrirModal(() => {
+            fetch(`${localizacion}/api/index.php?recurso=Votos`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                idUsuario: idUsuario,
+                idProyecto: proyecto.id
+              })
+            })
+              .then(res => res.json())
+              .then(data => {
+                if (data.success) {
+                  mostrarTexto("¡Felicidades! Ha votado correctamente ✅😄");
+                  const miSonido = new Audio('Sonidos/Check.mp3');
+                  miSonido.play();
+                }
+                if (data.message === "El usuario no tiene votos disponibles") {
+                  mostrarTexto("No tiene mas votos disponibles ❌");
+                  const miSonido = new Audio('Sonidos/error.mp3');
+                  miSonido.play();
+                }
+                if (data.message === "El usuario ya votó este proyecto") {
+                  mostrarTexto("Ya ha votado este proyecto ❌");
+                  const miSonido = new Audio('Sonidos/error.mp3');
+                  miSonido.play();
+                }
+                if (data.message === "Faltan datos: idUsuario o idProyecto") {
+                  mostrarTexto("Inicie sesion para votar un proyecto ❌");
+                  const miSonido = new Audio('Sonidos/error.mp3');
+                  miSonido.play();
+                }
+              });
+          })
+        })
+      })
+    });
 }
 
 let confirmarCallback = null;
@@ -1804,7 +1889,7 @@ fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
     mostrarTopDelMain(dataProyectos)
     mostrarListaProyectos(dataProyectos)
     mostrarListaProyectosAdmin(dataProyectos)
-    mostrarEstadisticas(dataProyectos) 
+    mostrarEstadisticas(dataProyectos)
   })
   .catch(error => {
     console.error("❌ Error en fetch:", error);
@@ -1828,8 +1913,8 @@ ordenarEst.addEventListener('click', () => {
 
 // Funcion para Cerrar Sesion
 
-document.querySelector('.article__div-button2').addEventListener('click', ()=> {
-  if(confirm("¿Estás seguro que desea cerrar sesion?")) {
+document.querySelector('.article__div-button2').addEventListener('click', () => {
+  if (confirm("¿Estás seguro que desea cerrar sesion?")) {
     mostrarTexto("Su cuenta se ah cerrado correctamente ✅");
     localStorage.removeItem("usuario")
     window.location.reload();
@@ -1838,9 +1923,9 @@ document.querySelector('.article__div-button2').addEventListener('click', ()=> {
 
 //Funcion para borrar cuenta
 const botonBorrarCuenta = document.getElementById('BorrarCuenta')
-botonBorrarCuenta.addEventListener('click', ()=> {borrarCuenta()})
+botonBorrarCuenta.addEventListener('click', () => { borrarCuenta() })
 
-function borrarCuenta () {
+function borrarCuenta() {
   let idUsuario = null
 
   if (localStorage.getItem("usuario")) {
@@ -1848,22 +1933,22 @@ function borrarCuenta () {
     const usuario = JSON.parse(userStr);
     idUsuario = usuario.id
   }
-  
+
   if (idUsuario && confirm("¿Estás seguro que quieres eliminar esta cuenta, se borrará toda la participacion que haya tenido en el sitio?")) {
     fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" }
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if(data.success) {
-        mostrarTexto("Su cuenta se ah borrado correctamente ✅");
-        alert(data.message)
-        localStorage.removeItem("usuario")
-        window.location.reload();
-      }
-    });
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          mostrarTexto("Su cuenta se ah borrado correctamente ✅");
+          alert(data.message)
+          localStorage.removeItem("usuario")
+          window.location.reload();
+        }
+      });
   }
 }
 
@@ -1888,7 +1973,7 @@ function mostrarTexto(texto) {
 function mostrarEstadisticas(dataProyectos) {
 
   let proyectos = []
-  dataProyectos.forEach((proyecto)=> {
+  dataProyectos.forEach((proyecto) => {
     let proyectoEstadistica = {
       id: proyecto.id,
       nombre: proyecto.nombre,
@@ -1962,15 +2047,15 @@ function mostrarEstadisticas(dataProyectos) {
     data.forEach((proyecto, index) => {
       const div = document.createElement('div');
       div.innerHTML = `
-        <div class="Estadisticas__proyecto">
-          <span class="Estadisticas__proyecto-numero">${index + 1}.</span>
-          <div class="Estadisticas__proyecto-info">
-            <h4 class="Estadisticas__proyecto-nombre">${proyecto.nombre}</h4>
-            <p class="Estadisticas__proyecto-votos">Votos: ${proyecto.votos}</p>
-            <p class="Estadisticas__proyecto-estrellas">Estrellas: ${proyecto.estrellas}</p>
-          </div>
-        </div>
-      `;
+            <div class="Estadisticas__proyecto">
+              <span class="Estadisticas__proyecto-numero">${index + 1}.</span>
+              <div class="Estadisticas__proyecto-info">
+                <h4 class="Estadisticas__proyecto-nombre">${proyecto.nombre}</h4>
+                <p class="Estadisticas__proyecto-votos">Votos: ${proyecto.votos}</p>
+                <p class="Estadisticas__proyecto-estrellas">Estrellas: ${proyecto.estrellas}</p>
+              </div>
+            </div>
+            `;
       contenedor.appendChild(div);
     });
   }
@@ -1999,6 +2084,3 @@ function mostrarEstadisticas(dataProyectos) {
   renderProyectos(proyectos);
 
 }
-
-// Cambiar foto de perfil
-

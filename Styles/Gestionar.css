@@ -48,6 +48,7 @@ body {
   min-width: 250px;
   margin-left: 0;
 }
+
 .form__input2 {
   flex: 1;
   padding: 0.7rem;
@@ -74,6 +75,7 @@ body {
   gap: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  height: 85px;
 }
 
 .coordinador:first-child {
@@ -133,9 +135,11 @@ body {
   gap: 0.5rem;
   padding-right: 2.5rem;
 }
-.none{
+
+.none {
   display: none;
 }
+
 .btn {
   border: none;
   padding: 0.5rem 0.7rem;
@@ -148,6 +152,7 @@ body {
   background: #e74c3c;
   color: #000000;
 }
+
 .btn--check {
   background: #2fbe22;
   color: #000000;

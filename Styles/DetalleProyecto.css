@@ -7,18 +7,6 @@
   font-style: normal;
 }
 
-.imagen2,
-.imagen3,
-.imagen4 {
-  transition: all .2s;
-}
-
-.imagen2:hover,
-.imagen3:hover,
-.imagen4:hover {
-  transform: scale(0.9);
-}
-
 #DetalleProyecto {
   min-height: 70vh;
   display: flex;
@@ -287,4 +275,63 @@ aside {
 .votado {
   border: 2px solid green;
   border-radius: none;
+}
+
+.gallery {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.main-image-containerV {
+  width: 100%;
+  height: 350px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.main-image-containerV img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.thumbnails-containerV {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  height: 25%;
+  padding-bottom: 5px;
+}
+
+.thumbnails-containerV::-webkit-scrollbar {
+  height: 8px;
+}
+
+.thumbnails-containerV::-webkit-scrollbar-thumb {
+  background-color: #062F4F;
+  border-radius: 4px;
+}
+
+.thumbnails-containerV::-webkit-scrollbar-track {
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+.thumbnails-containerV img {
+  flex: 0 0 auto;
+  width: 25%;
+  height: 150px;
+  max-width: 150px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid transparent;
+}
+
+.thumbnails-containerV img.active {
+  border-color: #062F4F;
 }

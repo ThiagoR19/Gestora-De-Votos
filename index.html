@@ -23,6 +23,8 @@
   <script defer src="./Js/Desplegable.js"></script>
   <script defer src="./Js/DescripcionDeProyecto.js"></script>
   <script defer src="./Js/Gestionar.js"></script>
+  <script defer src="./Js/Resultados.js"></script>
+  <script defer src="https://accounts.google.com/gsi/client" async></script>
 </head>
 
 <body>
@@ -386,12 +388,15 @@
 
   <main id="Ranking">
     <article class="rank__article">
-      <button id="btn-Categorias" class="rank__article-button">Ordenar por <i
-          class="fa-solid fa-chevron-down"></i></button>
-      <div class="dropdown-content" id="menuCategorias">
-        <div id="OrdenarPorVoto">Votos</div>
-        <div id="OrdenarPorEstrella">Estrellas</div>
-        <div id="OrdenarPorCategoria">Categoria</div>
+      <div class="dropdown">
+        <button id="btn-Categorias" class="rank__article-button">
+          Ordenar por <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content" id="menuCategorias">
+          <div id="OrdenarPorVoto">Votos</div>
+          <div id="OrdenarPorEstrella">Estrellas</div>
+          <div id="OrdenarPorCategoria">Categoría</div>
+        </div>
       </div>
       <div id="rank__article-div"></div>
     </article>
@@ -517,7 +522,8 @@
             </div>
             <div class="article__div-div-div">
               <i class="article__div-div-div-i fa-solid fa-users"></i>
-              <input id="apellidoUsuario" class="article__div-div-div-input" type="text" placeholder="Ingresar apellido...">
+              <input id="apellidoUsuario" class="article__div-div-div-input" type="text"
+                placeholder="Ingresar apellido...">
             </div>
           </div>
           <div class="article__div-div">
@@ -552,7 +558,7 @@
     </form>
 
     <section class="coordinadores" id="CoordinadoresContenedor">
-      
+
     </section>
   </main>
 
