@@ -12,7 +12,7 @@ class Coordinadores{
     }
     private function editar($id){
         $nuevoCorreo = $this->Correo;
-        $CoordinadorBD = new CoordinadorBD();
+        $CoordinadorBD = new CoordinadoresBD();
         $CoordinadorBD->editar($this->Correo, $id);
     }
     static public function mostrarTodos(){
@@ -23,26 +23,26 @@ class Coordinadores{
         $correo = $this->Correo;
             //consulta para buscar el usuario con ese correo
         if ($accionar =="guardar"){
-            $CoordinadorBD = new CoordinadorBD();
+            $CoordinadorBD = new CoordinadoresBD();
             $queOcurrio = $CoordinadorBD->buscarUsuario($correo,2);
             if ($queOcurrio){
-                this->guardar(1);
+                $this->guardar(1);
             }
             else{
-                this->guardar(0);
+                $this->guardar(0);
             }
         }
         else{
-            $CoordinadorBD = new CoordinadorBD();
+            $CoordinadorBD = new CoordinadoresBD();
             $datos=$CoordinadorBD->BuscarPorId($id);
 
-            if ($datos[estado] == 1){
-                $CoordinadorBD = new CoordinadorBD();
+            if ($datos["estado"] == 1){
+                $CoordinadorBD = new CoordinadoresBD();
                 $queOcurrio = $CoordinadorBD->buscarUsuario($correo,1);
-                this->editar($id);
+                $this->editar($id);
             }
             else{
-                this->editar($id);
+                $this->editar($id);
             }
         }
         
@@ -50,11 +50,11 @@ class Coordinadores{
 
     }
     static public function deletear($correo){
-        $CoordinadorBD = new CoordinadorBD();
+        $CoordinadorBD = new CoordinadoresBD();
         $datos=$CoordinadorBD->BuscarPorCorreo($correo);
 
-        if ($datos[estado] == 1){
-            $CoordinadorBD = new CoordinadorBD();
+        if ($datos["estado"] == 1){
+            $CoordinadorBD = new CoordinadoresBD();
             $queOcurrio = $CoordinadorBD->buscarUsuario($correo,1);
         }
         $CoordinadorBD->eliminar($datos["id"]);

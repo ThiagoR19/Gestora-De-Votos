@@ -244,7 +244,7 @@ class UsuarioBD extends ConexionBD {
                 ":correo"=>$correo
             ]);
 
-            $usuarioId = $stmt->fetch(PDO::FETCH_ASSOC)[id];
+            $usuarioId = $stmt->fetch(PDO::FETCH_ASSOC)["id"];
 
             if ($usuarioId){
                 try{

@@ -19,7 +19,8 @@ switch ($method) {
         break;
     case "DELETE":
         echo json_encode([
-            "success"=>true
+            "success"=>true,
+            "correo"=>"dsadsads"
         ]);
         Coordinadores::deletear($data["Correo"]);
         break;

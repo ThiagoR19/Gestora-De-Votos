@@ -51,12 +51,13 @@ class CoordinadoresBD extends ConexionBD{
                 $suceso=true;
             }
         }
-        if (suceso){
-            this->editar($correo);
+        if ($suceso){
+            $this->editar($correo,1);
         }
     }
     public function editar($correo, $id){
         try{
+            $usuario = new UsuarioBD();
             $sql = "UPDATE Coordinadores SET Correo=:correo WHERE id=:id";
             $stmt = self::$pdo->prepare($sql);
             $stmt->execute([
@@ -64,7 +65,7 @@ class CoordinadoresBD extends ConexionBD{
                 ":id"=>$id
             ]);
 
-            $QueOcurrio=$this->BuscarUnCorreoParaSerCoordinador($correo,2)["success"];
+            $QueOcurrio=$usuario->BuscarUnCorreoParaSerCoordinador($correo,2)["success"];
             if ($QueOcurrio){
                 $nuevoEstado = 1;
             }

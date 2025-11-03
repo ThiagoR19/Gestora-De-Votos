@@ -44,6 +44,7 @@ async function MostrarCoordinadores(){
 }
 
 async function Deletear(id){
+    console.log ("entre")
     correo = document.getElementById(`Correo${id}`).textContent
     try{
         response = await fetch(`${localizacion}/api/index.php?recurso=Coordinadores`,{
@@ -53,7 +54,7 @@ async function Deletear(id){
                 Correo: correo 
             })
         })
-        data = await response.json()
+        data = await response.text()
 
         if (data.success == true || data.success=="ok"){
             console.log (data.message)
@@ -62,6 +63,7 @@ async function Deletear(id){
         else{
             console.log (data.message)
         }
+        
     }
     catch (error) {
         console.error("❌ Eror en fetch:", error);
