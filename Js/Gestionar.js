@@ -64,7 +64,7 @@ async function Deletear(id){
     correo = document.getElementById(`Correo${id}`).textContent
     try{
         response = await fetch(`${localizacion}/api/index.php?recurso=Coordinadores`,{
-            method: "PUT",
+            method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
                 Correo: correo 
