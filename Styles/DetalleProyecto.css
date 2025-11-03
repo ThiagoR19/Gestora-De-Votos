@@ -282,7 +282,7 @@ aside {
   margin: 20px auto;
 }
 
-.main-image-containerV {
+.main-image-container {
   width: 100%;
   height: 350px;
   margin-bottom: 10px;
@@ -290,22 +290,26 @@ aside {
   border-radius: 10px;
 }
 
-.main-image-containerV img {
+.main-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: 0.3s;
 }
 
+/* Carrusel de miniaturas */
 .thumbnails-containerV {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  overflow-y: hidden;
+  /* scroll horizontal */
   flex-wrap: nowrap;
+  /* que no haga wrap */
   height: 25%;
+  /* porcentaje relativo al contenedor gallery */
   padding-bottom: 5px;
 }
+
 
 .thumbnails-containerV::-webkit-scrollbar {
   height: 8px;
@@ -323,9 +327,11 @@ aside {
 
 .thumbnails-containerV img {
   flex: 0 0 auto;
-  width: 25%;
-  height: 150px;
+  /* no se encoge ni se expande, respeta ancho fijo */
+  width: 20%;
+  /* ancho relativo al contenedor thumbnails, cambia según gusto */
   max-width: 150px;
+  /* opcional para limitar tamaño */
   object-fit: cover;
   cursor: pointer;
   border-radius: 6px;
@@ -334,4 +340,11 @@ aside {
 
 .thumbnails-containerV img.active {
   border-color: #062F4F;
+}
+
+.proyecto-esp__article-container {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
 }

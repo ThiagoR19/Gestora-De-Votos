@@ -672,7 +672,7 @@ function crearProyecto() {
           <div class="carga-proyecto__imagenes">
             <label class="carga-proyecto__label">Agregar imágenes</label>
             <div class="carga-proyecto__imagenes-cont">
-              <input type="file" id="imageInput" multiple accept="image/*">
+              <input type="file" id="imageInputC" multiple accept="image/*">
             </div>
             <button id="crearProyectoBtn">Crear Proyecto</button>
           </div>
@@ -745,9 +745,9 @@ function crearProyecto() {
       <div class="proyecto-esp__article-div">
         <div class="gallery">
           <div class="main-image-container">
-            <img id="mainImage" src="" alt="Imagen principal">
+            <img id="mainImageC" src="" alt="Imagen principal">
           </div>
-          <div class="thumbnails-container" id="thumbnails">
+          <div class="thumbnails-container" id="thumbnailsC">
           </div>
         </div>
       </div>
@@ -801,20 +801,20 @@ function crearProyecto() {
   `;
   vistaPrevia.appendChild(previewWrapper);
 
-  const imageInput = document.getElementById("imageInput");
-  const mainImage = document.getElementById("mainImage");
-  const thumbnailsContainer = document.getElementById("thumbnails");
+  const imageInputC = document.getElementById("imageInputC");
+  const mainImageC = document.getElementById("mainImageC");
+  const thumbnailsContainerC = document.getElementById("thumbnailsC");
 
-  let images = [];
-  let currentIndex = 0;
+  let imagesC = [];
+  let currentIndexC = 0;
 
-  imageInput.addEventListener("change", (e) => {
+  imageInputC.addEventListener("change", (e) => {
     const files = Array.from(e.target.files);
 
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        images.push(event.target.result);
+        imagesC.push(event.target.result);
         renderGallery();
       };
       reader.readAsDataURL(file);
@@ -822,18 +822,18 @@ function crearProyecto() {
   });
 
   function renderGallery() {
-    if (images.length === 0) return;
+    if (imagesC.length === 0) return;
 
-    const imgSrc = images[currentIndex].startsWith('data:')
-      ? images[currentIndex]
-      : `./Js/imagenes/${images[currentIndex]}`;
+    const imgSrcC = imagesC[currentIndexC].startsWith('data:')
+      ? imagesC[currentIndexC]
+      : `./Js/imagenes/${imagesC[currentIndexC]}`;
 
-    mainImage.src = imgSrc;
+    mainImageC.src = imgSrcC;
 
     // Limpiar miniaturas
-    thumbnailsContainer.innerHTML = "";
+    thumbnailsContainerC.innerHTML = "";
 
-    images.forEach((img, index) => {
+    imagesC.forEach((img, index) => {
       const thumb = document.createElement('img');
       thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
       if (index === currentIndex) thumb.classList.add('active');
@@ -843,7 +843,7 @@ function crearProyecto() {
         renderGallery();
       });
 
-      thumbnailsContainer.appendChild(thumb);
+      thumbnailsContainerC.appendChild(thumb);
     });
   }
 
@@ -932,7 +932,7 @@ function crearProyecto() {
           division: InputDivision.value,
           estudiantes: estudiantesArray,
           profesores: profesoresArray,
-          imagenes: images
+          imagenes: imagesC
         })
       })
         .then(res => res.json())
@@ -1665,7 +1665,7 @@ function verDescripcionDelProyecto(e) {
       let article = document.createElement('ARTICLE')
       let aside = document.createElement('ASIDE')
 
-      article.classList.add('proyecto-esp__article')
+      article.classList.add('proyecto-esp__article-container')
 
       article.innerHTML = `
     <article class="proyecto-esp__article">
@@ -1796,10 +1796,10 @@ function verDescripcionDelProyecto(e) {
         imagesV.forEach((img, index) => {
           const thumb = document.createElement('img');
           thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
-          if (index === currentIndex) thumb.classList.add('active');
+          if (index === currentIndexV) thumb.classList.add('active');
 
           thumb.addEventListener('click', () => {
-            currentIndex = index;
+            currentIndexV = index;
             renderGallery();
           });
 
@@ -1813,12 +1813,12 @@ function verDescripcionDelProyecto(e) {
       });
 
       function nextImage() {
-        currentIndex = (currentIndex + 1) % imagesV.length;
+        currentIndexV = (currentIndexV + 1) % imagesV.length;
         renderGallery();
       }
 
       function prevImage() {
-        currentIndex = (currentIndex - 1 + imagesV.length) % imagesV.length;
+        currentIndexV = (currentIndexV - 1 + imagesV.length) % imagesV.length;
         renderGallery();
       }
 
