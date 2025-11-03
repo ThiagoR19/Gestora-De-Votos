@@ -268,7 +268,7 @@ HeaderGestionar.forEach(element => {
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
-
+    MostrarCoordinadores()
     mostrarMain('Gestionar', mains)
 
     IconoGU.classList.add("fa-bars");
@@ -388,6 +388,7 @@ function mostrarMain(mainAMostrar, mains) {
   window.scrollTo(0, 0);
   styleTag.setAttribute('href', `./Styles/${mainAMostrar}.css`)
   determinarHeader(mainAMostrar)
+  
   mains.forEach(element => {
     if (element.id === `${mainAMostrar}`) {
       element.classList.remove('none')

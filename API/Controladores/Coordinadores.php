@@ -18,6 +18,9 @@ switch ($method) {
         $coordinador->validacion( "editar",$data["id"]);
         break;
     case "DELETE":
+        echo json_encode([
+            "success"=>true
+        ]);
         Coordinadores::deletear($data["Correo"]);
         break;
     default:
