@@ -15,7 +15,7 @@ class UsuarioBD extends ConexionBD {
                 ':correo' => $data['Email'] ?? null,
                 ':cant' => 3,
                 ':contra' => $data['Password'] ?? null,
-                ':nivel' => 1,
+                ':nivel' => $data["Tipo"],
                 ':nombre' => $data['Nombre'] ?? null,
                 ':apellido' => $data['Apellido'] ?? null
             ]);
@@ -26,7 +26,7 @@ class UsuarioBD extends ConexionBD {
                 "status" => "ok",
                 "message" => "Usuario insertado correctamente",
                 "datos" => [
-                    "tipo" => 1,
+                    "tipo" => $data["Tipo"],
                     "id" => $ultimoId
                 ]
             ]);
@@ -244,8 +244,7 @@ class UsuarioBD extends ConexionBD {
                 ":correo"=>$correo
             ]);
 
-            $usuarioId = $stmt->fetch(PDO::FETCH_ASSOC)["id"];
-
+            $usuarioId = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($usuarioId){
                 try{
                     $sql = "UPDATE usuarios SET Nivel_Usuario=:nivel WHERE Correo=:correo";

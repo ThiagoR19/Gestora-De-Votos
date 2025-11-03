@@ -3,7 +3,7 @@ require_once __DIR__ . '/../Conexion.php';
 class CoordinadoresBD extends ConexionBD{
     public function mostrarTodos($motivo){
         try{
-            $sql = "SELECT c.Correo from Coordinadores as c";
+            $sql = "SELECT c.Correo, c.id from Coordinadores as c";
             $stmt = self::$pdo->prepare($sql);
             $stmt->execute();
 
@@ -35,10 +35,16 @@ class CoordinadoresBD extends ConexionBD{
                 ':correo' => $correo ?? null,
                 ":estado"=> $estado
             ]);
-
-            echo json_encode(["status" => "ok", "message" => "El coordinador aun no esta registrado, asi que su correo se ha guardado hasta que se registre"]);
+            $mensaje = "";
+            if ($estado == 0){
+                $mensaje = "El coordinador aun no esta registrado, asi que su correo se ha guardado hasta que se registre";
+            }
+            else{
+                $mensaje = "El usuario esta registrado y se le ha dado el puesto de coordinador";
+            }
+            echo json_encode(["success" => "ok", "message" => $mensaje]);
         } catch (PDOException $e) {
-            echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+            echo json_encode(["success" => "error", "message" => $e->getMessage()]);
         }
     }
     public function BuscarUsuariosCorreos($correo){
@@ -56,6 +62,7 @@ class CoordinadoresBD extends ConexionBD{
         }
     }
     public function editar($correo, $id){
+        require_once __DIR__ . '/UsuarioBD.php';
         try{
             $usuario = new UsuarioBD();
             $sql = "UPDATE Coordinadores SET Correo=:correo WHERE id=:id";
@@ -154,6 +161,41 @@ class CoordinadoresBD extends ConexionBD{
                 "success"=>"ok",
                 "message"=>"el coordinar ha sido eliminado con exito"
             ]);
+        }
+        catch(PDOException $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+    public function busqueda(){
+        try{
+            $sql = "SELECT c.Correo from Coordinadores AS c WHERE estado<>1";
+            $stmt = self::$pdo->prepare($sql);
+            $stmt->execute();
+
+            $correos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $correos;
+        }
+        catch(PDOException $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+    public function cambiarEstado($correo){
+        try{
+            $usuario = new UsuarioBD();
+            $sql = "UPDATE Coordinadores SET estado=1 WHERE Correo=:correo";
+            $stmt = self::$pdo->prepare($sql);
+            $stmt->execute([
+                ":correo"=>$correo
+            ]);
+
+
         }
         catch(PDOException $e) {
             echo json_encode([

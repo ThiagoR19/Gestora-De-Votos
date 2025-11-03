@@ -60,12 +60,12 @@ class Usuario {
                 $success = true;
                 $message = "Usuario registrado con éxito";
                 if ($accion === "Guardar"){
-                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],1 );
+                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],self::tenesQueSerCoordinador($data["email"]));
                     $nuevoUsuario->guardar();
                     exit;
                 }
                 else if ($accion === "Instanciar"){
-                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],1 );
+                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'], self::tenesQueSerCoordinador($data["email"]));
                 }
             }
         }
@@ -78,6 +78,20 @@ class Usuario {
                 "faltantes" => $faltantes
             ]);
         }
+    }
+    static private function tenesQueSerCoordinador($correo){
+        require_once __DIR__ . '/CoordinadoresBD.php';
+        $Coordinadores = new CoordinadoresBD();
+        $TodosCoordinadores = $Coordinadores->busqueda();
+        $retornar = 1;
+        foreach($TodosCoordinadores as $correoPrueba){
+
+            if ($correoPrueba["Correo"] == $correo){
+                $retornar = 2;
+                $Coordinadores->cambiarEstado($correo);
+            }
+        }
+        return $retornar;
     }
     public function __construct($nombre, $apellido, $email, $password, $tipo) {
         $this->nombre = $nombre;

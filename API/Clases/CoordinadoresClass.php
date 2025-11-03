@@ -38,7 +38,7 @@ class Coordinadores{
 
             if ($datos["estado"] == 1){
                 $CoordinadorBD = new CoordinadoresBD();
-                $queOcurrio = $CoordinadorBD->buscarUsuario($correo,1);
+                $queOcurrio = $CoordinadorBD->buscarUsuario($datos["Correo"],1);
                 $this->editar($id);
             }
             else{

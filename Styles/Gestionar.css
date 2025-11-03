@@ -48,6 +48,16 @@ body {
   min-width: 250px;
   margin-left: 0;
 }
+.form__input2 {
+  flex: 1;
+  padding: 0.7rem;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  min-width: 250px;
+  height: 80%;
+  margin-left: 0;
+}
+
 
 .form__button {
   padding: 0.7rem 1rem;
@@ -123,7 +133,9 @@ body {
   gap: 0.5rem;
   padding-right: 2.5rem;
 }
-
+.none{
+  display: none;
+}
 .btn {
   border: none;
   padding: 0.5rem 0.7rem;
@@ -134,6 +146,10 @@ body {
 
 .btn--delete {
   background: #e74c3c;
+  color: #000000;
+}
+.btn--check {
+  background: #2fbe22;
   color: #000000;
 }
 
