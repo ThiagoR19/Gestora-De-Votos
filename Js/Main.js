@@ -1458,7 +1458,6 @@ function editarProyecto(e) {
                 console.error("❌ Error en fetch:", error);
               });
           } else if (data.message == "Faltan datos obligatorios") {
-            F
             mostrarTexto(`Faltan datos obligatorios ❌ (${data.faltantes} )`);
             const miSonido = new Audio('Sonidos/error.mp3');
             miSonido.play();
