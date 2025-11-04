@@ -403,12 +403,11 @@ function mostrarMain(mainAMostrar, mains) {
       Footer.classList.remove('none');
     }
     if (mainAMostrar === "mainHome") {
-      console.log("se muestra el main")
+      // console.log("se muestra el main")
     }
   })
 }
 
-// herramienta de textos 
 function aplicarVerMasAuto() {
   document.querySelectorAll("[data-max]").forEach(el => {
     const max = parseInt(el.dataset.max);
@@ -420,6 +419,7 @@ function aplicarVerMasAuto() {
     }
   });
 }
+
 function aplicarVerMas(elemento, maxLongitud, callback) {
   if (!elemento) return;
 
@@ -437,8 +437,6 @@ function aplicarVerMas(elemento, maxLongitud, callback) {
     elemento.appendChild(verMas);
   }
 }
-
-// Funciones que muestran dinamicamente del JSON
 
 function mostrarTopDelMain(dataProyectos) {
   let Top3 = dataProyectos.sort((a, b) => b.cantVotos - a.cantVotos).slice(0, 3);
@@ -937,7 +935,7 @@ function crearProyecto() {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
+          // console.log(data)
           if (data.success) {
             mostrarTexto("Proyecto creado correctamente ✅");
             const miSonido = new Audio('Sonidos/Check.mp3');
@@ -945,6 +943,7 @@ function crearProyecto() {
             fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
               .then(response => response.json())
               .then(data => {
+                // console.log(data)
                 dataProyectos = data.datos
                 dataProyectosGlobal = dataProyectos
                 mostrarRanking(dataProyectos)
@@ -971,7 +970,7 @@ function EliminarProyecto(id) {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         if (data.success) {
           mostrarTexto("Proyecto eliminado correctamente ✅");
           const miSonido = new Audio('Sonidos/Check.mp3');
@@ -979,6 +978,7 @@ function EliminarProyecto(id) {
           fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
             .then(response => response.json())
             .then(data => {
+              // console.log(data)
               dataProyectos = data.datos
               dataProyectosGlobal = dataProyectos
               mostrarRanking(dataProyectos)
@@ -1439,6 +1439,7 @@ function editarProyecto(e) {
       })
         .then(res => res.json())
         .then(data => {
+          // console.log(data)
           if (data.success) {
             mostrarTexto("Proyecto actualizado correctamente ✅😄");
             const miSonido = new Audio('Sonidos/Check.mp3');
@@ -1496,11 +1497,11 @@ if (localStorage.getItem("usuario")) {
   const userStr = localStorage.getItem("usuario");
   const usuario = JSON.parse(userStr);
   idUsuario = usuario.id
-  console.log(idUsuario)
+  // console.log(idUsuario)
   fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (data.data.imagen) {
         let headerImagenes = [
           document.getElementById('IconoUserGU'),
@@ -1527,7 +1528,7 @@ function editarCuenta() {
   fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         const nombre = document.getElementById('nombreUsuario')
         const apellido = document.getElementById('apellidoUsuario')
@@ -1560,7 +1561,7 @@ function editarCuenta() {
             })
               .then(res => res.json())
               .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (data.success) {
                   mostrarTexto("Datos actualizados correctamente ✅");
                   const miSonido = new Audio('Sonidos/Check.mp3');
@@ -1568,7 +1569,7 @@ function editarCuenta() {
                   fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
                     .then(response => response.json())
                     .then(data => {
-                      console.log(data)
+                      // console.log(data)
                       if (data.data.imagen) {
                         headerImagenes = [
                           document.getElementById('IconoUserGU'),
@@ -1618,12 +1619,12 @@ function verDescripcionDelProyecto(e) {
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         let proyectosVotados = data.proyectos
-        console.log(proyectosVotados)
+        // console.log(proyectosVotados)
       } else {
-        console.log(data.message);
+        // console.log(data.message);
       }
     });
 
@@ -1638,7 +1639,7 @@ function verDescripcionDelProyecto(e) {
   })
     .then(res => res.json())
     .then(data => {
-
+      // console.log(data)
       dataProyectosGlobal.forEach(element => {
         if (element.id === e) {
           proyecto = element
@@ -1761,11 +1762,11 @@ function verDescripcionDelProyecto(e) {
       else {
         proyectosCalificados.forEach(element => {
           if (element.idProyecto === proyecto.id) {
-            console.log(element.cantEstrellas)
+            // console.log(element.cantEstrellas)
             iluminarEstrellas(element.cantEstrellas)
           }
           else {
-            console.log("no entro")
+            // console.log("no entro")
           }
         })
       }
@@ -1776,7 +1777,7 @@ function verDescripcionDelProyecto(e) {
 
       let imagesV = proyecto?.imagenes ? [...proyecto.imagenes] : [];
 
-      console.log(imagesV)
+      // console.log(imagesV)
       let currentIndexV = 0;
 
       renderGallery();
@@ -1838,6 +1839,7 @@ function verDescripcionDelProyecto(e) {
             })
               .then(res => res.json())
               .then(data => {
+                // console.log(data)
                 if (data.success) {
                   mostrarTexto("¡Felicidades! Ha votado correctamente ✅😄");
                   const miSonido = new Audio('Sonidos/Check.mp3');
@@ -1881,7 +1883,8 @@ function cerrarModal() {
 fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
   .then(response => response.json())
   .then(data => {
-    console.log(data.datos)
+    // console.log(data)
+    // console.log(data.datos)
     dataProyectos = data.datos
     dataProyectosGlobal = dataProyectos
     mostrarRanking(dataProyectos)
@@ -1940,7 +1943,7 @@ function borrarCuenta() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         if (data.success) {
           mostrarTexto("Su cuenta se ah borrado correctamente ✅");
           alert(data.message)
