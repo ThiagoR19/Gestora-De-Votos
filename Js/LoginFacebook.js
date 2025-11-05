@@ -117,7 +117,7 @@ async function LogueoConFacebook(Respuesta){
 }
 
 //google
-const CLIENT_ID = "780207007282-bcfir59001kmulhpa6rr4qmq5eke0htj.apps.googleusercontent.com";
+const CLIENT_ID = "772259205925-tft0mmur27s86r99k4a734t1r62vfa4u.apps.googleusercontent.com";
 
 // Inicializa el SDK de Google
 window.onload = function() {
@@ -132,10 +132,42 @@ document.getElementById("googleLoginBtn").addEventListener("click", (e) => {
   google.accounts.id.prompt();
 });
 
-function handleCredentialResponse(response) {
-  console.log("✅ Token JWT recibido:", response.credential);
+async function handleCredentialResponse(respuestaGoogle) {
+  try {
+    const response = await fetch(`${localizacion}/api/index.php?recurso=Google`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          enviarRespuesta: respuestaGoogle
+        })
+    });
+    
+    console.log("Status:", response.status);
 
-  // Enviar el token al backend PHP para verificarlo
+    const data = await response.json();
+
+    if (data.success) {
+      mostrarTexto("Ha iniciado sesion correctamente ✅😄");
+      const miSonido = new Audio('Sonidos/Check.mp3');
+      miSonido.play();
+      Yalogueado(data.datos.id, data.datos.tipo);
+    } 
+    if (data.message === 'Credenciales inválidas') {
+      mostrarTexto("Correo o contraseña incorrectos ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
+    } else {
+      mostrarTexto("Ocurrio un error inesperado ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
+      console.log(data.message)
+    }
+  }
+  catch (error) {
+    console.error("❌ Eror en fetch:", error);
+  }
   
 }
 
