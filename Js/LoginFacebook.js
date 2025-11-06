@@ -123,35 +123,34 @@ window.onload = function () {
     callback: handleCredentialResponse
   });
 
-  document.getElementById("customGoogleBtn").addEventListener("click", () => {
+  document.getElementById("customGoogleBtn").addEventListener("click", (event) => {
+    event.preventDefault();
     google.accounts.id.prompt((notification) => {
       console.log("Prompt:", notification);
     });
   });
 
-  document.getElementById("customGoogleBtnLogin").addEventListener("click", () => {
+  document.getElementById("customGoogleBtnLogin").addEventListener("click", (event) => {
+    event.preventDefault();
     google.accounts.id.prompt((notification) => {
       console.log("Prompt:", notification);
     });
   });
 };
 function handleCredentialResponse(response) {
-  console.log("Token recibido:", response.credential);
-  localStorage.setItem('token', response.credential);
-
   const url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + response.credential;
   fetch(url)
     .then(res => res.json())
-    .then(data => {
+    .then(datas => {
       fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({
-          nombre: data.given_name,
-          apellido: data.family_name,
-          email: data.email,
-          password: data.iss,
-          confirmPassword: data.iss
+          nombre: datas.given_name,
+          apellido: datas.family_name,
+          email: datas.email,
+          password: datas.iss,
+          confirmPassword: datas.iss
         })
       })
       .then(response => response.json())
@@ -171,7 +170,7 @@ function handleCredentialResponse(response) {
             miSonido.play();
           } 
           if(data.message == 'Email ya registrado') {
-            LogueoConFacebook(Respuesta);
+            LogueoConGoogle(datas);
           } 
           if(data.message == 'Las contraseñas no coinciden') {
             mostrarTexto("Las contraseñas no coinciden ❌");
