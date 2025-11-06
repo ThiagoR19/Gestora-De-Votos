@@ -115,7 +115,7 @@ class UsuarioBD extends ConexionBD {
         try {
             $data = json_decode(file_get_contents("php://input"), true);
 
-            $camposObligatorios = ["idUsuario", "nombre", "apellido", "contrasenia"];
+            $camposObligatorios = ["idUsuario", "nombre", "apellido"];
             foreach ($camposObligatorios as $campo) {
                 if (!isset($data[$campo]) || trim($data[$campo]) === "") {
                     echo json_encode([
@@ -129,8 +129,44 @@ class UsuarioBD extends ConexionBD {
             $idUsuario = intval($data["idUsuario"]);
             $nombre = trim($data["nombre"]);
             $apellido = trim($data["apellido"]);
-            $contrasenia = (trim($data["contrasenia"]) . $salt);
 
+            $contraseniaActual = isset($data["contrasenia"]) ? trim($data["contrasenia"]) : null;
+            $contraseniaNueva = isset($data["contraseniaNueva"]) ? trim($data["contraseniaNueva"]) : null;
+
+            $nuevaContraseniaEncriptada = null;
+
+            if ($contraseniaActual !== null && $contraseniaNueva !== null && $contraseniaNueva !== "") {
+
+                // Encriptamos la contraseña actual ingresada
+                $hashIngresado = md5($contraseniaActual . $salt);
+
+                // Obtenemos la contraseña actual de la BD
+                $stmt = self::$pdo->prepare("SELECT contrasenia FROM usuarios WHERE Id = ?");
+                $stmt->execute([$idUsuario]);
+                $contraseniaBD = $stmt->fetchColumn();
+
+                if (!$contraseniaBD) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "No se encontró el usuario."
+                    ]);
+                    exit;
+                }
+
+                // Comparamos contraseñas
+                if ($hashIngresado !== $contraseniaBD) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "La contraseña actual es incorrecta."
+                    ]);
+                    exit;
+                }
+
+                // Encriptamos la nueva contraseña
+                $nuevaContraseniaEncriptada = md5($contraseniaNueva . $salt);
+            }
+
+            // --- IMAGEN (igual que antes) ---
             $imagen = isset($data["imagen"]) && trim($data["imagen"]) !== "" ? $data["imagen"] : null;
             $rutaFinal = null;
 
@@ -140,7 +176,6 @@ class UsuarioBD extends ConexionBD {
                 $imagenActual = $stmtCheck->fetchColumn();
 
                 $carpeta = __DIR__ . '/../../Js/imagenes/';
-
                 if ($imagenActual && file_exists($carpeta . $imagenActual)) {
                     unlink($carpeta . $imagenActual);
                 }
@@ -150,24 +185,26 @@ class UsuarioBD extends ConexionBD {
                     $tipo = strtolower($type[1]);
                     $imagen = base64_decode($imagen);
 
-                    $carpeta = __DIR__ . '/../../Js/imagenes/';
                     if (!is_dir($carpeta)) mkdir($carpeta, 0777, true);
 
                     $nombreArchivo = "usuario_" . $idUsuario . "_" . time() . "." . $tipo;
-                    $rutaFinal = $carpeta . $nombreArchivo;
-                    file_put_contents($rutaFinal, $imagen);
-
+                    file_put_contents($carpeta . $nombreArchivo, $imagen);
                     $rutaFinal = $nombreArchivo;
                 }
             }
 
-            $sql = "UPDATE usuarios SET Nombre = :nombre, Apellido = :apellido, contrasenia = :contrasenia";
+            // --- ACTUALIZAR DATOS ---
+            $sql = "UPDATE usuarios SET Nombre = :nombre, Apellido = :apellido";
             $params = [
                 ":nombre" => $nombre,
                 ":apellido" => $apellido,
-                ":contrasenia" => $contrasenia,
                 ":id" => $idUsuario
             ];
+
+            if ($nuevaContraseniaEncriptada !== null) {
+                $sql .= ", contrasenia = :contrasenia";
+                $params[":contrasenia"] = $nuevaContraseniaEncriptada;
+            }
 
             if ($rutaFinal !== null) {
                 $sql .= ", imagen = :imagen";
@@ -179,20 +216,14 @@ class UsuarioBD extends ConexionBD {
             $stmt = self::$pdo->prepare($sql);
             $stmt->execute($params);
 
-            if ($stmt->rowCount() > 0) {
-                echo json_encode([
-                    "success" => true,
-                    "message" => $rutaFinal !== null
-                        ? "Usuario actualizado correctamente con imagen."
-                        : "Usuario actualizado correctamente sin cambiar imagen.",
-                    "rutaImagen" => $rutaFinal
-                ]);
-            } else {
-                echo json_encode([
-                    "success" => false,
-                    "message" => "No se encontró el usuario o no hubo cambios."
-                ]);
-            }
+            echo json_encode([
+                "success" => true,
+                "message" =>
+                    ($nuevaContraseniaEncriptada !== null
+                        ? "Usuario actualizado y contraseña cambiada correctamente."
+                        : "Usuario actualizado correctamente."),
+                "rutaImagen" => $rutaFinal
+            ]);
 
         } catch (Exception $e) {
             echo json_encode([
@@ -201,6 +232,8 @@ class UsuarioBD extends ConexionBD {
             ]);
         }
     }
+
+
     public function verCuenta() {
         try {
         if (!isset($_GET["idUsuario"])) {

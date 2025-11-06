@@ -956,6 +956,9 @@ function crearProyecto() {
                 console.error("❌ Error en fetch:", error);
               });
           }
+        })
+        .catch(error => {
+          console.error("❌ Error en fetch:", error);
         });
     }
   });
@@ -991,6 +994,9 @@ function EliminarProyecto(id) {
               console.error("❌ Error en fetch:", error);
             });
         }
+      })
+      .catch(error => {
+        console.error("❌ Error en fetch:", error);
       });
   }
 }
@@ -1463,6 +1469,9 @@ function editarProyecto(e) {
             const miSonido = new Audio('Sonidos/error.mp3');
             miSonido.play();
           }
+        })
+        .catch(error => {
+          console.error("❌ Error en fetch:", error);
         });
     }
   })
@@ -1516,6 +1525,9 @@ if (localStorage.getItem("usuario")) {
         })
       }
     })
+    .catch(error => {
+      console.error("❌ Error en fetch:", error);
+    });
 }
 
 
@@ -1528,73 +1540,78 @@ function editarCuenta() {
   fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
     .then(response => response.json())
     .then(data => {
-      // console.log(data)
+      console.log(data)
       if (data.success) {
         const nombre = document.getElementById('nombreUsuario')
         const apellido = document.getElementById('apellidoUsuario')
-        const contrasenia = document.getElementById('contraseña')
-        const repetContra = document.getElementById('repetContra')
+        const contraseniaActual = document.getElementById('contraseña')
+        const contraseniaNueva = document.getElementById('contraseñaNueva')
         const actualizarCuenta = document.getElementById('actualizarCuenta')
         const imagenDePerfil = document.querySelector('.article__div-img');
 
         nombre.value = data.data.Nombre
         apellido.value = data.data.Apellido
-        contrasenia.value = data.data.contrasenia
-        repetContra.value = data.data.contrasenia
+
         if (data.data.imagen) {
           imagenDePerfil.src = `./Js/imagenes/${data.data.imagen} `
         }
 
-
         actualizarCuenta.addEventListener('click', () => {
-          if (contrasenia.value == repetContra.value) {
-            fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
-              method: "PUT",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                idUsuario: idUsuario,
-                nombre: nombre.value,
-                apellido: apellido.value,
-                contrasenia: contrasenia.value,
-                imagen: imagenBase64
-              })
-            })
-              .then(res => res.json())
-              .then(data => {
-                // console.log(data)
-                if (data.success) {
-                  mostrarTexto("Datos actualizados correctamente ✅");
-                  const miSonido = new Audio('Sonidos/Check.mp3');
-                  miSonido.play();
-                  fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
-                    .then(response => response.json())
-                    .then(data => {
-                      // console.log(data)
-                      if (data.data.imagen) {
-                        headerImagenes = [
-                          document.getElementById('IconoUserGU'),
-                          document.getElementById('IconoUserGC'),
-                          document.getElementById('IconoUserGA'),
-                          document.getElementById('IconoUserHU'),
-                          document.getElementById('IconoUserHC'),
-                          document.getElementById('IconoUserHA')
-                        ]
-                        headerImagenes.forEach((Imagen) => {
-                          Imagen.src = `./Js/imagenes/${data.data.imagen} `
-                        })
-                      }
-                    })
-                } else {
-                  mostrarTexto("Hubo un error al intentar actualizar sus datos ❌");
-                  const miSonido = new Audio('Sonidos/error.mp3');
-                  miSonido.play();
-                }
-              });
-          } else {
-            mostrarTexto("Las contraseñas no coinciden ❌");
+          if (contraseniaActual.value && contraseniaNueva.value == '') {
+            mostrarTexto("Su nueva contraseña no puede estar vacía ❌");
             const miSonido = new Audio('Sonidos/error.mp3');
             miSonido.play();
+            return
           }
+          fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              idUsuario: idUsuario,
+              nombre: nombre.value,
+              apellido: apellido.value,
+              contrasenia: contraseniaActual.value,
+              contraseniaNueva: contraseniaNueva.value,
+              imagen: imagenBase64
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+              if (data.success) {
+                mostrarTexto("Datos actualizados correctamente ✅");
+                const miSonido = new Audio('Sonidos/Check.mp3');
+                miSonido.play();
+                fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
+                  .then(response => response.json())
+                  .then(data => {
+                    // console.log(data)
+                    if (data.data.imagen) {
+                      headerImagenes = [
+                        document.getElementById('IconoUserGU'),
+                        document.getElementById('IconoUserGC'),
+                        document.getElementById('IconoUserGA'),
+                        document.getElementById('IconoUserHU'),
+                        document.getElementById('IconoUserHC'),
+                        document.getElementById('IconoUserHA')
+                      ]
+                      headerImagenes.forEach((Imagen) => {
+                        Imagen.src = `./Js/imagenes/${data.data.imagen} `
+                      })
+                    }
+                  })
+                  .catch(error => {
+                    console.error("❌ Error en fetch:", error);
+                  });
+              } else {
+                mostrarTexto("Hubo un error al intentar actualizar sus datos ❌");
+                const miSonido = new Audio('Sonidos/error.mp3');
+                miSonido.play();
+              }
+            })
+            .catch(error => {
+              console.error("❌ Error en fetch:", error);
+            });
         })
       }
     })
@@ -1626,6 +1643,9 @@ function verDescripcionDelProyecto(e) {
       } else {
         // console.log(data.message);
       }
+    })
+    .catch(error => {
+      console.error("❌ Error en fetch:", error);
     });
 
   let proyectosCalificados
@@ -1860,10 +1880,16 @@ function verDescripcionDelProyecto(e) {
                   const miSonido = new Audio('Sonidos/error.mp3');
                   miSonido.play();
                 }
+              })
+              .catch(error => {
+                console.error("❌ Error en fetch:", error);
               });
           })
         })
       })
+    })
+    .catch(error => {
+      console.error("❌ Error en fetch:", error);
     });
 }
 
@@ -1883,7 +1909,7 @@ function cerrarModal() {
 fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
   .then(response => response.json())
   .then(data => {
-    // console.log(data)
+    console.log(data)
     // console.log(data.datos)
     dataProyectos = data.datos
     dataProyectosGlobal = dataProyectos
@@ -1950,6 +1976,9 @@ function borrarCuenta() {
           localStorage.removeItem("usuario")
           window.location.reload();
         }
+      })
+      .catch(error => {
+        console.error("❌ Error en fetch:", error);
       });
   }
 }
