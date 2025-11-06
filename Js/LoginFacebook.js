@@ -143,7 +143,47 @@ function handleCredentialResponse(response) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log("Respuesta de Google:", data);
+      fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          nombre: data.given_name,
+          apellido: data.family_name,
+          email: data.email,
+          password: data.iss,
+          confirmPassword: data.iss
+        })
+      })
+      .then(response => response.json())
+      .then(data => { 
+        if (data.status === "ok") {
+          mostrarTexto("Cuenta creada correctamente ✅😄");
+          const miSonido = new Audio('Sonidos/Check.mp3');
+          miSonido.play();
+          creacion(email.value);
+          Yalogueado(data.datos?.id, data.datos?.tipo);
+        } 
+        else {
+          if (data.message == 'Faltan datos obligatorios') {
+            console.log(data.faltantes)
+            mostrarTexto("Complete todos los campos para registrarse ❌");
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
+          } 
+          if(data.message == 'Email ya registrado') {
+            LogueoConFacebook(Respuesta);
+          } 
+          if(data.message == 'Las contraseñas no coinciden') {
+            mostrarTexto("Las contraseñas no coinciden ❌");
+            const miSonido = new Audio('Sonidos/error.mp3');
+            miSonido.play();
+          } else {
+            console.log("el error anda aca");
+            console.log(data.message);
+          }
+        }
+      })
+
       
       
     })
@@ -151,6 +191,46 @@ function handleCredentialResponse(response) {
       console.error("Error al comunicarse con Google:", err);
     });
 
+}
+async function LogueoConGoogle(Respuesta){
+  console.log("ando en logueo")
+  try {
+    const response = await fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            action: "logueo",
+            email: Respuesta.email,
+            password: Respuesta.iss
+        })
+    });
+    
+    console.log("Status:", response.status);
+
+    const data = await response.json();
+
+    if (data.success) {
+      mostrarTexto("Ha iniciado sesion correctamente ✅😄");
+      const miSonido = new Audio('Sonidos/Check.mp3');
+      miSonido.play();
+      Yalogueado(data.datos.id, data.datos.tipo);
+    } 
+    if (data.message === 'Credenciales inválidas') {
+      mostrarTexto("Correo o contraseña incorrectos ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
+    } else {
+      mostrarTexto("Ocurrio un error inesperado ❌");
+      const miSonido = new Audio('Sonidos/error.mp3');
+      miSonido.play();
+      console.log(data.message)
+    }
+  }
+  catch (error) {
+    console.error("❌ Eror en fetch:", error);
+  }
 }
 
 //recursos
