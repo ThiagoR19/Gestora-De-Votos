@@ -670,7 +670,8 @@ function crearProyecto() {
           <div class="carga-proyecto__imagenes">
             <label class="carga-proyecto__label">Agregar imágenes</label>
             <div class="carga-proyecto__imagenes-cont">
-              <input type="file" id="imageInputC" multiple accept="image/*">
+              <label class="imageInput" for="imageInputC">Ingresar Imagenes</label>
+              <input type="file" id="imageInputC" multiple accept="image/*" style="display: none;">
             </div>
             <button id="crearProyectoBtn">Crear Proyecto</button>
           </div>
@@ -803,8 +804,10 @@ function crearProyecto() {
   const mainImageC = document.getElementById("mainImageC");
   const thumbnailsContainerC = document.getElementById("thumbnailsC");
 
-  let imagesC = [];
   let currentIndexC = 0;
+  let imagesC = ['ImagenDefault.png']
+
+  renderGallery();
 
   imageInputC.addEventListener("change", (e) => {
     const files = Array.from(e.target.files);
@@ -812,7 +815,13 @@ function crearProyecto() {
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        imagesC.push(event.target.result);
+        const nuevaImagen = event.target.result;
+
+        if (imagesC.length === 1 && imagesC[0] === 'ImagenDefault.png') {
+          imagesC = [];
+        }
+
+        imagesC.push(nuevaImagen);
         renderGallery();
       };
       reader.readAsDataURL(file);
@@ -820,7 +829,9 @@ function crearProyecto() {
   });
 
   function renderGallery() {
-    if (imagesC.length === 0) return;
+    if (imagesC.length === 0) {
+      imagesC = ['ImagenDefault.png'];
+    }
 
     const imgSrcC = imagesC[currentIndexC].startsWith('data:')
       ? imagesC[currentIndexC]
@@ -828,20 +839,37 @@ function crearProyecto() {
 
     mainImageC.src = imgSrcC;
 
-    // Limpiar miniaturas
     thumbnailsContainerC.innerHTML = "";
 
     imagesC.forEach((img, index) => {
+      const thumbWrapper = document.createElement('div');
+      thumbWrapper.classList.add('thumb-wrapper');
+
       const thumb = document.createElement('img');
       thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
-      if (index === currentIndex) thumb.classList.add('active');
+      if (index === currentIndexC) thumb.classList.add('active');
 
       thumb.addEventListener('click', () => {
-        currentIndex = index;
+        currentIndexC = index;
         renderGallery();
       });
 
-      thumbnailsContainerC.appendChild(thumb);
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'X';
+      deleteBtn.classList.add('delete-thumb');
+      deleteBtn.addEventListener('click', () => {
+        if (imagesC.length === 1) {
+          alert("No puedes dejar el proyecto sin imágenes.");
+          return;
+        }
+        imagesC.splice(index, 1);
+        if (currentIndexC >= imagesC.length) currentIndexC = imagesC.length - 1;
+        renderGallery();
+      });
+
+      thumbWrapper.appendChild(thumb);
+      thumbWrapper.appendChild(deleteBtn);
+      thumbnailsContainerC.appendChild(thumbWrapper);
     });
   }
 
@@ -918,6 +946,10 @@ function crearProyecto() {
 
       const estudiantesArray = valoresInputsDel(contenedorEstudiantes);
       const profesoresArray = valoresInputsDel(contenedorProfesores)
+
+      if (imagesC.length === 0) {
+        images = ['ImagenDefault.png']
+      }
 
       fetch(`${localizacion}/api/index.php?recurso=Proyectos`, {
         method: "POST",
@@ -1098,19 +1130,20 @@ function editarProyecto(e) {
           <div class="carga-proyecto__titulo">
             <label class="carga-proyecto__label">Titulo del Proyecto</label>
             <input value="${proyecto.nombre}" type="text" id="inputTitulo" class="carga-proyecto__input"
-              placeholder="Ingrese el titulo del proyecto">
+              placeholder="Ingrese el título del proyecto">
           </div>
 
           <div class="carga-proyecto__descripcion">
             <label class="carga-proyecto__label">Descripcion del Proyecto</label>
             <textarea id="inputDescripcion" class="carga-proyecto__textarea"
-              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></textarea>
+              placeholder="Ingrese una descripción detallada del proyecto."></textarea>
           </div>
 
           <div class="carga-proyecto__imagenes">
             <label class="carga-proyecto__label">Agregar imágenes</label>
             <div class="carga-proyecto__imagenes-cont">
-              <input type="file" id="imageInput" multiple accept="image/*">
+              <label class="imageInput" for="imageInput">Ingresar Imagenes</label>
+              <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
             </div>
             <button id="editarProyecto">Cargar Proyecto</button>
           </div>
@@ -1266,10 +1299,11 @@ function editarProyecto(e) {
   const imageInput = document.getElementById("imageInput");
   const mainImage = document.getElementById("mainImage");
   const thumbnailsContainer = document.getElementById("thumbnails");
-
   let currentIndex = 0;
 
-  let images = proyecto?.imagenes ? [...proyecto.imagenes] : [];
+  let images = (proyecto?.imagenes && proyecto.imagenes.length > 0)
+    ? [...proyecto.imagenes]
+    : ['ImagenDefault.png'];
 
   renderGallery();
 
@@ -1279,7 +1313,13 @@ function editarProyecto(e) {
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        images.push(event.target.result);
+        const nuevaImagen = event.target.result;
+
+        if (images.length === 1 && images[0] === 'ImagenDefault.png') {
+          images = [];
+        }
+
+        images.push(nuevaImagen);
         renderGallery();
       };
       reader.readAsDataURL(file);
@@ -1287,7 +1327,9 @@ function editarProyecto(e) {
   });
 
   function renderGallery() {
-    if (images.length === 0) return;
+    if (images.length === 0) {
+      images = ['ImagenDefault.png'];
+    }
 
     const imgSrc = images[currentIndex].startsWith('data:')
       ? images[currentIndex]
@@ -1298,6 +1340,9 @@ function editarProyecto(e) {
     thumbnailsContainer.innerHTML = "";
 
     images.forEach((img, index) => {
+      const thumbWrapper = document.createElement('div');
+      thumbWrapper.classList.add('thumb-wrapper');
+
       const thumb = document.createElement('img');
       thumb.src = img.startsWith('data:') ? img : `./Js/imagenes/${img}`;
       if (index === currentIndex) thumb.classList.add('active');
@@ -1307,7 +1352,22 @@ function editarProyecto(e) {
         renderGallery();
       });
 
-      thumbnailsContainer.appendChild(thumb);
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'X';
+      deleteBtn.classList.add('delete-thumb');
+      deleteBtn.addEventListener('click', () => {
+        if (images.length === 1) {
+          alert("No puedes dejar el proyecto sin imágenes.");
+          return;
+        }
+        images.splice(index, 1);
+        if (currentIndex >= images.length) currentIndex = images.length - 1;
+        renderGallery();
+      });
+
+      thumbWrapper.appendChild(thumb);
+      thumbWrapper.appendChild(deleteBtn);
+      thumbnailsContainer.appendChild(thumbWrapper);
     });
   }
 
@@ -1427,7 +1487,11 @@ function editarProyecto(e) {
 
   editarProyecto.addEventListener('click', () => {
 
-    if (confirm('¿Seguro que desea actualiza este proyecto?')) {
+    if (!images || images.length === 0) {
+      images = ['ImagenDefault.png']
+    }
+
+    if (confirm('¿Seguro que desea actualizar este proyecto?')) {
       fetch(`${localizacion}/api/index.php?recurso=Proyectos`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -1475,8 +1539,8 @@ function editarProyecto(e) {
         });
     }
   })
-
 }
+
 
 const inputDePerfil = document.getElementById("inputDePerfil");
 const imagenDePerfil = document.querySelector(".article__div-img");
@@ -2115,3 +2179,6 @@ function mostrarEstadisticas(dataProyectos) {
   renderProyectos(proyectos);
 
 }
+
+
+// En este codigo hay un error que genera unas comillas de mas en la linea 

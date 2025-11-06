@@ -330,5 +330,48 @@ class ProyectoBD extends ConexionBD {
             ]);
         }
     }
+    public function borrarImgs($input) {
+        try {
+            $data = $input;
+
+            if (!isset($data['idProyecto'])) {
+                echo json_encode(["success" => false, "message" => "Falta el id del proyecto."]);
+                exit;
+            }
+
+            $idProyecto = intval($data['idProyecto']);
+
+            self::$pdo->beginTransaction();
+
+            $stmtOldImgs = self::$pdo->prepare("SELECT imagen FROM proyecto_imagenes WHERE idProyecto = ?");
+            $stmtOldImgs->execute([$idProyecto]);
+            $imagenesViejas = $stmtOldImgs->fetchAll(PDO::FETCH_COLUMN);
+            $carpetaDestino = __DIR__ . "/../../Js/imagenes/";
+            foreach ($imagenesViejas as $imgVieja) {
+                $rutaVieja = $carpetaDestino . $imgVieja;
+                if (file_exists($rutaVieja)) unlink($rutaVieja);
+            }
+
+            $stmt = self::$pdo->prepare("DELETE FROM proyecto_imagenes WHERE idProyecto = ?");
+            $stmt->execute([$idProyecto]);
+
+            self::$pdo->commit();
+
+            echo json_encode([
+                "success" => true,
+                "message" => "Imágenes del proyecto eliminadas correctamente."
+            ]);
+
+        } catch (Exception $e) {
+            if (self::$pdo->inTransaction()) {
+                self::$pdo->rollBack();
+            }
+
+            echo json_encode([
+                "success" => false,
+                "message" => "Error al eliminar imágenes del proyecto: " . $e->getMessage()
+            ]);
+        }
+    }
 }
 ?>

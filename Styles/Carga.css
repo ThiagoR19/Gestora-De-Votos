@@ -481,7 +481,8 @@ aside {
 }
 
 #editarProyecto,
-#crearProyectoBtn {
+#crearProyectoBtn,
+.imageInput {
   padding: 10px 20px;
   border: none;
   background-color: #062F4F;

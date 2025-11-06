@@ -30,6 +30,10 @@ class Proyecto{
         $ProyectoBD = new ProyectoBD();
         $ProyectoBD->borrarProyecto($input);
     }
+    static public function imagenes($input){
+        $ProyectoBD = new ProyectoBD();
+        $ProyectoBD->borrarImgs($input);
+    }
     static public function mostrarProyectos(){
         $ProyectoBD = new ProyectoBD();
         $ProyectoBD->pedirProyectos();

@@ -2,6 +2,9 @@
 $method = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents('php://input'), true);
 require_once dirname(__DIR__) . "/Clases/ProyectoClass.php";
+
+$action = $data['action'] ?? null;
+
 switch ($method) {
     case 'GET':
         Proyecto::mostrarProyectos();
@@ -11,9 +14,15 @@ switch ($method) {
         $Proyecto->guardar($data);
         break;
     case "PUT":
-        Proyecto::editar($data);
-        break;
+        if($action == 'imagenes') {
+          Proyecto::imagenes($data);
+          break;
+        } else {
+          Proyecto::editar($data);
+          break;
+        }
     case "DELETE":
+        
         $idProyecto = isset($_GET['idProyecto']) ? intval($_GET['idProyecto']) : null;
         $data = ["idProyecto" => $idProyecto];
         Proyecto::deletear($data);
