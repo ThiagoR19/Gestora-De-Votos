@@ -123,10 +123,16 @@ window.onload = function () {
     callback: handleCredentialResponse
   });
 
-  // Asigna el evento click a tu botón personalizado
-  const customGoogleBtn = document.getElementById("customGoogleBtn");
-  customGoogleBtn.addEventListener("click", () => {
-    google.accounts.id.prompt(); // abre el popup de inicio de sesión
+  document.getElementById("customGoogleBtn").addEventListener("click", () => {
+    google.accounts.id.prompt((notification) => {
+      console.log("Prompt:", notification);
+    });
+  });
+
+  document.getElementById("customGoogleBtnLogin").addEventListener("click", () => {
+    google.accounts.id.prompt((notification) => {
+      console.log("Prompt:", notification);
+    });
   });
 };
 function handleCredentialResponse(response) {
