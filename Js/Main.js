@@ -1170,13 +1170,22 @@ function editarProyecto(e) {
           <div class="carga-proyecto-form__select-wp">
             <h3 class="carga-proyecto-form__titulo">Categoria</h3>
             <select id="inputCategoria" class="carga-proyecto-form__select">
-              <option value="">Categoria</option>
+              <option value="">Categoría</option>
               <option value="1">Robótica</option>
               <option value="2">Energías Renovables</option>
               <option value="3">Programación</option>
               <option value="4">Economía</option>
               <option value="5">Ciencias</option>
-              <option value="6">Construcciones</option>
+              <option value="6">Electrónica</option>
+              <option value="7">Metales I</option>
+              <option value="27">Otros</option>
+              <option value="28">Electricidad</option>
+              <option value="29">Mecánica</option>
+              <option value="30">Electromecánica</option>
+              <option value="31">Carpintería</option>
+              <option value="32">Construcciones</option>
+              <option value="33">Diseño</option>
+
             </select>
           </div>
         </div>
