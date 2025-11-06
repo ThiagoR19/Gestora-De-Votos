@@ -24,7 +24,7 @@
   <script defer src="./Js/DescripcionDeProyecto.js"></script>
   <script defer src="./Js/Gestionar.js"></script>
   <script defer src="./Js/Resultados.js"></script>
-  <script defer src="https://accounts.google.com/gsi/client" async></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -308,7 +308,17 @@
             <span>————————————————————</span>
           </div>
           <div class="social-icons">
-            <a href="#" class="icon" id="googleLoginBtn"><img src="./Imagenes/Google.png" alt=""> Google</a>
+            <div id="g_id_onload"
+              data-client_id="772259205925-tft0mmur27s86r99k4a734t1r62vfa4u.apps.googleusercontent.com"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-callback="handleCredentialResponse"
+              data-auto_prompt="false">
+            </div>
+            <a class="icon google-btn" id="customGoogleBtn">
+              <img src="./Imagenes/Google.png" alt="Google logo"> Google
+            </a>
+<!-- Este div es donde Google renderiza el botón -->
             <a href="#" class="icon" onclick="onLogin();"><img src="./Imagenes/Facebook.png" alt=""> Facebook</a>
           </div>
         </form>
@@ -343,7 +353,16 @@
             <span>————————————————————</span>
           </div>
           <div class="social-icons">
-            <a href="#" class="icon"><img src="./Imagenes/Google.png" alt=""> Google</a>
+            <div id="g_id_onload"
+              data-client_id="772259205925-tft0mmur27s86r99k4a734t1r62vfa4u.apps.googleusercontent.com"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-callback="handleCredentialResponse"
+              data-auto_prompt="false">
+            </div>
+            <a class="icon google-btn" id="customGoogleBtn">
+              <img src="./Imagenes/Google.png" alt="Google logo"> Google
+            </a>
             <a href="#" class="icon"><img src="./Imagenes/Facebook.png" alt=""> Facebook</a>
           </div>
         </form>

@@ -111,7 +111,7 @@ class UsuarioBD extends ConexionBD {
             ]);
         }
     }
-    public function actualizarCuenta($input) {
+    public function actualizarCuenta($input, $salt) {
         try {
             $data = json_decode(file_get_contents("php://input"), true);
 
@@ -129,7 +129,7 @@ class UsuarioBD extends ConexionBD {
             $idUsuario = intval($data["idUsuario"]);
             $nombre = trim($data["nombre"]);
             $apellido = trim($data["apellido"]);
-            $contrasenia = trim($data["contrasenia"]);
+            $contrasenia = (trim($data["contrasenia"]) . $salt);
 
             $imagen = isset($data["imagen"]) && trim($data["imagen"]) !== "" ? $data["imagen"] : null;
             $rutaFinal = null;

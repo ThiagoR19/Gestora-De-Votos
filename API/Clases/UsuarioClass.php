@@ -7,7 +7,7 @@ class Usuario {
     private $password;
     private $tipo; 
     private $id;    
-
+    static private $salt = "Odi23/10/2025";
     public static function validacion($data, $accion) {
         $success = false;
         $message = "";
@@ -60,7 +60,9 @@ class Usuario {
                 $success = true;
                 $message = "Usuario registrado con éxito";
                 if ($accion === "Guardar"){
-                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$data['password'],self::tenesQueSerCoordinador($data["email"]));
+
+                    $contraseñaCodificada = md5($data["password"] . Usuario::$salt);
+                    $nuevoUsuario = new Usuario($data['nombre'],$data['apellido'],$data['email'],$contraseñaCodificada,self::tenesQueSerCoordinador($data["email"]));
                     $nuevoUsuario->guardar();
                     exit;
                 }
@@ -110,7 +112,7 @@ class Usuario {
     }
     static public function editar($input){
         $usuarioBD = new UsuarioBD();
-        $usuarioBD->actualizarCuenta($input);
+        $usuarioBD->actualizarCuenta($input, self::$salt);
     }
     public function MostrarDatosinstanciados(){
         $datos = [
@@ -128,8 +130,9 @@ class Usuario {
         $suceso = false;
         $mensaje = "";
         $datos = null;
+        $contraseñaCod = md5($password . self::$salt);
         foreach ($usuariosArray as $usuario) {
-            if ($usuario['Correo'] == $email && $usuario['contrasenia'] == $password) {
+            if ($usuario['Correo'] == $email && $usuario['contrasenia'] == $contraseñaCod) {
                 $datos = [
                     'id' => $usuario['id'],
                     'nombre' => $usuario['Nombre'],

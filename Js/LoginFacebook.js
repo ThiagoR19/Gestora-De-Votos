@@ -117,58 +117,34 @@ async function LogueoConFacebook(Respuesta){
 }
 
 //google
-const CLIENT_ID = "772259205925-tft0mmur27s86r99k4a734t1r62vfa4u.apps.googleusercontent.com";
-
-// Inicializa el SDK de Google
-window.onload = function() {
+window.onload = function () {
   google.accounts.id.initialize({
-    client_id: CLIENT_ID,
+    client_id: "772259205925-tft0mmur27s86r99k4a734t1r62vfa4u.apps.googleusercontent.com",
     callback: handleCredentialResponse
   });
+
+  // Asigna el evento click a tu botón personalizado
+  const customGoogleBtn = document.getElementById("customGoogleBtn");
+  customGoogleBtn.addEventListener("click", () => {
+    google.accounts.id.prompt(); // abre el popup de inicio de sesión
+  });
 };
+function handleCredentialResponse(response) {
+  console.log("Token recibido:", response.credential);
+  localStorage.setItem('token', response.credential);
 
-document.getElementById("googleLoginBtn").addEventListener("click", (e) => {
-  e.preventDefault();
-  google.accounts.id.prompt();
-});
-
-async function handleCredentialResponse(respuestaGoogle) {
-  try {
-    const response = await fetch(`${localizacion}/api/index.php?recurso=Google`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          enviarRespuesta: respuestaGoogle
-        })
+  const url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + response.credential;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Respuesta de Google:", data);
+      
+      
+    })
+    .catch(err => {
+      console.error("Error al comunicarse con Google:", err);
     });
-    
-    console.log("Status:", response.status);
 
-    const data = await response.json();
-
-    if (data.success) {
-      mostrarTexto("Ha iniciado sesion correctamente ✅😄");
-      const miSonido = new Audio('Sonidos/Check.mp3');
-      miSonido.play();
-      Yalogueado(data.datos.id, data.datos.tipo);
-    } 
-    if (data.message === 'Credenciales inválidas') {
-      mostrarTexto("Correo o contraseña incorrectos ❌");
-      const miSonido = new Audio('Sonidos/error.mp3');
-      miSonido.play();
-    } else {
-      mostrarTexto("Ocurrio un error inesperado ❌");
-      const miSonido = new Audio('Sonidos/error.mp3');
-      miSonido.play();
-      console.log(data.message)
-    }
-  }
-  catch (error) {
-    console.error("❌ Eror en fetch:", error);
-  }
-  
 }
 
 //recursos
