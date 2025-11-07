@@ -59,7 +59,7 @@ IconoUserHU.addEventListener("click", () => {
 //HC
 
 IconoHC.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuHC.classList.toggle("active");
   IconoHC.classList.toggle("visible-forced");
   IconoHC.classList.toggle("fa-times");
@@ -67,7 +67,7 @@ IconoHC.addEventListener("click", () => {
 });
 
 IconoUserHC.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuHC.classList.toggle("active");
   IconoHC.classList.toggle("fa-bars");
   IconoHC.classList.toggle("fa-times");
@@ -77,7 +77,7 @@ IconoUserHC.addEventListener("click", () => {
 //HA
 
 IconoHA.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuHA.classList.toggle("active");
   IconoHA.classList.toggle("visible-forced");
   IconoHA.classList.toggle("fa-times");
@@ -85,7 +85,7 @@ IconoHA.addEventListener("click", () => {
 });
 
 IconoUserHA.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuHA.classList.toggle("active");
   IconoHA.classList.toggle("fa-bars");
   IconoHA.classList.toggle("fa-times");
@@ -129,7 +129,7 @@ IconoUserGU.addEventListener("click", () => {
 // GC
 
 IconoGC.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuGC.classList.toggle("active");
   IconoGC.classList.toggle("fa-bars");
   IconoGC.classList.toggle("fa-times");
@@ -141,7 +141,7 @@ IconoGC.addEventListener("click", () => {
 });
 
 IconoUserGC.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuGC.classList.toggle("active");
   if (window.innerWidth > 900) {
     document.querySelectorAll('.LastOne').forEach((e)=>{
@@ -155,7 +155,7 @@ IconoUserGC.addEventListener("click", () => {
 // GA
 
 IconoGA.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuGA.classList.toggle("active");
   IconoGA.classList.toggle("fa-bars");
   IconoGA.classList.toggle("fa-times");
@@ -167,7 +167,7 @@ IconoGA.addEventListener("click", () => {
 });
 
 IconoUserGA.addEventListener("click", () => {
-  if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+  if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
   MenuGA.classList.toggle("active");
   if (window.innerWidth > 900) {
     document.querySelectorAll('.LastOne').forEach((e)=>{

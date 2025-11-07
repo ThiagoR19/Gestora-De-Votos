@@ -141,7 +141,7 @@ HeaderProyectos.forEach(element => {
 HeaderProyectosA.forEach(element => {
   
   element.addEventListener('click', () => {
-    if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+    if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
@@ -267,7 +267,7 @@ HeaderEstadistica.forEach(element => {
 
 HeaderGestionar.forEach(element => {
   element.addEventListener('click', () => {
-    if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+    if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
     MenuGA.classList.remove('active')
@@ -575,7 +575,7 @@ function mostrarListaProyectosAdmin(dataProyectos) {
   buttonAgregar.classList.add('HeaderCarga')
 
   buttonAgregar.addEventListener('click', () => {
-    if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+    if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
     MenuGS.classList.remove('active')
     MenuGU.classList.remove('active')
     MenuGC.classList.remove('active')
@@ -862,7 +862,7 @@ function crearProyecto() {
       if (index === currentIndexC) thumb.classList.add('active');
 
       thumb.addEventListener('click', () => {
-        if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+        if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
         currentIndexC = index;
         renderGallery();
       });
@@ -871,7 +871,7 @@ function crearProyecto() {
       deleteBtn.textContent = 'X';
       deleteBtn.classList.add('delete-thumb');
       deleteBtn.addEventListener('click', () => {
-        if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+        if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
         if (imagesC.length === 1) {
           alert("No puedes dejar el proyecto sin imágenes.");
           return;
@@ -945,11 +945,11 @@ function crearProyecto() {
 
   btnAgregarEstudiante.addEventListener('click', () =>
     
-    {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante')}
+    {if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante')}
   );
 
   btnAgregarProfesor.addEventListener('click', () =>
-    {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor')}
+    {if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor')}
   );
 
   actualizarVista();
@@ -957,7 +957,7 @@ function crearProyecto() {
   const crearProyectoBtn = document.getElementById('crearProyectoBtn')
 
   crearProyectoBtn.addEventListener('click', () => {
-    if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+    if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
     if (confirm('¿Seguro que desea crear un nuevo proyecto?')) {
 
       const estudiantesArray = valoresInputsDel(contenedorEstudiantes);
@@ -1373,7 +1373,7 @@ function editarProyecto(e) {
       if (index === currentIndex) thumb.classList.add('active');
 
       thumb.addEventListener('click', () => {
-        if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+        if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
         currentIndex = index;
         renderGallery();
       });
@@ -1382,7 +1382,7 @@ function editarProyecto(e) {
       deleteBtn.textContent = 'X';
       deleteBtn.classList.add('delete-thumb');
       deleteBtn.addEventListener('click', () => {
-        if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+        if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
         if (images.length === 1) {
           alert("No puedes dejar el proyecto sin imágenes.");
           return;
@@ -1495,11 +1495,11 @@ function editarProyecto(e) {
   }
 
   btnAgregarEstudiante.addEventListener('click', () => {
-    {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante');}
+    {if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;crearInputYAdjuntar(contenedorEstudiantes, 'Nombre y apellido del estudiante');}
   });
 
   btnAgregarProfesor.addEventListener('click', () => {
-    {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor');}
+    {if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;crearInputYAdjuntar(contenedorProfesores, 'Nombre y apellido del profesor');}
   });
 
   if (InputTitulo) InputTitulo.addEventListener('input', actualizarCamposBase);
@@ -1513,7 +1513,7 @@ function editarProyecto(e) {
   const editarProyecto = document.getElementById('editarProyecto')
 
   editarProyecto.addEventListener('click', () => {
-    if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
+    if (((JSON.parse(localStorage.getItem("usuario"))).tipo) < 2) return;
     if (!images || images.length === 0) {
       images = ['ImagenDefault.png']
     }
