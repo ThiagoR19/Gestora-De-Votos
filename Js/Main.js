@@ -2195,8 +2195,4 @@ function mostrarEstadisticas(dataProyectos) {
 
   // Render inicial
   renderProyectos(proyectos);
-
 }
-
-
-// En este codigo hay un error que genera unas comillas de mas en la linea 

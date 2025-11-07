@@ -104,6 +104,4 @@ function mostrarResultados(data){
 
     window.addEventListener("load", centrarAño);
   }
-
-
 }
