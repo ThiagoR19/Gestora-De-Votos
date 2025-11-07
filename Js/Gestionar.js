@@ -1,5 +1,6 @@
 const btnSubmit = document.getElementById("btnSubmitGestionar")
 btnSubmit.addEventListener("click", (event) => {
+    if (JSON.parse(localStorage.Usuario).tipo >= 2) return;
     event.preventDefault()
     Agregar()
 });
@@ -44,9 +45,9 @@ async function MostrarCoordinadores(){
                 document.getElementById(`Check${contador}`).classList.add("none")
                 document.getElementById(`NuevoCorreo${contador}`).classList.add("none")
 
-                document.getElementById(`Delete${contador}`).addEventListener("click", () => Deletear(contador));
-                document.getElementById(`Editar${contador}`).addEventListener("click", () => MostrarEdicion(contador));
-                document.getElementById(`Check${contador}`).addEventListener("click", () => Editar(contador,element.id));
+                document.getElementById(`Delete${contador}`).addEventListener("click", () => {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;Deletear(contador)});
+                document.getElementById(`Editar${contador}`).addEventListener("click", () => {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;MostrarEdicion(contador)});
+                document.getElementById(`Check${contador}`).addEventListener("click", () => {if (JSON.parse(localStorage.Usuario).tipo >= 2) return;Editar(contador,element.id)});
             });
         }
         else{
