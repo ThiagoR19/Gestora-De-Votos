@@ -1,6 +1,6 @@
 function mostrarResultados(data){
   const contenedorResultados = document.querySelector(".section__article-div-container");
-  console.log(data)
+  // console.log(data)
   let proyectoMasVotado = null;
   let maxVotos = -Infinity;
 
@@ -10,7 +10,7 @@ function mostrarResultados(data){
       proyectoMasVotado = proyecto;
     }
   });
-  console.log(proyectoMasVotado)
+  // console.log(proyectoMasVotado)
   if (!contenedorResultados) {
     console.error("No se encontró nada");
   } 

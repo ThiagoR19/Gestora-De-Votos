@@ -17,7 +17,7 @@ async function MostrarCoordinadores(){
         data = await response.json()
 
         
-        console.log (data)
+        // console.log (data)
         if (data.success == true){
             data.correos.forEach((element, index) => {
                 let contador = index + 1; 
@@ -71,14 +71,14 @@ async function Deletear(id){
             })
         })
         data = await response.json()
-        console.log (data)
+        // console.log (data)
         if (data.success == true || data.success=="ok"){
-            console.log (data.message)
+            // console.log (data.message)
             MostrarCoordinadores()
             
         }
         else{
-            console.log (data.message)
+            // console.log (data.message)
         }
         
     }
@@ -107,9 +107,9 @@ async function Editar(id,idReal){
             })
         })
         data = await response.json()
-        console.log (data)
+        // console.log (data)
         if (data.success == true || data.success=="ok" || data==undefined){
-            console.log (data.message)
+            // console.log (data.message)
             MostrarCoordinadores()
             
         }
@@ -129,12 +129,12 @@ async function Agregar(){
             })
         })
         data = await response.json()
-        console.log (data)
+        // console.log (data)
         if (data.success == "ok" || data.success==true){
             MostrarCoordinadores()
         }
         else{
-            console.log(data)
+            // console.log(data)
         }
         
     }

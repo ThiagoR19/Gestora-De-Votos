@@ -45,7 +45,7 @@ buttonInicio.addEventListener("click", async (event) => {
         })
     });
     
-    console.log("Status:", response.status);
+    // console.log("Status:", response.status);
 
     const data = await response.json();
 
@@ -63,7 +63,7 @@ buttonInicio.addEventListener("click", async (event) => {
       mostrarTexto("Ocurrio un error inesperado ❌");
       const miSonido = new Audio('Sonidos/error.mp3');
       miSonido.play();
-      console.log(data.message)
+      // console.log(data.message)
     }
   }
   catch (error) {
@@ -76,7 +76,7 @@ buttonRegister.addEventListener("click", async () => {
   pasaEmail = verificacionRegistro(email.value);
 
   if (pasaEmail==true) {
-    console.log ("el correo ha sido verificado")
+    // console.log ("el correo ha sido verificado")
     fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
@@ -112,8 +112,8 @@ buttonRegister.addEventListener("click", async () => {
             const miSonido = new Audio('Sonidos/error.mp3');
             miSonido.play();
           } else {
-            console.log("el error anda aca");
-            console.log(data.message);
+            // console.log("el error anda aca");
+            // console.log(data.message);
           }
         }
       })
@@ -131,7 +131,7 @@ buttonRegister.addEventListener("click", async () => {
         miSonido2.play();
         break;
       default:
-        console.log("❌ Mal: Ha ocurrido un error inesperado");
+        // console.log("❌ Mal: Ha ocurrido un error inesperado");
         break;
     }
   }
@@ -154,7 +154,7 @@ function verificacionRegistro(email){
   if (registro){
     if (registro !== email) {
       // El email ya está registrado
-      console.log("ya haz entrado con otra cuenta")
+      // console.log("ya haz entrado con otra cuenta")
       if (pasaEmail){
         motivo = "Ya estabas registrado con otra cuenta"
       }
@@ -180,7 +180,7 @@ function creacion(email){
     if (!registro) {
       // No hay registro previo → lo guardamos
       localStorage.setItem(clave, email);
-      console.log("📩 Nuevo registro guardado:", email);
+      // console.log("📩 Nuevo registro guardado:", email);
     } 
     else {
       // Ya había un registro
@@ -212,8 +212,8 @@ function verificarCorreo() {
   }
 }
 function Yalogueado(id, tipo){
-  console.log(tipo)
-  console.log(id)
+  // console.log(tipo)
+  // console.log(id)
   let info = {
     id: id,
     tipo: tipo

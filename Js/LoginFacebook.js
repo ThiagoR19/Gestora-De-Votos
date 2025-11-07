@@ -1,42 +1,42 @@
-window.fbAsyncInit = function() {
+window.fbAsyncInit = function () {
   FB.init({
-    appId      : '791915376863309',
-    cookie     : true,
-    xfbml      : true,
-    version    : 'v23.0'
+    appId: '791915376863309',
+    cookie: true,
+    xfbml: true,
+    version: 'v23.0'
   });
-    
-  FB.AppEvents.logPageView();   
-    
+
+  FB.AppEvents.logPageView();
+
 };
 
-(function(d, s, id){
+(function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
+  if (d.getElementById(id)) { return; }
   js = d.createElement(s); js.id = id;
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-function onLogin(){
-  FB.login(function(response){
-    if(response.authResponse){
-      console.log('Bienvenido!  Fetching your information.... ');
-      FB.api('/me', function(response){
-        console.log(response)
+function onLogin() {
+  FB.login(function (response) {
+    if (response.authResponse) {
+      // console.log('Bienvenido!  Fetching your information.... ');
+      FB.api('/me', function (response) {
+        // console.log(response)
         RegistroConFacebook(response)
-        console.log('Good to see you, ' + response.name + '.');
+        // console.log('Good to see you, ' + response.name + '.');
       });
     } else {
-      console.log('User cancelled login or did not fully authorize.');
+      // console.log('User cancelled login or did not fully authorize.');
     }
   });
 }
-async function RegistroConFacebook(Respuesta){
+async function RegistroConFacebook(Respuesta) {
   const datos = separarNombreYApellido(Respuesta.name);
   fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       nombre: datos.nombre,
       apellido: datos.apellido,
@@ -45,52 +45,52 @@ async function RegistroConFacebook(Respuesta){
       confirmPassword: Respuesta.id
     })
   })
-  .then(response => response.json())
-  .then(data => { 
-    if (data.status === "ok") {
-      mostrarTexto("Cuenta creada correctamente ✅😄");
-      const miSonido = new Audio('Sonidos/Check.mp3');
-      miSonido.play();
-      creacion(email.value);
-      Yalogueado(data.datos?.id, data.datos?.tipo);
-    } 
-    else {
-      if (data.message == 'Faltan datos obligatorios') {
-        console.log(data.faltantes)
-        mostrarTexto("Complete todos los campos para registrarse ❌");
-        const miSonido = new Audio('Sonidos/error.mp3');
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "ok") {
+        mostrarTexto("Cuenta creada correctamente ✅😄");
+        const miSonido = new Audio('Sonidos/Check.mp3');
         miSonido.play();
-      } 
-      if(data.message == 'Email ya registrado') {
-        LogueoConFacebook(Respuesta);
-      } 
-      if(data.message == 'Las contraseñas no coinciden') {
-        mostrarTexto("Las contraseñas no coinciden ❌");
-        const miSonido = new Audio('Sonidos/error.mp3');
-        miSonido.play();
-      } else {
-        console.log("el error anda aca");
-        console.log(data.message);
+        creacion(email.value);
+        Yalogueado(data.datos?.id, data.datos?.tipo);
       }
-    }
-  })
+      else {
+        if (data.message == 'Faltan datos obligatorios') {
+          // console.log(data.faltantes)
+          mostrarTexto("Complete todos los campos para registrarse ❌");
+          const miSonido = new Audio('Sonidos/error.mp3');
+          miSonido.play();
+        }
+        if (data.message == 'Email ya registrado') {
+          LogueoConFacebook(Respuesta);
+        }
+        if (data.message == 'Las contraseñas no coinciden') {
+          mostrarTexto("Las contraseñas no coinciden ❌");
+          const miSonido = new Audio('Sonidos/error.mp3');
+          miSonido.play();
+        } else {
+          // console.log("el error anda aca");
+          // console.log(data.message);
+        }
+      }
+    })
 }
-async function LogueoConFacebook(Respuesta){
-  console.log("ando en logueo")
+async function LogueoConFacebook(Respuesta) {
+  // console.log("ando en logueo")
   try {
     const response = await fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            action: "logueo",
-            email: Respuesta.id,
-            password: Respuesta.id
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: "logueo",
+        email: Respuesta.id,
+        password: Respuesta.id
+      })
     });
-    
-    console.log("Status:", response.status);
+
+    // console.log("Status:", response.status);
 
     const data = await response.json();
 
@@ -99,7 +99,7 @@ async function LogueoConFacebook(Respuesta){
       const miSonido = new Audio('Sonidos/Check.mp3');
       miSonido.play();
       Yalogueado(data.datos.id, data.datos.tipo);
-    } 
+    }
     if (data.message === 'Credenciales inválidas') {
       mostrarTexto("Correo o contraseña incorrectos ❌");
       const miSonido = new Audio('Sonidos/error.mp3');
@@ -108,7 +108,7 @@ async function LogueoConFacebook(Respuesta){
       mostrarTexto("Ocurrio un error inesperado ❌");
       const miSonido = new Audio('Sonidos/error.mp3');
       miSonido.play();
-      console.log(data.message)
+      // console.log(data.message)
     }
   }
   catch (error) {
@@ -126,21 +126,21 @@ window.onload = function () {
   document.getElementById("customGoogleBtn").addEventListener("click", (event) => {
     event.preventDefault();
     google.accounts.id.prompt((notification) => {
-      console.log("Prompt:", notification);
-      if (notification.j=="opt_out_or_no_session"){
+      // console.log("Prompt:", notification);
+      if (notification.j == "opt_out_or_no_session") {
         mostrarTexto("Usted no tiene una cuenta de google iniciada ❌")
         let sonido = new Audio('Sonidos/error.mp3')
         sonido.play()
       }
-      
+
     });
   });
 
   document.getElementById("customGoogleBtnLogin").addEventListener("click", (event) => {
     event.preventDefault();
     google.accounts.id.prompt((notification) => {
-      console.log("Prompt:", notification);
-      if (notification.j=="opt_out_or_no_session"){
+      // console.log("Prompt:", notification);
+      if (notification.j == "opt_out_or_no_session") {
         mostrarTexto("Usted no tiene una cuenta de google iniciada ❌")
         let sonido = new Audio('Sonidos/error.mp3')
         sonido.play()
@@ -155,7 +155,7 @@ function handleCredentialResponse(response) {
     .then(datas => {
       fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre: datas.given_name,
           apellido: datas.family_name,
@@ -164,60 +164,60 @@ function handleCredentialResponse(response) {
           confirmPassword: datas.iss
         })
       })
-      .then(response => response.json())
-      .then(data => { 
-        if (data.status === "ok") {
-          mostrarTexto("Cuenta creada correctamente ✅😄");
-          const miSonido = new Audio('Sonidos/Check.mp3');
-          miSonido.play();
-          creacion(email.value);
-          Yalogueado(data.datos?.id, data.datos?.tipo);
-        } 
-        else {
-          if (data.message == 'Faltan datos obligatorios') {
-            console.log(data.faltantes)
-            mostrarTexto("Complete todos los campos para registrarse ❌");
-            const miSonido = new Audio('Sonidos/error.mp3');
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "ok") {
+            mostrarTexto("Cuenta creada correctamente ✅😄");
+            const miSonido = new Audio('Sonidos/Check.mp3');
             miSonido.play();
-          } 
-          if(data.message == 'Email ya registrado') {
-            LogueoConGoogle(datas);
-          } 
-          if(data.message == 'Las contraseñas no coinciden') {
-            mostrarTexto("Las contraseñas no coinciden ❌");
-            const miSonido = new Audio('Sonidos/error.mp3');
-            miSonido.play();
-          } else {
-            console.log("el error anda aca");
-            console.log(data.message);
+            creacion(email.value);
+            Yalogueado(data.datos?.id, data.datos?.tipo);
           }
-        }
-      })
+          else {
+            if (data.message == 'Faltan datos obligatorios') {
+              // console.log(data.faltantes)
+              mostrarTexto("Complete todos los campos para registrarse ❌");
+              const miSonido = new Audio('Sonidos/error.mp3');
+              miSonido.play();
+            }
+            if (data.message == 'Email ya registrado') {
+              LogueoConGoogle(datas);
+            }
+            if (data.message == 'Las contraseñas no coinciden') {
+              mostrarTexto("Las contraseñas no coinciden ❌");
+              const miSonido = new Audio('Sonidos/error.mp3');
+              miSonido.play();
+            } else {
+              // console.log("el error anda aca");
+              // console.log(data.message);
+            }
+          }
+        })
 
-      
-      
+
+
     })
     .catch(err => {
       console.error("Error al comunicarse con Google:", err);
     });
 
 }
-async function LogueoConGoogle(Respuesta){
-  console.log("ando en logueo")
+async function LogueoConGoogle(Respuesta) {
+  // console.log("ando en logueo")
   try {
     const response = await fetch(`${localizacion}/api/index.php?recurso=Usuarios`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            action: "logueo",
-            email: Respuesta.email,
-            password: Respuesta.iss
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: "logueo",
+        email: Respuesta.email,
+        password: Respuesta.iss
+      })
     });
-    
-    console.log("Status:", response.status);
+
+    // console.log("Status:", response.status);
 
     const data = await response.json();
 
@@ -226,7 +226,7 @@ async function LogueoConGoogle(Respuesta){
       const miSonido = new Audio('Sonidos/Check.mp3');
       miSonido.play();
       Yalogueado(data.datos.id, data.datos.tipo);
-    } 
+    }
     if (data.message === 'Credenciales inválidas') {
       mostrarTexto("Correo o contraseña incorrectos ❌");
       const miSonido = new Audio('Sonidos/error.mp3');
@@ -235,7 +235,7 @@ async function LogueoConGoogle(Respuesta){
       mostrarTexto("Ocurrio un error inesperado ❌");
       const miSonido = new Audio('Sonidos/error.mp3');
       miSonido.play();
-      console.log(data.message)
+      // console.log(data.message)
     }
   }
   catch (error) {

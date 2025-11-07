@@ -1622,7 +1622,7 @@ function editarCuenta() {
   fetch(`${localizacion}/api/index.php?recurso=Usuarios&idUsuario=${idUsuario}&action=verCuenta`)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         const nombre = document.getElementById('nombreUsuario')
         const apellido = document.getElementById('apellidoUsuario')
@@ -1659,7 +1659,7 @@ function editarCuenta() {
           })
             .then(res => res.json())
             .then(data => {
-              console.log(data)
+              // console.log(data)
               if (data.success) {
                 mostrarTexto("Datos actualizados correctamente ✅");
                 const miSonido = new Audio('Sonidos/Check.mp3');
@@ -1991,7 +1991,7 @@ function cerrarModal() {
 fetch(`${localizacion}/api/index.php?recurso=Proyectos`)
   .then(response => response.json())
   .then(data => {
-    console.log(data)
+    // console.log(data)
     // console.log(data.datos)
     dataProyectos = data.datos
     dataProyectosGlobal = dataProyectos
