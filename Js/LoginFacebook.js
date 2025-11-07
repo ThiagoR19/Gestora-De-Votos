@@ -127,6 +127,12 @@ window.onload = function () {
     event.preventDefault();
     google.accounts.id.prompt((notification) => {
       console.log("Prompt:", notification);
+      if (notification.j=="opt_out_or_no_session"){
+        mostrarTexto("Usted no tiene una cuenta de google iniciada ❌")
+        let sonido = new Audio('Sonidos/error.mp3')
+        sonido.play()
+      }
+      
     });
   });
 
@@ -134,6 +140,11 @@ window.onload = function () {
     event.preventDefault();
     google.accounts.id.prompt((notification) => {
       console.log("Prompt:", notification);
+      if (notification.j=="opt_out_or_no_session"){
+        mostrarTexto("Usted no tiene una cuenta de google iniciada ❌")
+        let sonido = new Audio('Sonidos/error.mp3')
+        sonido.play()
+      }
     });
   });
 };

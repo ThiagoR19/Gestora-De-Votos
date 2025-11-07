@@ -38,7 +38,7 @@ const footerResultados = document.getElementById('footerResultados')
 // Agregandole funcionalidad a cada boton del header
 
 aReporte.addEventListener('click', () => mostrarMain('Reporte', mains))
-footerResultados.addEventListener('click', () => mostrarMain('Resultados', mains))
+footerResultados.addEventListener('click', () => {mostrarMain('Resultados', mains);mostrarResultados(dataProyectosGlobal)})
 
 const HeaderHome = document.querySelectorAll('.HeaderHome')
 const HeaderRanking = document.querySelectorAll('.HeaderRanking')
@@ -704,7 +704,15 @@ function crearProyecto() {
               <option value="3">Programación</option>
               <option value="4">Economía</option>
               <option value="5">Ciencias</option>
-              <option value="6">Construcciones</option>
+              <option value="6">Electrónica</option>
+              <option value="7">Metales I</option>
+              <option value="27">Otros</option>
+              <option value="28">Electricidad</option>
+              <option value="29">Mecánica</option>
+              <option value="30">Electromecánica</option>
+              <option value="31">Carpintería</option>
+              <option value="32">Construcciones</option>
+              <option value="33">Diseño</option>
             </select>
           </div>
         </div>
@@ -1533,6 +1541,7 @@ function editarProyecto(e) {
                 mostrarListaProyectos(dataProyectos)
                 mostrarListaProyectosAdmin(dataProyectos)
                 mostrarEstadisticas(dataProyectos)
+                mostrarResultados(dataProyectos)
               })
               .catch(error => {
                 console.error("❌ Error en fetch:", error);
