@@ -439,10 +439,11 @@
   <main id="ListaNormal">
   </main>
 
-  <main id="Estadisticas">
+<main id="Estadisticas">
     <article class="Estadisticas__article">
       <h1 class="Estadisticas__article-h1">ESTADISTICAS</h1>
     </article>
+
     <section class="Estadisticas__section">
       <article class="Estadisticas__section-article">
         <div class="Estadisticas__section-article-div">
@@ -452,12 +453,17 @@
             <button class="Estadisticas__section-article-div-div-div-button">Votos</button>
           </div>
         </div>
-        <div class="chart-wrapper Estadisticas__section-article-div">
-          <div class="y-axis Estadisticas__section-article-div-div" id="y-axis"></div>
-          <div class="chart-container Estadisticas__section-article-div-div" id="chart"></div>
+
+        <!-- Contenedor del gráfico -->
+        <div class="chart-wrapper">
+          <div class="y-axis" id="y-axis"></div>
+          <div class="chart-inner">
+            <div class="chart-container" id="chart"></div>
+            <div class="x-axis" id="x-axis"></div>
+          </div>
         </div>
-        <div class="x-axis Estadisticas__section-article-div" id="x-axis"></div>
       </article>
+
       <article id="Estadisticas__section-article" class="Estadisticas__section-article">
         <div class="Estadisticas__section-article-div">
           <h3 class="Estadisticas__section-article-div-h3">Proyectos</h3>
@@ -470,6 +476,8 @@
         <div class="Estadisticas__proyectos" id="Estadisticas__proyectos"></div>
       </article>
     </section>
+
+    <script src="script.js"></script>
   </main>
 
   <main id="ListaAdmin">

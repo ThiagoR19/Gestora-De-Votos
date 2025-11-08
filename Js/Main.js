@@ -2094,96 +2094,112 @@ function mostrarTexto(texto) {
 // Funcion de estadisticas
 
 function mostrarEstadisticas(dataProyectos) {
-
-  let proyectos = []
+  let proyectos = [];
   dataProyectos.forEach((proyecto) => {
-    let proyectoEstadistica = {
+    proyectos.push({
       id: proyecto.id,
       nombre: proyecto.nombre,
       votos: proyecto.cantVotos,
-      estrellas: proyecto.cantEstrellas
-    }
-    proyectos.push(proyectoEstadistica)
-  })
+      estrellas: proyecto.cantEstrellas,
+    });
+  });
 
-  const chart = document.getElementById("chart");
+  const chartWrapper = document.querySelector(".chart-wrapper");
+  const chartContainer = document.getElementById("chart");
   const xAxis = document.getElementById("x-axis");
   const yAxis = document.getElementById("y-axis");
+  const tooltip = document.getElementById("tooltip");
 
-  // Función para renderizar el gráfico
   function renderChart(data, tipo = "votos") {
-    // Limpiamos contenido previo
-    chart.innerHTML = "";
+    chartContainer.innerHTML = "";
     xAxis.innerHTML = "";
     yAxis.innerHTML = "";
 
-    // Ordenamos según tipo (votos o estrellas)
     const proyectosOrdenados = [...data].sort((a, b) => b[tipo] - a[tipo]);
-
-    // Calculamos máximo
-    const maxValor = Math.max(...proyectosOrdenados.map(p => p[tipo]));
+    const maxValor = Math.max(...proyectosOrdenados.map((p) => p[tipo]));
     const step = Math.ceil(maxValor / 5);
     const maxY = step * 5;
 
-    // Crear etiquetas Y y líneas de cuadrícula
+    // Etiquetas Y + grid
     for (let y = maxY; y >= 0; y -= step) {
       const label = document.createElement("div");
       label.classList.add("y-label");
-      label.style.bottom = (y / maxY * 100) + "%";
+      label.style.bottom = (y / maxY) * 100 + "%";
       label.textContent = y;
       yAxis.appendChild(label);
 
       const grid = document.createElement("div");
       grid.classList.add("grid-line");
-      grid.style.bottom = (y / maxY * 100) + "%";
-      chart.appendChild(grid);
+      grid.style.bottom = (y / maxY) * 100 + "%";
+      chartContainer.appendChild(grid);
     }
 
-    // Crear barras y etiquetas X
-    proyectosOrdenados.forEach(p => {
+    // Barras y etiquetas
+    proyectosOrdenados.forEach((p) => {
       const bar = document.createElement("div");
       bar.classList.add("bar");
-      bar.style.height = (p[tipo] / maxY * 100) + "%";
-      bar.title = `${p.nombre}: ${p[tipo]} ${tipo}`;
-      chart.appendChild(bar);
+      chartContainer.appendChild(bar);
+
+      // Animación de altura
+      setTimeout(() => {
+        bar.style.height = (p[tipo] / maxY) * 100 + "%";
+      }, 100);
 
       const label = document.createElement("div");
       label.classList.add("bar-label");
       label.textContent = p.nombre;
       xAxis.appendChild(label);
+
+      // Tooltip en barra y label
+      [bar, label].forEach((el) => {
+        el.addEventListener("mousemove", (e) => {
+          tooltip.style.opacity = 1;
+          tooltip.style.left = e.pageX + 10 + "px";
+          tooltip.style.top = e.pageY - 30 + "px";
+          tooltip.textContent = `${p.nombre}: ${p[tipo]} ${tipo}`;
+        });
+        el.addEventListener("mouseleave", () => {
+          tooltip.style.opacity = 0;
+        });
+      });
     });
   }
 
   renderChart(proyectos, "votos");
 
-  const btnEstrellas = document.querySelector(".Estadisticas__section-article-div-div-div-button:nth-child(1)");
-  const btnVotos = document.querySelector(".Estadisticas__section-article-div-div-div-button:nth-child(2)");
+  const btnEstrellas = document.querySelector(
+    ".Estadisticas__section-article-div-div-div-button:nth-child(1)"
+  );
+  const btnVotos = document.querySelector(
+    ".Estadisticas__section-article-div-div-div-button:nth-child(2)"
+  );
 
   btnEstrellas.addEventListener("click", () => renderChart(proyectos, "estrellas"));
   btnVotos.addEventListener("click", () => renderChart(proyectos, "votos"));
 
-  const contenedor = document.getElementById('Estadisticas__proyectos');
+  chartWrapper.addEventListener("scroll", () => {
+    xAxis.scrollLeft = chartWrapper.scrollLeft;
+  });
 
-  // Función para renderizar proyectos
+  const contenedor = document.getElementById("Estadisticas__proyectos");
+
   function renderProyectos(data) {
-    contenedor.innerHTML = ""; // Limpiamos
+    contenedor.innerHTML = "";
     data.forEach((proyecto, index) => {
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       div.innerHTML = `
-            <div class="Estadisticas__proyecto">
-              <span class="Estadisticas__proyecto-numero">${index + 1}.</span>
-              <div class="Estadisticas__proyecto-info">
-                <h4 class="Estadisticas__proyecto-nombre">${proyecto.nombre}</h4>
-                <p class="Estadisticas__proyecto-votos">Votos: ${proyecto.votos}</p>
-                <p class="Estadisticas__proyecto-estrellas">Estrellas: ${proyecto.estrellas}</p>
-              </div>
-            </div>
-            `;
+        <div class="Estadisticas__proyecto">
+          <span class="Estadisticas__proyecto-numero">${index + 1}.</span>
+          <div class="Estadisticas__proyecto-info">
+            <h4 class="Estadisticas__proyecto-nombre">${proyecto.nombre}</h4>
+            <p class="Estadisticas__proyecto-votos">Votos: ${proyecto.votos}</p>
+            <p class="Estadisticas__proyecto-estrellas">Estrellas: ${proyecto.estrellas}</p>
+          </div>
+        </div>`;
       contenedor.appendChild(div);
     });
   }
 
-  // Función para ordenar y renderizar
   function ordenarProyectos(tipo) {
     let proyectosOrdenados;
     if (tipo === "proyectos") {
@@ -2194,15 +2210,14 @@ function mostrarEstadisticas(dataProyectos) {
     renderProyectos(proyectosOrdenados);
   }
 
-  // Botones
-  const btnEstrellas2 = document.querySelector('.Estadisticas__section-article-div-div-button:nth-child(1)');
-  const btnVotos2 = document.querySelector('.Estadisticas__section-article-div-div-button:nth-child(2)');
-  const btnProyectos = document.querySelector('.Estadisticas__section-article-div-div-button:nth-child(3)');
+  const btnEstrellas2 = document.querySelector(".Estrellas2");
+  const btnVotos2 = document.querySelector(".Votos2");
+  const btnProyectos = document.querySelector(".Proyectos2");
 
-  btnEstrellas2.addEventListener('click', () => ordenarProyectos('estrellas'));
-  btnVotos2.addEventListener('click', () => ordenarProyectos('votos'));
-  btnProyectos.addEventListener('click', () => ordenarProyectos('proyectos'));
+  btnEstrellas2.addEventListener("click", () => ordenarProyectos("estrellas"));
+  btnVotos2.addEventListener("click", () => ordenarProyectos("votos"));
+  btnProyectos.addEventListener("click", () => ordenarProyectos("proyectos"));
 
-  // Render inicial
   renderProyectos(proyectos);
 }
+

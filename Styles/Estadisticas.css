@@ -14,6 +14,17 @@ body {
 .chart-wrapper {
   display: flex;
   position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.chart-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 100%;
 }
 
 .y-axis {
@@ -23,6 +34,7 @@ body {
   height: 300px;
   margin-right: 10px;
   padding-bottom: 25px;
+  flex-shrink: 0;
 }
 
 .y-label {
@@ -33,16 +45,16 @@ body {
 }
 
 .chart-container {
-  flex: 1;
   display: flex;
   align-items: flex-end;
   position: relative;
   border-left: 2px solid #333;
   border-bottom: 2px solid #333;
   height: 300px;
+  min-width: max-content;
+  padding-left: 20px;
 }
 
-/* Líneas de referencia */
 .grid-line {
   position: absolute;
   left: 0;
@@ -51,19 +63,27 @@ body {
 }
 
 .bar {
-  flex: 1;
-  margin: 0 10px;
+  width: 60px;
+  margin: 0 15px;
   background-color: rgb(6, 47, 79);
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  transition: 0.3s;
+  transition: height 0.5s ease;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.bar:hover {
+  background-color: rgb(30, 80, 120);
 }
 
 .x-axis {
   display: flex;
-  justify-content: space-around;
-  margin-left: 40px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: max-content;
+  padding-left: 20px;
 }
 
 .bar-label {
@@ -72,8 +92,38 @@ body {
   font-size: 12px;
   background-color: #3B67B9;
   color: white;
-  padding: 10px 15px;
+  padding: 5px 10px;
   border-radius: 8px;
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.bar-label:hover {
+  background-color: #2e4c85;
+}
+
+.x-axis > .bar-label {
+  width: 60px;
+  margin: 0 15px;
+  text-align: center;
+}
+
+/* Tooltip flotante */
+.tooltip {
+  position: fixed;
+  background-color: #062f4f;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 9999;
 }
 
 .Estadisticas__article {
@@ -104,8 +154,8 @@ h1 {
   justify-content: space-between;
 }
 
-.Estadisticas__section-article-div-div-button,
-.Estadisticas__section-article-div-div-div-button {
+.Estadisticas__section-article-div-div-div-button,
+.Estadisticas__section-article-div-div-button {
   padding: 10px 15px;
   border-radius: 8px;
   border: none;
@@ -113,18 +163,18 @@ h1 {
   cursor: pointer;
 }
 
-.Estadisticas__section-article-div-div-button:first-child,
-.Estadisticas__section-article-div-div-div-button:first-child {
+.Estadisticas__section-article-div-div-div-button:first-child,
+.Estadisticas__section-article-div-div-button:first-child {
   background-color: rgb(6, 47, 79);
 }
 
-.Estadisticas__section-article-div-div-button:nth-child(2),
-.Estadisticas__section-article-div-div-div-button:nth-child(2) {
+.Estadisticas__section-article-div-div-div-button:nth-child(2),
+.Estadisticas__section-article-div-div-button:nth-child(2) {
   background-color: #3B67B9;
 }
 
-.Estadisticas__section-article-div-div-button:last-child,
-.Estadisticas__section-article-div-div-div-button:last-child {
+.Estadisticas__section-article-div-div-div-button:last-child,
+.Estadisticas__section-article-div-div-button:last-child {
   background-color: #333333;
 }
 
@@ -167,14 +217,12 @@ h1 {
   flex: 1;
 }
 
-/* Nombre destacado */
 .Estadisticas__proyecto-nombre {
   flex: 2;
   font-size: 16px;
   margin: 0;
 }
 
-/* Votos y estrellas alineados a la derecha */
 .Estadisticas__proyecto-votos,
 .Estadisticas__proyecto-estrellas {
   flex: 1;
@@ -184,13 +232,11 @@ h1 {
 }
 
 @media (max-width: 600px) {
-
   .Estadisticas__proyecto-info {
     flex-direction: column;
   }
 
   h1 {
-    font-size: 40px
+    font-size: 40px;
   }
-
 }
